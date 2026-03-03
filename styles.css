@@ -15,6 +15,10 @@
   --radius: 16px;
   --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --sans: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+  --content-pad: 28px 32px 48px;
+  --section-pad: 22px 20px;
+  --card-pad: 16px;
+  --grid-gap: 14px;
 }
 
 *{box-sizing:border-box}
@@ -58,20 +62,14 @@ a{color:inherit}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.3); border-radius:99px; border:2px solid transparent; background-clip:padding-box}
 ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.45); border:2px solid transparent; background-clip:padding-box}
 
-/* Layout */
+/* ========== LAYOUT ========== */
 .app{
   display:grid;
   grid-template-columns: 320px 1fr;
   min-height:100vh;
 }
 
-@media (max-width: 980px){
-  .app{grid-template-columns: 1fr}
-  .sidebar{position:sticky; top:0; z-index:50}
-  .content{padding-top:0}
-}
-
-/* Sidebar */
+/* ========== SIDEBAR ========== */
 .sidebar{
   position:sticky;
   top:0;
@@ -85,10 +83,6 @@ a{color:inherit}
   flex-direction:column;
   gap:12px;
   overflow:hidden;
-}
-
-@media (max-width: 980px){
-  .sidebar{height:auto; border-right:none; border-bottom:1px solid var(--border)}
 }
 
 .brand{
@@ -132,7 +126,7 @@ a{color:inherit}
   gap:8px;
 }
 
-.row{display:flex; gap:8px; align-items:center}
+.row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
 
 .pill{
   display:inline-flex;
@@ -184,6 +178,7 @@ a{color:inherit}
   font-weight:500;
   transition: transform .12s ease, background .15s ease, border-color .15s ease;
   white-space:nowrap;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn:hover{background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.22)}
 .btn:active{transform: translateY(1px)}
@@ -207,10 +202,6 @@ a{color:inherit}
   min-height:0;
 }
 
-@media (max-width: 980px){
-  .nav{max-height: 220px; flex:none}
-}
-
 .nav a{
   display:flex;
   justify-content:space-between;
@@ -223,6 +214,7 @@ a{color:inherit}
   border:1px solid transparent;
   font-size:13px;
   transition: all .15s ease;
+  -webkit-tap-highlight-color: transparent;
 }
 .nav a:hover{background: rgba(255,255,255,.07); color:var(--text)}
 .nav a.active{
@@ -241,18 +233,15 @@ a{color:inherit}
   text-transform:uppercase;
   letter-spacing:.04em;
   font-weight:500;
+  flex:0 0 auto;
 }
 
-/* Content */
+/* ========== CONTENT ========== */
 .content{
-  padding: 28px 32px 48px;
+  padding: var(--content-pad);
   max-width:900px;
   margin: 0 auto;
   width:100%;
-}
-
-@media (max-width: 980px){
-  .content{padding: 20px 16px 36px}
 }
 
 /* Hero */
@@ -308,7 +297,7 @@ a{color:inherit}
 /* Sections */
 section{
   margin-top: 20px;
-  padding: 22px 20px;
+  padding: var(--section-pad);
   border-radius: calc(var(--radius) + 4px);
   border:1px solid var(--border);
   background: rgba(255,255,255,.03);
@@ -335,7 +324,7 @@ section h3{
 .grid{
   display:grid;
   grid-template-columns: repeat(12, 1fr);
-  gap:14px;
+  gap: var(--grid-gap);
   margin-top: 14px;
 }
 
@@ -344,7 +333,7 @@ section h3{
   border:1px solid var(--border);
   background: rgba(0,0,0,.18);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: var(--card-pad);
   transition: border-color .2s ease, background .2s ease;
 }
 .card:hover{
@@ -365,10 +354,6 @@ section h3{
 .col-6{grid-column: span 6}
 .col-5{grid-column: span 5}
 .col-4{grid-column: span 4}
-
-@media (max-width: 980px){
-  .col-8,.col-7,.col-6,.col-5,.col-4{grid-column: span 12}
-}
 
 /* Callouts */
 .callout{
@@ -404,6 +389,7 @@ pre{
   background: rgba(0,0,0,.4);
   overflow:auto;
   position:relative;
+  -webkit-overflow-scrolling: touch;
 }
 pre::before{
   content:"GDScript";
@@ -425,7 +411,7 @@ code{
   line-height:1.6;
 }
 
-/* Syntax highlighting — colores del editor de Godot */
+/* Syntax highlighting */
 .gd-keyword{color:#ff7085}
 .gd-type{color:#8fffdb}
 .gd-string{color:#ffe484}
@@ -442,6 +428,7 @@ p code, li code, td code, .muted code, strong code, .lead code{
   border-radius: 6px;
   font-size: 0.88em;
   color: rgba(255,255,255,.88);
+  word-break: break-word;
 }
 
 .codebar{
@@ -490,6 +477,7 @@ summary{
   color: var(--text);
   font-weight: 600;
   font-size:14px;
+  -webkit-tap-highlight-color: transparent;
 }
 summary::-webkit-details-marker{display:none}
 summary::after{
@@ -530,7 +518,7 @@ table{
   width:100%;
   border-collapse:collapse;
   font-size:13px;
-  min-width: 980px;
+  min-width:600px;
 }
 
 thead th{
@@ -564,6 +552,7 @@ tbody tr:hover{background: rgba(124,92,255,.06)}
   font-size: 11px;
   font-weight:500;
   background: rgba(255,255,255,.04);
+  white-space:nowrap;
 }
 .sev.good{border-color: rgba(52,211,153,.3); background: rgba(52,211,153,.1); color: var(--good)}
 .sev.warn{border-color: rgba(251,191,36,.3); background: rgba(251,191,36,.1); color: var(--warn)}
@@ -674,9 +663,216 @@ li + li{
   margin-top:6px;
 }
 
-/* Print */
+/* ==========================================================
+   RESPONSIVE — Pantallas grandes (>1400px)
+   ========================================================== */
+@media (min-width: 1400px){
+  .app{grid-template-columns: 340px 1fr}
+  .content{max-width:1000px; padding: 36px 40px 56px}
+  .hero h2{font-size:30px}
+  section h3{font-size:21px}
+  body{font-size:15px}
+  code{font-size:13px}
+  .hero{padding:32px 28px}
+  section{padding:26px 24px}
+}
+
+/* ==========================================================
+   RESPONSIVE — Tablet / laptop pequeño (641px - 980px)
+   ========================================================== */
+@media (max-width: 980px){
+  .app{grid-template-columns: 1fr}
+
+  .sidebar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    height:auto;
+    border-right:none;
+    border-bottom:1px solid var(--border);
+    padding:12px;
+    gap:10px;
+  }
+
+  .nav{
+    max-height:200px;
+    flex:none;
+  }
+
+  .content{
+    padding: 20px 20px 36px;
+  }
+
+  .hero h2{font-size:23px}
+
+  .col-8,.col-7{grid-column: span 12}
+  .col-6,.col-5,.col-4{grid-column: span 6}
+}
+
+/* ==========================================================
+   RESPONSIVE — Móvil grande (481px - 640px)
+   ========================================================== */
+@media (max-width: 640px){
+  :root{
+    --radius: 14px;
+    --grid-gap: 10px;
+    --content-pad: 14px 14px 28px;
+    --section-pad: 16px 14px;
+    --card-pad: 14px;
+  }
+
+  body{font-size:13.5px}
+
+  .sidebar{
+    padding:10px;
+    gap:8px;
+  }
+
+  .brand{padding:10px; gap:10px}
+  .brand h1{font-size:12px}
+  .logo{width:36px; height:36px; border-radius:10px}
+
+  .tools{padding:10px}
+
+  .nav{max-height:160px}
+  .nav a{padding:8px 9px; font-size:12px}
+  .nav .tag{font-size:9px; padding:2px 5px}
+
+  .hero{padding: 20px 16px}
+  .hero h2{font-size:20px}
+  .hero p{font-size:13px}
+  .chip{font-size:11px; padding:5px 10px}
+
+  section h3{font-size:17px; padding-left:12px}
+  .lead{font-size:13px}
+
+  .col-12,.col-8,.col-7,.col-6,.col-5,.col-4{grid-column: span 12}
+
+  .callout{gap:10px; padding:12px}
+  .badge{width:30px; height:30px; font-size:12px; border-radius:8px}
+
+  pre{padding:12px; border-radius:12px}
+  pre::before{font-size:8px; top:4px; right:8px}
+  code{font-size:11.5px}
+
+  .error-card{padding:14px}
+  .error-header strong{font-size:14px}
+  .error-tip{padding:10px 12px; font-size:12px}
+
+  .codebar{flex-wrap:wrap}
+
+  table{min-width:480px; font-size:12px}
+  thead th{padding:8px 10px; font-size:11px}
+  tbody td{padding:10px}
+
+  details{padding:12px}
+  summary{font-size:13px}
+  details .details-body{font-size:12px}
+
+  footer{padding:18px 14px}
+  .footer-brand{font-size:12px}
+  .footer-copy{font-size:11px}
+}
+
+/* ==========================================================
+   RESPONSIVE — Móvil pequeño (<480px)
+   ========================================================== */
+@media (max-width: 480px){
+  :root{
+    --radius: 12px;
+    --grid-gap: 8px;
+    --content-pad: 10px 10px 24px;
+    --section-pad: 14px 12px;
+    --card-pad: 12px;
+  }
+
+  body{font-size:13px}
+
+  .sidebar{
+    padding:8px;
+    gap:6px;
+  }
+
+  .brand{padding:8px; gap:8px}
+  .brand h1{font-size:11px}
+  .brand p{font-size:10px}
+  .logo{width:32px; height:32px; border-radius:8px}
+
+  .tools{padding:8px; gap:6px}
+  .pill{padding:6px 10px; font-size:11px}
+  .pill strong{font-size:11px}
+
+  .search input{padding:9px 12px; font-size:12px; border-radius:10px}
+  .btn{padding:8px 12px; font-size:11px; border-radius:10px}
+  .btn.small{padding:6px 8px; font-size:10px}
+
+  .nav{max-height:140px; padding:4px}
+  .nav a{padding:7px 8px; font-size:11.5px}
+
+  .hero{padding: 16px 12px; border-radius: calc(var(--radius) + 4px)}
+  .hero h2{font-size:18px}
+  .hero p{font-size:12.5px; line-height:1.6}
+  .chip{font-size:10px; padding:4px 8px; gap:4px}
+  .dot{width:6px; height:6px}
+
+  section{margin-top:14px}
+  section h3{font-size:16px; padding-left:10px}
+  .lead{font-size:12.5px}
+
+  .card h4{font-size:13px}
+  .card p{font-size:12px}
+
+  .callout{padding:10px; gap:8px; flex-direction:row}
+  .badge{width:28px; height:28px; font-size:11px; border-radius:8px}
+
+  pre{padding:10px; border-radius:10px}
+  pre::before{display:none}
+  code{font-size:11px; line-height:1.55}
+  p code, li code, td code, .muted code, strong code, .lead code{
+    font-size:0.85em;
+    padding:1px 4px;
+  }
+
+  .error-card{padding:12px; margin-top:10px}
+  .error-header{gap:8px}
+  .error-header strong{font-size:13px}
+  .error-tip{padding:10px; font-size:11.5px; line-height:1.6}
+  .sev{font-size:10px; padding:3px 8px}
+
+  table{min-width:400px; font-size:11.5px}
+  thead th{padding:7px 8px; font-size:10px}
+  tbody td{padding:8px}
+
+  .codebar .muted{font-size:11px}
+
+  details{padding:10px; margin-top:10px}
+  summary{font-size:12.5px; gap:8px}
+  details .details-body{font-size:11.5px; padding-top:10px; margin-top:10px}
+
+  footer{padding:14px 10px; margin-top:16px}
+
+  .kbd{font-size:10px; padding:2px 5px}
+  .progress{height:6px}
+}
+
+/* ==========================================================
+   RESPONSIVE — Móvil muy pequeño (<360px)
+   ========================================================== */
+@media (max-width: 360px){
+  .hero h2{font-size:16px}
+  .hero .meta{gap:6px}
+  .chip{font-size:9.5px}
+  section h3{font-size:15px}
+  .brand{flex-direction:column; text-align:center; gap:6px}
+  .brand h1{font-size:11px}
+  .nav a span:first-child{font-size:11px}
+}
+
+/* ==========================================================
+   PRINT
+   ========================================================== */
 @media print{
-  body{background:white; color:black}
+  body{background:white; color:black; font-size:12px}
   .sidebar{display:none}
   section, .hero{box-shadow:none; background:white; border-color:#ddd}
   .app{grid-template-columns:1fr}
@@ -687,4 +883,6 @@ li + li{
   .callout{background:#f8f8f8; border-color:#ddd}
   section h3{border-left-color:#7c5cff}
   p code, li code, td code{background:#f0ecff; border-color:#d5ccff; color:#333}
+  .error-card{background:#fafafa; border-color:#ddd}
+  .content{max-width:100%; padding:10px}
 }
