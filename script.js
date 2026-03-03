@@ -203,6 +203,27 @@ function setupButtons(){
   $('#print')?.addEventListener('click', () => window.print());
 }
 
+// Menú hamburguesa
+function setupHamburger(){
+  const toggle = $('#menuToggle');
+  const body = $('#sidebarBody');
+  if(!toggle || !body) return;
+
+  toggle.addEventListener('click', () => {
+    toggle.classList.toggle('active');
+    body.classList.toggle('open');
+  });
+
+  $$('#sidebarBody .navlink').forEach(a => {
+    a.addEventListener('click', () => {
+      if(window.innerWidth <= 980){
+        toggle.classList.remove('active');
+        body.classList.remove('open');
+      }
+    });
+  });
+}
+
 // Auto-tests (consola del navegador)
 function runSelfTests(){
   const samples = [
@@ -355,6 +376,7 @@ function highlightGDScript(){
 highlightGDScript();
 setupCopy();
 setupButtons();
+setupHamburger();
 setupScrollSpy();
 setupProgress();
 setupSearch();

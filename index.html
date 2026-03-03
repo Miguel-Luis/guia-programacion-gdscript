@@ -10,13 +10,19 @@
   <div class="app">
     <!-- Sidebar -->
     <aside class="sidebar" id="top">
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>Guía Completa · Programación desde Cero</h1>
-          <p>Aprende con ejemplos reales en <strong>GDScript</strong> (Godot 4.x).</p>
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>Guía Completa · Programación desde Cero</h1>
+            <p>Aprende con ejemplos reales en <strong>GDScript</strong> (Godot 4.x).</p>
+          </div>
         </div>
+        <button class="hamburger" id="menuToggle" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
       </div>
+      <div class="sidebar-body" id="sidebarBody">
 
       <div class="tools">
         <div class="row search">
@@ -57,6 +63,7 @@
         <a href="#s13" class="navlink"><span>13) Mini-talleres</span><span class="tag">práctica</span></a>
         <a href="#top" class="navlink"><span>↑ Volver arriba</span><span class="tag">UI</span></a>
       </nav>
+      </div>
     </aside>
 
     <!-- Main content -->
