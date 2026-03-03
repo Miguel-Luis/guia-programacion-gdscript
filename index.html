@@ -64,8 +64,8 @@
       <div class="hero">
         <h2>Programación desde Cero con GDScript</h2>
         <p>
-          Esta guía está pensada para estudiantes que <strong>nunca han programado</strong>. Está escrita para que la uses en clase,
-          con ejemplos, errores intencionales y correcciones. El objetivo no es memorizar, sino <strong>aprender a pensar</strong>.
+          Esta guía está pensada para personas que <strong>nunca han programado</strong>. Incluye
+          ejemplos, errores intencionales y correcciones. El objetivo no es memorizar, sino <strong>aprender a pensar</strong>.
         </p>
         <div class="meta">
           <span class="chip"><span class="dot" aria-hidden="true"></span>Enfoque: lógica + hábitos</span>
@@ -192,7 +192,7 @@ func _ready() -&gt; void:
               <li>Declara una variable llamada <code>nombre_jugador</code> con tu nombre.</li>
               <li>Declara <code>salto_altura</code> con un valor decimal (ej: 250.5).</li>
             </ol>
-            Consejo de clase: revisa si todos <strong>usan el mismo estilo</strong> de nombres.
+            Revisa que uses <strong>el mismo estilo</strong> de nombres en todo tu código.
           </div>
         </details>
       </section>
@@ -814,7 +814,7 @@ if nombre != "":     # ¿El nombre NO está vacío?
 
         <!-- Ejercicio -->
         <details open>
-          <summary>Ejercicio de clase (10 min): calculadora de daño <span class="tag">reto</span></summary>
+          <summary>Ejercicio (10 min): calculadora de daño <span class="tag">reto</span></summary>
           <div class="details-body">
             Crea un script con estas variables y calcula:
             <ol>
@@ -872,7 +872,7 @@ func _ready() -&gt; void:
         </div>
 
         <details open>
-          <summary>Ejercicio de clase (10 min): Semáforo de energía <span class="tag">reto</span></summary>
+          <summary>Ejercicio (10 min): Semáforo de energía <span class="tag">reto</span></summary>
           <div class="details-body">
             Crea una variable <code>energia</code> (0 a 100) e imprime:
             <ul>
@@ -1457,7 +1457,7 @@ enemigos[10]  # ❌ no existe</code></pre>
         <div class="callout" style="margin-top:20px">
           <div class="badge warn">!</div>
           <div>
-            <strong>Método de 4 pasos para leer errores en clase</strong>
+            <strong>Método de 4 pasos para leer errores</strong>
             <div class="muted">
               <strong>1.</strong> Lee el mensaje (¿esperaba ":"?, ¿bloque indentado?, ¿identificador?).<br>
               <strong>2.</strong> Ve a la línea marcada (pero revisa también la línea anterior).<br>
@@ -1516,79 +1516,284 @@ func correr(activar: bool) -&gt; void:
 
       <!-- 13 -->
       <section id="s13">
-        <h3>13) Mini-talleres (para consolidar de verdad)</h3>
+        <h3>13) Ejercicios prácticos (de menor a mayor dificultad)</h3>
         <p class="lead">
-          Estos talleres están diseñados para que el estudiante practique lo aprendido. Cada uno tiene un objetivo concreto.
-          Idealmente: primero lo hacen en papel/pizarra, luego en Godot.
+          Estos ejercicios están ordenados por dificultad. Todos se resuelven <strong>por consola</strong> usando <code>print()</code> para ver los resultados.
+          Crea un script nuevo en Godot (adjunto a un <code>Node</code>) para cada ejercicio y escribe tu código dentro de <code>_ready()</code>.
         </p>
 
-        <div class="grid">
-          <div class="card col-6">
-            <h4>Taller 1: Contador de monedas</h4>
-            <p>
-              Objetivo: variables + operadores + print.
-              <br>Requisitos:
-              <ul>
-                <li>Variable <code>monedas</code> inicia en 0</li>
-                <li>Sumar 1 moneda tres veces</li>
-                <li>Imprimir el resultado final</li>
-              </ul>
-            </p>
-          </div>
-          <div class="card col-6">
-            <h4>Taller 2: Semáforo de vidas</h4>
-            <p>
-              Objetivo: condicionales + indentación.
-              <br>Reglas:
-              <ul>
-                <li>Si vidas &gt;= 3: "Seguro"</li>
-                <li>Si vidas == 2: "Precaución"</li>
-                <li>Si vidas == 1: "Peligro"</li>
-                <li>Si vidas &lt;= 0: "Game Over"</li>
-              </ul>
-            </p>
+        <div class="callout">
+          <div class="badge good">&#10003;</div>
+          <div>
+            <strong>¿Cómo probar cada ejercicio?</strong>
+            <div class="muted">
+              <strong>1.</strong> Crea una escena con un nodo <code>Node</code>.<br>
+              <strong>2.</strong> Adjunta un script nuevo (<code>.gd</code>).<br>
+              <strong>3.</strong> Escribe tu código.<br>
+              <strong>4.</strong> Ejecuta la escena (<code>F5</code> o <code>F6</code>) y revisa la pestaña <strong>"Output"</strong> (consola) en la parte inferior de Godot.
+            </div>
           </div>
         </div>
 
-        <div class="grid">
-          <div class="card col-6">
-            <h4>Taller 3: Lista de enemigos</h4>
-            <p>
-              Objetivo: arrays + for.
-              <ul>
-                <li>Crear array con 4 enemigos</li>
-                <li>Recorrerlos con <code>for</code> e imprimir</li>
-                <li>Imprimir el tamaño del array</li>
-              </ul>
-            </p>
+        <!-- Ejercicio 1 -->
+        <div class="error-card error-good">
+          <div class="error-header">
+            <span class="sev good">&#9679; Fácil</span>
+            <strong>Ejercicio 1: Mi primera variable</strong>
           </div>
-          <div class="card col-6">
-            <h4>Taller 4: Perfil del jugador</h4>
-            <p>
-              Objetivo: diccionarios.
-              <ul>
-                <li>Diccionario con nombre, vidas, velocidad</li>
-                <li>Restar vida y actualizar</li>
-                <li>Imprimir todo al final</li>
-              </ul>
-            </p>
+          <p class="muted"><strong>Tema:</strong> variables + <code>print</code></p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara una variable llamada <code>nombre</code> con tu nombre (tipo <code>String</code>).</li>
+              <li>Declara una variable llamada <code>edad</code> con tu edad (tipo <code>int</code>).</li>
+              <li>Imprime en consola: <code>"Me llamo [nombre] y tengo [edad] años"</code>.</li>
+            </ol>
+            <strong>Resultado esperado en consola:</strong> <code>Me llamo Mario y tengo 20 años</code>
+            <br><br><strong>Pista:</strong> Para unir texto con variables usa comas en <code>print()</code>: <code>print("Texto ", variable)</code>
           </div>
         </div>
 
-        <details open>
-          <summary>Bonus: evaluación rápida (rúbrica simple) <span class="tag">docente</span></summary>
-          <div class="details-body">
-            Puedes evaluar cada taller con 0–5:
-            <ul>
-              <li><strong>5</strong>: funciona, está indentado, nombres claros, sin errores.</li>
-              <li><strong>4</strong>: funciona pero nombres/orden mejorables.</li>
-              <li><strong>3</strong>: casi funciona; errores pequeños (indentación, : , etc.).</li>
-              <li><strong>2</strong>: muchas fallas; no entiende bloques.</li>
-              <li><strong>1</strong>: no logra ejecutar; requiere acompañamiento total.</li>
-              <li><strong>0</strong>: no entregó.</li>
-            </ul>
+        <!-- Ejercicio 2 -->
+        <div class="error-card error-good">
+          <div class="error-header">
+            <span class="sev good">&#9679; Fácil</span>
+            <strong>Ejercicio 2: Contador de monedas</strong>
           </div>
-        </details>
+          <p class="muted"><strong>Tema:</strong> variables + operadores aritméticos + <code>+=</code></p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var monedas = 0</code> como variable de clase.</li>
+              <li>Dentro de <code>_ready()</code>, suma 5 monedas usando <code>+=</code>.</li>
+              <li>Luego suma 3 más.</li>
+              <li>Luego resta 2 con <code>-=</code>.</li>
+              <li>Imprime el resultado final.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> <code>6</code>
+            <br><br><strong>Pista:</strong> Haz las operaciones paso a paso: <code>monedas += 5</code>, luego <code>monedas += 3</code>, luego <code>monedas -= 2</code>.
+          </div>
+        </div>
+
+        <!-- Ejercicio 3 -->
+        <div class="error-card error-good">
+          <div class="error-header">
+            <span class="sev good">&#9679; Fácil</span>
+            <strong>Ejercicio 3: Calculadora básica</strong>
+          </div>
+          <p class="muted"><strong>Tema:</strong> operadores matemáticos</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara dos variables: <code>var a = 15</code> y <code>var b = 4</code>.</li>
+              <li>Imprime el resultado de: suma, resta, multiplicación, división y módulo.</li>
+              <li>Cada resultado debe mostrarse con un texto descriptivo.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Suma: 19</code><br>
+            <code>Resta: 11</code><br>
+            <code>Multiplicación: 60</code><br>
+            <code>División: 3</code><br>
+            <code>Módulo: 3</code>
+            <br><br><strong>Pista:</strong> Usa <code>print("Suma: ", a + b)</code> para cada operación.
+          </div>
+        </div>
+
+        <!-- Ejercicio 4 -->
+        <div class="error-card error-warn">
+          <div class="error-header">
+            <span class="sev warn">&#9679; Intermedio</span>
+            <strong>Ejercicio 4: Semáforo de vidas</strong>
+          </div>
+          <p class="muted"><strong>Tema:</strong> condicionales (<code>if</code> / <code>elif</code> / <code>else</code>)</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var vidas = 2</code> como variable de clase.</li>
+              <li>Dentro de <code>_ready()</code>, usa condicionales para imprimir:
+                <ul>
+                  <li>Si <code>vidas &gt;= 3</code>: <code>"Estado: Seguro"</code></li>
+                  <li>Si <code>vidas == 2</code>: <code>"Estado: Precaución"</code></li>
+                  <li>Si <code>vidas == 1</code>: <code>"Estado: Peligro"</code></li>
+                  <li>Si <code>vidas &lt;= 0</code>: <code>"Estado: Game Over"</code></li>
+                </ul>
+              </li>
+              <li>Prueba cambiando el valor de <code>vidas</code> para verificar cada caso.</li>
+            </ol>
+            <strong>Resultado esperado (con vidas = 2):</strong> <code>Estado: Precaución</code>
+            <br><br><strong>Pista:</strong> Usa <code>if</code> → <code>elif</code> → <code>elif</code> → <code>else</code> en ese orden.
+          </div>
+        </div>
+
+        <!-- Ejercicio 5 -->
+        <div class="error-card error-warn">
+          <div class="error-header">
+            <span class="sev warn">&#9679; Intermedio</span>
+            <strong>Ejercicio 5: Tabla del multiplicar</strong>
+          </div>
+          <p class="muted"><strong>Tema:</strong> ciclo <code>for</code> + operadores</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var numero = 7</code> como variable de clase.</li>
+              <li>Dentro de <code>_ready()</code>, usa un <code>for i in range(1, 11)</code> para imprimir la tabla del multiplicar de ese número.</li>
+              <li>Cada línea debe mostrar: <code>"7 x 1 = 7"</code>, <code>"7 x 2 = 14"</code>, etc.</li>
+            </ol>
+            <strong>Resultado esperado (primeras 3 líneas):</strong><br>
+            <code>7 x 1 = 7</code><br>
+            <code>7 x 2 = 14</code><br>
+            <code>7 x 3 = 21</code>
+            <br><br><strong>Pista:</strong> Usa <code>print(numero, " x ", i, " = ", numero * i)</code> dentro del <code>for</code>.
+          </div>
+        </div>
+
+        <!-- Ejercicio 6 -->
+        <div class="error-card error-warn">
+          <div class="error-header">
+            <span class="sev warn">&#9679; Intermedio</span>
+            <strong>Ejercicio 6: Lista de enemigos</strong>
+          </div>
+          <p class="muted"><strong>Tema:</strong> arrays + <code>for</code> + <code>.size()</code></p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara un array con 5 nombres de enemigos: <code>var enemigos = ["Goomba", "Koopa", "Bowser", "Boo", "Piranha"]</code>.</li>
+              <li>Recorre el array con <code>for</code> e imprime cada enemigo con su número: <code>"Enemigo 1: Goomba"</code>.</li>
+              <li>Al final imprime cuántos enemigos hay usando <code>.size()</code>.</li>
+              <li>Agrega un enemigo nuevo con <code>.append()</code> y vuelve a imprimir el total.</li>
+            </ol>
+            <strong>Resultado esperado (últimas líneas):</strong><br>
+            <code>Total de enemigos: 5</code><br>
+            <code>Nuevo total: 6</code>
+            <br><br><strong>Pista:</strong> Para numerar usa <code>for i in range(enemigos.size())</code> y accede con <code>enemigos[i]</code>.
+          </div>
+        </div>
+
+        <!-- Ejercicio 7 -->
+        <div class="error-card error-warn">
+          <div class="error-header">
+            <span class="sev warn">&#9679; Intermedio</span>
+            <strong>Ejercicio 7: Perfil del jugador</strong>
+          </div>
+          <p class="muted"><strong>Tema:</strong> diccionarios + modificar valores</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Crea un diccionario <code>jugador</code> con las claves: <code>"nombre"</code>, <code>"vidas"</code>, <code>"monedas"</code>, <code>"velocidad"</code>.</li>
+              <li>Imprime el perfil completo recorriendo el diccionario con <code>for clave in jugador:</code>.</li>
+              <li>Resta 1 vida, suma 10 monedas y aumenta la velocidad con <code>*= 1.5</code>.</li>
+              <li>Imprime el perfil actualizado.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>--- Perfil inicial ---</code><br>
+            <code>nombre: Mario</code><br>
+            <code>vidas: 3</code><br>
+            <code>...</code><br>
+            <code>--- Perfil actualizado ---</code><br>
+            <code>vidas: 2</code>
+            <br><br><strong>Pista:</strong> Para recorrer un diccionario: <code>for clave in jugador: print(clave, ": ", jugador[clave])</code>
+          </div>
+        </div>
+
+        <!-- Ejercicio 8 -->
+        <div class="error-card error-bad">
+          <div class="error-header">
+            <span class="sev bad">&#9679; Avanzado</span>
+            <strong>Ejercicio 8: Sistema de daño</strong>
+          </div>
+          <p class="muted"><strong>Tema:</strong> funciones + parámetros + condicionales</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var vidas = 5</code> como variable de clase.</li>
+              <li>Crea una función <code>recibir_dano(cantidad: int)</code> que:
+                <ul>
+                  <li>Reste <code>cantidad</code> a <code>vidas</code>.</li>
+                  <li>Imprima <code>"Recibiste [cantidad] de daño. Vidas restantes: [vidas]"</code>.</li>
+                  <li>Si <code>vidas &lt;= 0</code>, imprima <code>"¡Has muerto!"</code>.</li>
+                </ul>
+              </li>
+              <li>Dentro de <code>_ready()</code>, llama a la función 3 veces con diferentes valores: <code>recibir_dano(1)</code>, <code>recibir_dano(2)</code>, <code>recibir_dano(3)</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Recibiste 1 de daño. Vidas restantes: 4</code><br>
+            <code>Recibiste 2 de daño. Vidas restantes: 2</code><br>
+            <code>Recibiste 3 de daño. Vidas restantes: -1</code><br>
+            <code>¡Has muerto!</code>
+            <br><br><strong>Pista:</strong> La función modifica la variable de clase <code>vidas</code> directamente.
+          </div>
+        </div>
+
+        <!-- Ejercicio 9 -->
+        <div class="error-card error-bad">
+          <div class="error-header">
+            <span class="sev bad">&#9679; Avanzado</span>
+            <strong>Ejercicio 9: Tienda de objetos</strong>
+          </div>
+          <p class="muted"><strong>Tema:</strong> diccionarios + condicionales + funciones</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var monedas = 100</code> y un diccionario de tienda:
+                <code>var tienda = {"Espada": 30, "Escudo": 25, "Poción": 10, "Armadura": 80}</code>.</li>
+              <li>Crea una función <code>comprar(objeto: String)</code> que:
+                <ul>
+                  <li>Verifique si el objeto existe en <code>tienda</code> con <code>.has()</code>.</li>
+                  <li>Verifique si tienes suficientes monedas.</li>
+                  <li>Si puedes comprar: resta el precio a <code>monedas</code> e imprime <code>"Compraste [objeto] por [precio]. Te quedan [monedas] monedas"</code>.</li>
+                  <li>Si no te alcanza: imprime <code>"No te alcanza para [objeto]"</code>.</li>
+                  <li>Si no existe: imprime <code>"[objeto] no está en la tienda"</code>.</li>
+                </ul>
+              </li>
+              <li>En <code>_ready()</code>, intenta comprar: <code>"Espada"</code>, <code>"Poción"</code>, <code>"Armadura"</code>, <code>"Botas"</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Compraste Espada por 30. Te quedan 70 monedas</code><br>
+            <code>Compraste Poción por 10. Te quedan 60 monedas</code><br>
+            <code>No te alcanza para Armadura</code><br>
+            <code>Botas no está en la tienda</code>
+          </div>
+        </div>
+
+        <!-- Ejercicio 10 -->
+        <div class="error-card error-bad">
+          <div class="error-header">
+            <span class="sev bad">&#9679; Avanzado</span>
+            <strong>Ejercicio 10: Simulador de combate por turnos</strong>
+          </div>
+          <p class="muted"><strong>Tema:</strong> todo lo aprendido (variables, condicionales, ciclos, funciones, arrays, diccionarios)</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Crea dos diccionarios que representen a un jugador y un enemigo:
+                <pre><code>var jugador = {"nombre": "Héroe", "vidas": 10, "ataque": 3}
+var enemigo = {"nombre": "Goblin", "vidas": 8, "ataque": 2}</code></pre>
+              </li>
+              <li>Crea una función <code>atacar(atacante: Dictionary, defensor: Dictionary)</code> que:
+                <ul>
+                  <li>Reste el ataque del atacante a las vidas del defensor.</li>
+                  <li>Imprima: <code>"[atacante] ataca a [defensor] por [daño]. Vidas restantes: [vidas]"</code>.</li>
+                </ul>
+              </li>
+              <li>Dentro de <code>_ready()</code>, usa un <code>while</code> que repita turnos mientras ambos tengan vidas &gt; 0:
+                <ul>
+                  <li>Turno 1: el jugador ataca al enemigo.</li>
+                  <li>Si el enemigo sigue vivo, el enemigo ataca al jugador.</li>
+                </ul>
+              </li>
+              <li>Al salir del ciclo, imprime quién ganó.</li>
+            </ol>
+            <strong>Resultado esperado (ejemplo):</strong><br>
+            <code>--- Turno 1 ---</code><br>
+            <code>Héroe ataca a Goblin por 3. Vidas restantes: 5</code><br>
+            <code>Goblin ataca a Héroe por 2. Vidas restantes: 8</code><br>
+            <code>--- Turno 2 ---</code><br>
+            <code>...</code><br>
+            <code>¡Héroe ha ganado!</code>
+            <br><br><strong>Pista:</strong> Usa una variable <code>var turno = 1</code> que incrementes en cada vuelta del <code>while</code>. Recuerda verificar si el defensor sigue vivo después de cada ataque.
+          </div>
+        </div>
+
       </section>
 
       <footer>
