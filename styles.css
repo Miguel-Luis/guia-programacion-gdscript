@@ -408,10 +408,10 @@ pre{
 pre::before{
   content:"GDScript";
   position:absolute;
-  top:8px;
-  right:12px;
-  font-size:10px;
-  color: rgba(255,255,255,.2);
+  top:6px;
+  right:10px;
+  font-size:9px;
+  color: rgba(255,255,255,.15);
   font-family: var(--sans);
   font-weight:600;
   text-transform:uppercase;
@@ -424,6 +424,16 @@ code{
   font-size: 12.5px;
   line-height:1.6;
 }
+
+/* Syntax highlighting — colores del editor de Godot */
+.gd-keyword{color:#ff7085}
+.gd-type{color:#8fffdb}
+.gd-string{color:#ffe484}
+.gd-comment{color:rgba(205,207,210,.5); font-style:italic}
+.gd-number{color:#a1ffe0}
+.gd-func-name{color:#66e1ff}
+.gd-annotation{color:#ffb373}
+.gd-const-name{color:#a1ffe0; font-weight:600}
 
 p code, li code, td code, .muted code, strong code, .lead code{
   background: rgba(124,92,255,.12);

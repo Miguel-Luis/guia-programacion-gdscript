@@ -228,7 +228,131 @@ function runSelfTests(){
   console.assert(typeof clearMarks === 'function', 'SelfTest: clearMarks no existe');
 }
 
+// Syntax highlighting estilo Godot
+function highlightGDScript(){
+  const KEYWORDS = new Set([
+    'if','elif','else','for','while','match','return','pass','break','continue',
+    'var','const','func','class','class_name','extends','signal','enum',
+    'in','is','as','not','and','or',
+    'true','false','null','self','super',
+    'void','static','export','onready',
+    'preload','load','yield','await'
+  ]);
+
+  const TYPES = new Set([
+    'int','float','String','bool','Array','Dictionary',
+    'Vector2','Vector2i','Vector3','Vector3i',
+    'Color','NodePath','Rect2','Transform2D','Transform3D',
+    'Node','Node2D','Node3D','CharacterBody2D','CharacterBody3D',
+    'RigidBody2D','RigidBody3D','Area2D','Area3D',
+    'Sprite2D','Sprite3D','AnimatedSprite2D',
+    'CollisionShape2D','CollisionShape3D',
+    'Camera2D','Camera3D','Timer','Label','Button',
+    'PackedScene','Resource','Object','RefCounted'
+  ]);
+
+  function tokenize(code){
+    const tokens = [];
+    let i = 0;
+    while(i < code.length){
+      // Comentarios
+      if(code[i] === '#'){
+        let end = code.indexOf('\n', i);
+        if(end === -1) end = code.length;
+        tokens.push({type:'comment', text:code.slice(i, end)});
+        i = end;
+        continue;
+      }
+      // Strings
+      if(code[i] === '"' || code[i] === "'"){
+        const q = code[i];
+        let j = i + 1;
+        while(j < code.length && code[j] !== q){
+          if(code[j] === '\\') j++;
+          j++;
+        }
+        j = Math.min(j + 1, code.length);
+        tokens.push({type:'string', text:code.slice(i, j)});
+        i = j;
+        continue;
+      }
+      // Annotations
+      if(code[i] === '@'){
+        let j = i + 1;
+        while(j < code.length && /\w/.test(code[j])) j++;
+        tokens.push({type:'annotation', text:code.slice(i, j)});
+        i = j;
+        continue;
+      }
+      // Numbers
+      if(/\d/.test(code[i]) && (i === 0 || !/\w/.test(code[i-1]))){
+        let j = i;
+        while(j < code.length && /[\d._eE]/.test(code[j])) j++;
+        tokens.push({type:'number', text:code.slice(i, j)});
+        i = j;
+        continue;
+      }
+      // Words
+      if(/[a-zA-Z_]/.test(code[i])){
+        let j = i;
+        while(j < code.length && /\w/.test(code[j])) j++;
+        const word = code.slice(i, j);
+        if(KEYWORDS.has(word)){
+          tokens.push({type:'keyword', text:word});
+        } else if(TYPES.has(word)){
+          tokens.push({type:'type', text:word});
+        } else {
+          const prev = tokens.length > 0 ? tokens[tokens.length - 1] : null;
+          if(prev && prev.type === 'keyword' && prev.text === 'func'){
+            tokens.push({type:'func-name', text:word});
+          } else if(word === word.toUpperCase() && word.length > 1 && word.includes('_')){
+            tokens.push({type:'const-name', text:word});
+          } else {
+            tokens.push({type:'plain', text:word});
+          }
+        }
+        i = j;
+        continue;
+      }
+      // Resto (operadores, espacios, etc.)
+      tokens.push({type:'plain', text:code[i]});
+      i++;
+    }
+    return tokens;
+  }
+
+  function esc(text){
+    return text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  $$('pre > code').forEach(block => {
+    const raw = block.textContent;
+    const tokens = tokenize(raw);
+    const classMap = {
+      'keyword':'gd-keyword',
+      'type':'gd-type',
+      'string':'gd-string',
+      'comment':'gd-comment',
+      'number':'gd-number',
+      'func-name':'gd-func-name',
+      'annotation':'gd-annotation',
+      'const-name':'gd-const-name'
+    };
+    let html = '';
+    for(const t of tokens){
+      const cls = classMap[t.type];
+      if(cls){
+        html += `<span class="${cls}">${esc(t.text)}</span>`;
+      } else {
+        html += esc(t.text);
+      }
+    }
+    block.innerHTML = html;
+  });
+}
+
 // Inicialización
+highlightGDScript();
 setupCopy();
 setupButtons();
 setupScrollSpy();
