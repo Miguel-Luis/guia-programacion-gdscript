@@ -1,0 +1,1605 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guía Completa — Programación desde Cero con GDScript (Godot 4.x)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <h1>Guía Completa · Programación desde Cero</h1>
+          <p>Aprende con ejemplos reales en <strong>GDScript</strong> (Godot 4.x).</p>
+        </div>
+      </div>
+
+      <div class="tools">
+        <div class="row search">
+          <input id="search" type="search" placeholder="Buscar en la guía… (ej: indentación, if, array)" />
+          <button class="btn" id="clear" title="Limpiar búsqueda">✕</button>
+        </div>
+
+        <div class="row">
+          <button class="btn" id="print">Imprimir</button>
+        </div>
+
+        <div class="row">
+          <div class="pill"><span>Progreso de lectura</span><strong id="progressLabel">0%</strong></div>
+        </div>
+        <div class="progress" aria-label="Progreso">
+          <div id="progressBar"></div>
+        </div>
+
+        <div class="row" style="margin-top:10px">
+          <div class="pill"><span>Atajo útil</span><strong class="kbd">Ctrl/Cmd + F</strong></div>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <a href="#s0" class="navlink"><span>0) Qué es programar</span><span class="tag">base</span></a>
+        <a href="#s1" class="navlink"><span>1) Variables</span><span class="tag">base</span></a>
+        <a href="#s2" class="navlink"><span>2) Indentación (CRUCIAL)</span><span class="tag">clave</span></a>
+        <a href="#s3" class="navlink"><span>3) Tipos de datos</span><span class="tag">datos</span></a>
+        <a href="#s4" class="navlink"><span>4) Operadores</span><span class="tag">lógica</span></a>
+        <a href="#s5" class="navlink"><span>5) Condicionales</span><span class="tag">decisión</span></a>
+        <a href="#s6" class="navlink"><span>6) Ciclos</span><span class="tag">repetir</span></a>
+        <a href="#s7" class="navlink"><span>7) Funciones</span><span class="tag">bloques</span></a>
+        <a href="#s8" class="navlink"><span>8) Arrays</span><span class="tag">listas</span></a>
+        <a href="#s9" class="navlink"><span>9) Diccionarios</span><span class="tag">clave-valor</span></a>
+        <a href="#s10" class="navlink"><span>10) Clases (Godot)</span><span class="tag">OOP</span></a>
+        <a href="#s11" class="navlink"><span>11) Errores típicos</span><span class="tag">debug</span></a>
+        <a href="#s12" class="navlink"><span>12) Buenas prácticas</span><span class="tag">pro</span></a>
+        <a href="#s13" class="navlink"><span>13) Mini-talleres</span><span class="tag">práctica</span></a>
+        <a href="#top" class="navlink"><span>↑ Volver arriba</span><span class="tag">UI</span></a>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="content" id="main">
+      <div class="hero">
+        <h2>Programación desde Cero con GDScript</h2>
+        <p>
+          Esta guía está pensada para estudiantes que <strong>nunca han programado</strong>. Está escrita para que la uses en clase,
+          con ejemplos, errores intencionales y correcciones. El objetivo no es memorizar, sino <strong>aprender a pensar</strong>.
+        </p>
+        <div class="meta">
+          <span class="chip"><span class="dot" aria-hidden="true"></span>Enfoque: lógica + hábitos</span>
+          <span class="chip">Motor: Godot 4.x</span>
+          <span class="chip">Lenguaje: GDScript</span>
+          <span class="chip">Incluye: tabla de errores + ejercicios</span>
+        </div>
+      </div>
+
+      <!-- 0 -->
+      <section id="s0">
+        <h3>0) ¿Qué es programar?</h3>
+        <p class="lead">
+          Programar es <strong>dar instrucciones</strong> a una computadora para que haga algo. Un programa es una secuencia de pasos
+          que transforman <strong>datos</strong> en <strong>resultados</strong>. En juegos, esos resultados son: movimiento, colisiones,
+          animaciones, puntaje, enemigos, etc.
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Lo que siempre existe en un programa</h4>
+            <p>
+              1) <strong>Datos</strong> (vidas, velocidad, nombre).<br>
+              2) <strong>Decisiones</strong> (si está vivo, si chocó).<br>
+              3) <strong>Repeticiones</strong> (cada frame, cada segundo).<br>
+              4) <strong>Acciones</strong> (mover, saltar, disparar).
+            </p>
+          </div>
+          <div class="card col-6">
+            <h4>Cómo piensa un programador</h4>
+            <p>
+              Divide un problema grande en partes pequeñas: "leer input", "mover", "ver si choca", "actualizar animación".
+              Cada parte se vuelve código.
+            </p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="badge good">✓</div>
+          <div>
+            <strong>Meta de esta guía</strong>
+            <div class="muted">Que el estudiante pueda leer un error, ubicarlo en el código y corregirlo con seguridad.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1 -->
+      <section id="s1">
+        <h3>1) Variables</h3>
+        <p class="lead">
+          Una <strong>variable</strong> es una "caja con nombre" donde guardas un valor. Ese valor puede cambiar.
+          En un juego: vidas, velocidad, daño, nombre, posición, etc.
+        </p>
+
+        <div class="grid">
+          <div class="card col-7">
+            <h4>¿Qué significa "declarar una variable"?</h4>
+            <p>
+              Declarar es <strong>crear</strong> la variable y darle un nombre. Luego puedes (o no) asignarle un valor.
+            </p>
+            <div class="examples">
+              <div class="codebar">
+                <div class="muted">Ejemplo: declarar y asignar</div>
+                <button class="btn small copy" data-copy="code-var-1">Copiar</button>
+              </div>
+              <pre><code id="code-var-1">extends Node
+
+# ✅ Variables del script (miembros): se pueden declarar fuera de funciones
+var vidas = 3
+var nombre = "Mario"
+var velocidad = 120.0
+
+func _ready() -&gt; void:
+	# ✅ Instrucciones ejecutables van dentro de una función
+	print(vidas, nombre, velocidad)
+</code></pre>
+
+              <div class="codebar">
+                <div class="muted">Ejemplo: declarar sin valor (luego asignas)</div>
+                <button class="btn small copy" data-copy="code-var-2">Copiar</button>
+              </div>
+              <pre><code id="code-var-2">extends Node
+
+# Variable miembro (del script)
+var puntaje: int
+
+func _ready() -&gt; void:
+	# Aquí ya puedes asignar y usarla
+	puntaje = 0
+	print(puntaje)
+</code></pre>
+            </div>
+          </div>
+
+          <div class="card col-5">
+            <h4>Cómo nombrar una variable (reglas y hábitos)</h4>
+            <p>
+              ✅ <strong>Descriptiva</strong>: <code>velocidad_jugador</code><br>
+              ✅ <strong>minúsculas</strong> y <strong>_</strong> para separar palabras<br>
+              ❌ No empezar con número: <code>2vidas</code><br>
+              ❌ No espacios: <code>vidas jugador</code><br>
+              ❌ No palabras reservadas: <code>if</code>, <code>for</code>, <code>func</code>
+            </p>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="badge warn">!</div>
+          <div>
+            <strong>Importante (para que no te salga error)</strong>
+            <div class="muted">
+              ✅ Puedes declarar variables fuera de las funciones (arriba del script): <code>var vidas = 3</code>.<br>
+              ❌ Pero no puedes poner instrucciones que "se ejecutan" en el cuerpo del script, como <code>print</code>, llamados de funciones, <code>if</code>, <code>for</code>, <code>while</code>…<br>
+              👉 Esas van dentro de una función como <code>_ready()</code>, <code>_process()</code> o <code>_physics_process()</code>.
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Ejercicio rápido (2–3 min) <span class="tag">práctica</span></summary>
+          <div class="details-body">
+            <ol>
+              <li>Declara una variable llamada <code>monedas</code> con valor <code>0</code>.</li>
+              <li>Declara una variable llamada <code>nombre_jugador</code> con tu nombre.</li>
+              <li>Declara <code>salto_altura</code> con un valor decimal (ej: 250.5).</li>
+            </ol>
+            Consejo de clase: revisa si todos <strong>usan el mismo estilo</strong> de nombres.
+          </div>
+        </details>
+      </section>
+
+      <!-- 2 -->
+      <section id="s2">
+        <h3>2) Indentación (CRUCIAL después de variables)</h3>
+        <p class="lead">
+          En GDScript la <strong>indentación</strong> (sangría) NO es decoración: <strong>define bloques</strong>.
+          Si no indentas bien, el programa no entiende qué líneas pertenecen a un <code>if</code>, <code>for</code>, <code>func</code>, etc.
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Regla de oro</h4>
+            <p>
+              Todo lo que esté "dentro" de una estructura debe ir indentado.<br>
+              Godot normalmente indenta con <strong>tabs</strong> (o espacios) de forma consistente.
+            </p>
+            <div class="callout">
+              <div class="badge warn">!</div>
+              <div>
+                <strong>Consistencia</strong>
+                <div class="muted">No mezcles tabs y espacios en el mismo archivo. Eso genera errores confusos.</div>
+              </div>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>¿Qué es un bloque?</h4>
+            <p>
+              Un bloque es un grupo de líneas que pertenecen a una instrucción.
+              En GDScript el bloque empieza después de <strong>:</strong> y se reconoce por la indentación.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid examples">
+          <div class="card col-6">
+            <h4>✅ Correcto</h4>
+            <div class="codebar"><div class="muted">El print está dentro del if</div><button class="btn small copy" data-copy="code-indent-ok">Copiar</button></div>
+            <pre><code id="code-indent-ok">extends Node
+
+var vidas = 3
+
+func _ready() -&gt; void:
+	if vidas &gt; 0:
+		print("Sigue jugando")
+</code></pre>
+          </div>
+          <div class="card col-6">
+            <h4>❌ Incorrecto (falta indentación)</h4>
+            <div class="codebar"><div class="muted">El print quedó fuera del bloque</div><button class="btn small copy" data-copy="code-indent-bad">Copiar</button></div>
+            <pre><code id="code-indent-bad">extends Node
+
+var vidas = 3
+
+func _ready() -&gt; void:
+	if vidas &gt; 0:
+	print("Sigue jugando")
+</code></pre>
+            <div class="callout">
+              <div class="badge bad">✕</div>
+              <div>
+                <strong>Cómo lo identificas</strong>
+                <div class="muted">Godot marca error en la línea donde esperaba un bloque indentado (justo debajo del <code>if</code>).</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Checklist de indentación (para que ellos revisen solos) <span class="tag">hábito</span></summary>
+          <div class="details-body">
+            <ul>
+              <li>¿Cada <code>if</code>/<code>for</code>/<code>while</code>/<code>func</code> termina con <strong>:</strong>?</li>
+              <li>¿La línea de abajo tiene sangría (tab/espacios)?</li>
+              <li>¿Todas las líneas del bloque tienen la <strong>misma</strong> sangría?</li>
+              <li>¿No mezclé tabs y espacios?</li>
+              <li>¿Al cerrar el bloque volví a la sangría anterior?</li>
+            </ul>
+          </div>
+        </details>
+
+        <details open>
+          <summary>Mini-reto (5 min): encuentra el error <span class="tag">debug</span></summary>
+          <div class="details-body">
+            El objetivo es que identifiquen <strong>dónde</strong> está el error solo mirando la sangría.
+            <div class="examples">
+              <div class="codebar"><div class="muted">Código con error intencional</div><button class="btn small copy" data-copy="code-indent-challenge">Copiar</button></div>
+              <pre><code id="code-indent-challenge">extends Node
+
+var monedas = 0
+
+func _ready() -&gt; void:
+	if monedas == 0:
+		print("No tienes monedas")
+		print("Busca algunas")
+		if monedas &lt; 0:
+		print("Esto nunca debería pasar")
+</code></pre>
+              <p class="muted">
+                Pista: una línea debería estar indentada dentro del segundo <code>if</code>.
+              </p>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <!-- 3 -->
+      <section id="s3">
+        <h3>3) Tipos de datos</h3>
+        <p class="lead">
+          Un "tipo de dato" es <strong>qué clase de cosa</strong> guarda una variable. No es lo mismo guardar un número que un texto.
+          Si mezclas tipos sin querer, aparecen errores.
+        </p>
+
+        <div class="grid">
+          <div class="card col-12">
+            <h4>Tipos más usados (principiantes)</h4>
+            <p>
+              <strong>int</strong> (enteros): 0, 1, 2, 3…<br>
+              <strong>float</strong> (decimales): 1.5, 120.0…<br>
+              <strong>String</strong> (texto): "Mario"<br>
+              <strong>bool</strong> (verdadero/falso): <code>true</code>, <code>false</code>
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplos básicos</div><button class="btn small copy" data-copy="code-types-1">Copiar</button></div>
+              <pre><code id="code-types-1">extends Node
+
+var vidas: int = 3
+var velocidad: float = 120.0
+var nombre: String = "Mario"
+var esta_vivo: bool = true
+
+func _ready() -&gt; void:
+	print(vidas, velocidad, nombre, esta_vivo)
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-12">
+            <h4>Tipos muy usados en Godot</h4>
+            <p>
+              <strong>Vector2</strong>: posiciones y direcciones 2D (x, y).<br>
+              <strong>Vector2i</strong>: igual pero enteros (útil en TileMaps).<br>
+              <strong>Color</strong>: colores, transparencia.<br>
+              <strong>Node</strong>/<strong>CharacterBody2D</strong>: objetos del juego.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplos Godot</div><button class="btn small copy" data-copy="code-types-2">Copiar</button></div>
+              <pre><code id="code-types-2">extends Node
+
+var posicion: Vector2 = Vector2(100, 200)
+var celda: Vector2i = Vector2i(3, 7)
+var color: Color = Color(1, 0, 0) # rojo
+
+func _ready() -&gt; void:
+	print(posicion, celda, color)
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>¿Por qué importa el tipo?</summary>
+          <div class="details-body">
+            Porque determina qué operaciones puedes hacer.
+            <ul>
+              <li>Puedes sumar números: <code>3 + 2</code></li>
+              <li>Puedes concatenar strings: <code>"Hola" + " Mundo"</code></li>
+              <li>Pero <code>"Hola" + 3</code> te obliga a convertir (y puede dar error si no lo haces).</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 4 -->
+      <section id="s4">
+        <h3>4) Operadores (matemáticos, comparación y lógica)</h3>
+        <p class="lead">
+          Los operadores son los <strong>"verbos"</strong> de la programación: le dicen al programa <strong>qué hacer</strong> con los datos.
+          Sin operadores no podrías sumar puntaje, comparar vidas, ni decidir si un enemigo debe atacar.
+          Se dividen en cuatro familias que verás en cualquier lenguaje.
+        </p>
+
+        <!-- 4.1 — Matemáticos -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>4.1 · Operadores matemáticos (aritméticos)</h4>
+            <p>Hacen cálculos numéricos. Son los que más vas a usar para puntaje, movimiento, daño, temporizadores, etc.</p>
+
+            <div class="table-wrap" style="margin-top:12px">
+              <table style="min-width:600px">
+                <thead>
+                  <tr>
+                    <th>Operador</th>
+                    <th>Nombre</th>
+                    <th>Ejemplo</th>
+                    <th>Resultado</th>
+                    <th>¿Para qué sirve en un juego?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>+</code></td>
+                    <td>Suma</td>
+                    <td><code>10 + 3</code></td>
+                    <td><code>13</code></td>
+                    <td class="muted">Sumar monedas, puntaje, experiencia</td>
+                  </tr>
+                  <tr>
+                    <td><code>-</code></td>
+                    <td>Resta</td>
+                    <td><code>10 - 3</code></td>
+                    <td><code>7</code></td>
+                    <td class="muted">Restar vidas, quitar daño, reducir energía</td>
+                  </tr>
+                  <tr>
+                    <td><code>*</code></td>
+                    <td>Multiplicación</td>
+                    <td><code>10 * 3</code></td>
+                    <td><code>30</code></td>
+                    <td class="muted">Escalar velocidad, multiplicar daño crítico</td>
+                  </tr>
+                  <tr>
+                    <td><code>/</code></td>
+                    <td>División</td>
+                    <td><code>10 / 3</code></td>
+                    <td><code>3</code> (int) ó <code>3.33</code> (float)</td>
+                    <td class="muted">Repartir botín, calcular promedios</td>
+                  </tr>
+                  <tr>
+                    <td><code>%</code></td>
+                    <td>Módulo (residuo)</td>
+                    <td><code>10 % 3</code></td>
+                    <td><code>1</code></td>
+                    <td class="muted">Saber si un número es par/impar, ciclos de turnos</td>
+                  </tr>
+                  <tr>
+                    <td><code>**</code></td>
+                    <td>Potencia</td>
+                    <td><code>2 ** 3</code></td>
+                    <td><code>8</code></td>
+                    <td class="muted">Escalado exponencial de dificultad</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplo completo: sistema de puntaje</div><button class="btn small copy" data-copy="code-op-1">Copiar</button></div>
+              <pre><code id="code-op-1">extends Node
+
+var monedas = 10
+var bonus = 3
+var velocidad: float = 10.0
+
+func _ready() -&gt; void:
+	print(monedas + bonus)   # 13  → sumar
+	print(monedas - bonus)   # 7   → restar
+	print(monedas * bonus)   # 30  → multiplicar
+	print(monedas / bonus)   # 3   → dividir (int / int = int)
+	print(monedas % bonus)   # 1   → residuo (útil para turnos)
+	print(bonus ** 2)        # 9   → potencia
+
+	# Con decimales el resultado cambia:
+	print(velocidad / 3.0)   # 3.333...
+</code></pre>
+            </div>
+
+            <div class="callout">
+              <div class="badge warn">!</div>
+              <div>
+                <strong>Cuidado con la división entera</strong>
+                <div class="muted">
+                  Si divides <code>int / int</code>, el resultado es <strong>entero</strong> (se trunca, no se redondea).
+                  Para obtener decimales, al menos uno de los dos debe ser <code>float</code>: <code>10.0 / 3</code> → <code>3.333...</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.2 — Asignación compuesta -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>4.2 · Operadores de asignación compuesta (atajos)</h4>
+            <p>
+              Son <strong>atajos</strong> para modificar una variable usando su propio valor. En vez de escribir
+              <code>vidas = vidas - 1</code>, escribes <code>vidas -= 1</code>. Hacen exactamente lo mismo, pero son más cortos y claros.
+            </p>
+
+            <div class="table-wrap" style="margin-top:12px">
+              <table style="min-width:500px">
+                <thead>
+                  <tr>
+                    <th>Atajo</th>
+                    <th>Equivale a</th>
+                    <th>Ejemplo</th>
+                    <th>Uso típico</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>+=</code></td>
+                    <td><code>x = x + valor</code></td>
+                    <td><code>monedas += 5</code></td>
+                    <td class="muted">Sumar puntaje, recolectar objetos</td>
+                  </tr>
+                  <tr>
+                    <td><code>-=</code></td>
+                    <td><code>x = x - valor</code></td>
+                    <td><code>vidas -= 1</code></td>
+                    <td class="muted">Recibir daño, gastar recursos</td>
+                  </tr>
+                  <tr>
+                    <td><code>*=</code></td>
+                    <td><code>x = x * valor</code></td>
+                    <td><code>velocidad *= 1.5</code></td>
+                    <td class="muted">Power-ups, multiplicadores</td>
+                  </tr>
+                  <tr>
+                    <td><code>/=</code></td>
+                    <td><code>x = x / valor</code></td>
+                    <td><code>velocidad /= 2.0</code></td>
+                    <td class="muted">Ralentizar, debuffs</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplo: power-up de velocidad</div><button class="btn small copy" data-copy="code-op-assign">Copiar</button></div>
+              <pre><code id="code-op-assign">extends Node
+
+var velocidad = 100.0
+var vidas = 3
+
+func _ready() -&gt; void:
+	print(velocidad)    # 100.0
+
+	velocidad *= 1.5    # Agarró un power-up → 150.0
+	print(velocidad)
+
+	velocidad /= 2.0    # Le cayó un debuff → 75.0
+	print(velocidad)
+
+	vidas -= 1          # Recibió daño → 2
+	print(vidas)
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.3 — Comparación -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>4.3 · Operadores de comparación</h4>
+            <p>
+              Comparan dos valores y devuelven <code>true</code> o <code>false</code>.
+              Son la base de todas las <strong>decisiones</strong> en tu juego: "¿tiene vidas?", "¿chocó?", "¿llegó al límite?".
+            </p>
+
+            <div class="table-wrap" style="margin-top:12px">
+              <table style="min-width:600px">
+                <thead>
+                  <tr>
+                    <th>Operador</th>
+                    <th>Significado</th>
+                    <th>Ejemplo</th>
+                    <th>Resultado</th>
+                    <th>¿Cuándo lo usas?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>==</code></td>
+                    <td>¿Es igual?</td>
+                    <td><code>3 == 3</code></td>
+                    <td><code>true</code></td>
+                    <td class="muted">Verificar si el jugador tiene exactamente X vidas</td>
+                  </tr>
+                  <tr>
+                    <td><code>!=</code></td>
+                    <td>¿Es diferente?</td>
+                    <td><code>3 != 5</code></td>
+                    <td><code>true</code></td>
+                    <td class="muted">Verificar si un estado cambió</td>
+                  </tr>
+                  <tr>
+                    <td><code>&gt;</code></td>
+                    <td>¿Es mayor?</td>
+                    <td><code>10 &gt; 5</code></td>
+                    <td><code>true</code></td>
+                    <td class="muted">¿Tiene suficiente puntaje para pasar de nivel?</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;</code></td>
+                    <td>¿Es menor?</td>
+                    <td><code>2 &lt; 5</code></td>
+                    <td><code>true</code></td>
+                    <td class="muted">¿La vida está baja? ¿Queda poco tiempo?</td>
+                  </tr>
+                  <tr>
+                    <td><code>&gt;=</code></td>
+                    <td>¿Es mayor o igual?</td>
+                    <td><code>5 &gt;= 5</code></td>
+                    <td><code>true</code></td>
+                    <td class="muted">¿Tiene mínimo X monedas para comprar?</td>
+                  </tr>
+                  <tr>
+                    <td><code>&lt;=</code></td>
+                    <td>¿Es menor o igual?</td>
+                    <td><code>0 &lt;= 0</code></td>
+                    <td><code>true</code></td>
+                    <td class="muted">¿Se quedó sin vidas? (vidas &lt;= 0)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplo: sistema de compra en tienda</div><button class="btn small copy" data-copy="code-op-2">Copiar</button></div>
+              <pre><code id="code-op-2">extends Node
+
+var monedas = 50
+const PRECIO_ESPADA = 30
+const PRECIO_ARMADURA = 80
+
+func _ready() -&gt; void:
+	# ¿Puede comprar la espada?
+	print(monedas &gt;= PRECIO_ESPADA)     # true  → sí puede
+
+	# ¿Puede comprar la armadura?
+	print(monedas &gt;= PRECIO_ARMADURA)   # false → no le alcanza
+
+	# ¿Ya se quedó sin dinero?
+	print(monedas &lt;= 0)                 # false → aún tiene
+
+	# ¿El precio es exactamente 50?
+	print(monedas == 50)                 # true
+	print(monedas != 50)                 # false
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.4 — Lógicos -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>4.4 · Operadores lógicos</h4>
+            <p>
+              Combinan varias condiciones en una sola. Piensa en ellos como <strong>conectores</strong>:
+              "si tiene llave <strong>Y</strong> la puerta está cerrada", "si está vivo <strong>O</strong> tiene revive", "si <strong>NO</strong> está bloqueado".
+            </p>
+
+            <div class="table-wrap" style="margin-top:12px">
+              <table style="min-width:650px">
+                <thead>
+                  <tr>
+                    <th>Operador</th>
+                    <th>Significado</th>
+                    <th>Se cumple cuando…</th>
+                    <th>Ejemplo en juego</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>and</code></td>
+                    <td><strong>Y</strong> (las dos deben ser verdaderas)</td>
+                    <td class="muted">Ambas condiciones son <code>true</code></td>
+                    <td class="muted">Tiene llave <strong>y</strong> la puerta está cerca</td>
+                  </tr>
+                  <tr>
+                    <td><code>or</code></td>
+                    <td><strong>O</strong> (basta con que una sea verdadera)</td>
+                    <td class="muted">Al menos una condición es <code>true</code></td>
+                    <td class="muted">Está vivo <strong>o</strong> tiene un revive</td>
+                  </tr>
+                  <tr>
+                    <td><code>not</code></td>
+                    <td><strong>NO</strong> (invierte el valor)</td>
+                    <td class="muted">Convierte <code>true</code> en <code>false</code> y viceversa</td>
+                    <td class="muted"><strong>No</strong> está bloqueado → puede moverse</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="grid examples">
+              <div class="card col-6">
+                <h4>Ejemplo con <code>and</code></h4>
+                <div class="codebar"><div class="muted">Abrir puerta</div><button class="btn small copy" data-copy="code-op-and">Copiar</button></div>
+                <pre><code id="code-op-and">extends Node
+
+var tiene_llave = true
+var puerta_cerrada = true
+
+func _ready() -&gt; void:
+	# Las DOS deben ser true
+	if tiene_llave and puerta_cerrada:
+		print("Abriendo puerta...")
+	else:
+		print("No puedes abrir")
+</code></pre>
+              </div>
+              <div class="card col-6">
+                <h4>Ejemplo con <code>or</code></h4>
+                <div class="codebar"><div class="muted">Revivir</div><button class="btn small copy" data-copy="code-op-or">Copiar</button></div>
+                <pre><code id="code-op-or">extends Node
+
+var vidas = 0
+var tiene_revive = true
+
+func _ready() -&gt; void:
+	# Basta con que UNA sea true
+	if vidas &gt; 0 or tiene_revive:
+		print("Sigue en el juego")
+	else:
+		print("Game Over definitivo")
+</code></pre>
+              </div>
+            </div>
+
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplo con <code>not</code> y combinaciones</div><button class="btn small copy" data-copy="code-op-3">Copiar</button></div>
+              <pre><code id="code-op-3">extends Node
+
+var esta_congelado = false
+var energia = 50
+var vidas = 2
+
+func _ready() -&gt; void:
+	# not invierte: si NO está congelado → puede moverse
+	if not esta_congelado:
+		print("Puede moverse")
+
+	# Combinar todo: puede atacar si tiene energía Y vidas Y no está congelado
+	if energia &gt; 0 and vidas &gt; 0 and not esta_congelado:
+		print("¡Puede atacar!")
+</code></pre>
+            </div>
+
+            <div class="callout">
+              <div class="badge good">✓</div>
+              <div>
+                <strong>Tabla de verdad rápida</strong>
+                <div class="muted">
+                  <code>true and true</code> → <code>true</code> ·
+                  <code>true and false</code> → <code>false</code> ·
+                  <code>false and false</code> → <code>false</code><br>
+                  <code>true or true</code> → <code>true</code> ·
+                  <code>true or false</code> → <code>true</code> ·
+                  <code>false or false</code> → <code>false</code><br>
+                  <code>not true</code> → <code>false</code> ·
+                  <code>not false</code> → <code>true</code>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4.5 — Prioridad -->
+        <div class="callout">
+          <div class="badge warn">!</div>
+          <div>
+            <strong>Prioridad de operadores (orden en que se evalúan)</strong>
+            <div class="muted">
+              Igual que en matemáticas, algunos operadores se evalúan antes que otros:<br>
+              <strong>1°</strong> <code>**</code> (potencia) →
+              <strong>2°</strong> <code>*</code> <code>/</code> <code>%</code> →
+              <strong>3°</strong> <code>+</code> <code>-</code> →
+              <strong>4°</strong> <code>==</code> <code>!=</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code> →
+              <strong>5°</strong> <code>not</code> →
+              <strong>6°</strong> <code>and</code> →
+              <strong>7°</strong> <code>or</code><br><br>
+              💡 Si tienes dudas, usa <strong>paréntesis</strong> para dejar claro el orden: <code>if (vidas &gt; 0) and (energia &gt;= 10):</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error = vs == -->
+        <details open>
+          <summary>Error MUY común: <code>=</code> vs <code>==</code> <span class="tag">típico</span></summary>
+          <div class="details-body">
+            <p>
+              Este es el error más frecuente en principiantes. Se confunden porque se parecen, pero hacen cosas <strong>completamente distintas</strong>:
+            </p>
+            <p>
+              <strong><code>=</code></strong> → <strong>Asignar</strong>: guarda un valor en una variable. "Pon esto aquí".<br>
+              <strong><code>==</code></strong> → <strong>Comparar</strong>: pregunta si dos cosas son iguales. "¿Son iguales?"
+            </p>
+            <div class="grid examples">
+              <div class="card col-6">
+                <h4>✅ Asignar (guardar)</h4>
+                <pre><code>var vidas = 3     # Guardar 3 en vidas
+vidas = 2         # Cambiar a 2
+vidas -= 1        # Ahora vale 1
+</code></pre>
+              </div>
+              <div class="card col-6">
+                <h4>✅ Comparar (preguntar)</h4>
+                <pre><code>if vidas == 0:       # ¿Vidas es igual a 0?
+	print("Game Over")
+
+if nombre != "":     # ¿El nombre NO está vacío?
+	print(nombre)
+</code></pre>
+              </div>
+            </div>
+            <div class="callout">
+              <div class="badge bad">✕</div>
+              <div>
+                <strong>Si escribes <code>if vidas = 0:</code> (un solo =), Godot te dirá:</strong>
+                <div class="muted"><code>Invalid assignment in expression</code> — porque dentro de un <code>if</code> necesitas comparar, no asignar.</div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <!-- Ejercicio -->
+        <details open>
+          <summary>Ejercicio de clase (10 min): calculadora de daño <span class="tag">reto</span></summary>
+          <div class="details-body">
+            Crea un script con estas variables y calcula:
+            <ol>
+              <li>Variables: <code>ataque = 25</code>, <code>defensa = 10</code>, <code>es_critico = true</code></li>
+              <li>Calcula <code>dano = ataque - defensa</code></li>
+              <li>Si <code>es_critico</code> es <code>true</code>, multiplica el daño por 2 con <code>*=</code></li>
+              <li>Imprime si el daño es mayor a 20 usando comparación</li>
+              <li>Imprime si puede atacar: <code>dano &gt; 0 and not esta_congelado</code></li>
+            </ol>
+          </div>
+        </details>
+      </section>
+
+      <!-- 5 -->
+      <section id="s5">
+        <h3>5) Condicionales (if / elif / else)</h3>
+        <p class="lead">
+          Los condicionales permiten tomar decisiones. El programa evalúa una condición y ejecuta un bloque u otro.
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Estructura básica</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Plantilla</div><button class="btn small copy" data-copy="code-if-1">Copiar</button></div>
+              <pre><code id="code-if-1">func _ready() -&gt; void:
+	# Reemplaza "condicion" por algo real (ej: vidas &gt; 0)
+	if condicion:
+		# código si es verdadero
+	elif otra_condicion:
+		# otra opción
+	else:
+		# si nada se cumplió
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Ejemplo en contexto de juego</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Vidas</div><button class="btn small copy" data-copy="code-if-2">Copiar</button></div>
+              <pre><code id="code-if-2">extends Node
+
+var vidas = 1
+
+func _ready() -&gt; void:
+	if vidas &gt; 1:
+		print("Estás bien")
+	elif vidas == 1:
+		print("¡Cuidado! Última vida")
+	else:
+		print("Game Over")
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Ejercicio de clase (10 min): Semáforo de energía <span class="tag">reto</span></summary>
+          <div class="details-body">
+            Crea una variable <code>energia</code> (0 a 100) e imprime:
+            <ul>
+              <li>"Alta" si &gt;= 70</li>
+              <li>"Media" si &gt;= 30 y &lt; 70</li>
+              <li>"Baja" si &lt; 30</li>
+            </ul>
+            Pista: usa <code>and</code> en la condición de "Media".
+          </div>
+        </details>
+      </section>
+
+      <!-- 6 -->
+      <section id="s6">
+        <h3>6) Ciclos (for / while)</h3>
+        <p class="lead">
+          Un ciclo repite un bloque de código. En juegos es común repetir: contar, iterar enemigos, revisar listas, temporizadores.
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>for (cuando sabes cuántas veces)</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Contar 0 a 4</div><button class="btn small copy" data-copy="code-for-1">Copiar</button></div>
+              <pre><code id="code-for-1">extends Node
+
+func _ready() -&gt; void:
+	for i in range(5):
+		print(i)
+</code></pre>
+            </div>
+            <p class="muted">Nota: <code>range(5)</code> genera 0,1,2,3,4.</p>
+          </div>
+          <div class="card col-6">
+            <h4>while (cuando depende de una condición)</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Repetir hasta cumplir condición</div><button class="btn small copy" data-copy="code-while-1">Copiar</button></div>
+              <pre><code id="code-while-1">extends Node
+
+func _ready() -&gt; void:
+	var contador = 0
+
+	while contador &lt; 3:
+		print("Intento: ", contador)
+		contador += 1
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Error común: ciclo infinito <span class="tag">peligro</span></summary>
+          <div class="details-body">
+            Un <code>while</code> puede volverse infinito si la condición nunca cambia.
+            <div class="grid examples">
+              <div class="card col-6">
+                <h4>❌ Infinito</h4>
+                <pre><code>var x = 0
+while x &lt; 5:
+	print(x)
+	# falta x += 1
+</code></pre>
+              </div>
+              <div class="card col-6">
+                <h4>✅ Correcto</h4>
+                <pre><code>var x = 0
+while x &lt; 5:
+	print(x)
+	x += 1
+</code></pre>
+              </div>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <!-- 7 -->
+      <section id="s7">
+        <h3>7) Funciones</h3>
+        <p class="lead">
+          Una función es un bloque de código con un nombre, diseñado para hacer una tarea.
+          Te ayuda a no repetir código y a organizar tu lógica.
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Crear una función</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Definición</div><button class="btn small copy" data-copy="code-func-1">Copiar</button></div>
+              <pre><code id="code-func-1">func saludar() -&gt; void:
+	print("Hola")
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Llamar una función</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Uso</div><button class="btn small copy" data-copy="code-func-2">Copiar</button></div>
+              <pre><code id="code-func-2">extends Node
+
+func saludar() -&gt; void:
+	print("Hola")
+
+func _ready() -&gt; void:
+	saludar()
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Parámetros (información que entra)</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Recibir datos</div><button class="btn small copy" data-copy="code-func-3">Copiar</button></div>
+              <pre><code id="code-func-3">extends Node
+
+func saludar(nombre: String) -&gt; void:
+	print("Hola ", nombre)
+
+func _ready() -&gt; void:
+	var nombre = "Luisa"
+	saludar(nombre)
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Retorno (información que sale)</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Devolver un valor</div><button class="btn small copy" data-copy="code-func-4">Copiar</button></div>
+              <pre><code id="code-func-4">extends Node
+
+func sumar(a: int, b: int) -&gt; int:
+	return a + b
+
+func _ready() -&gt; void:
+	var total = sumar(3, 5)
+	print(total) # 8
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Ejercicio: daño al jugador <span class="tag">reto</span></summary>
+          <div class="details-body">
+            Crea una función <code>recibir_dano</code> que reciba un <code>int</code> llamado <code>cantidad</code>, y reste esa cantidad a la variable <code>vidas</code>.
+            Luego imprime las vidas restantes.
+          </div>
+        </details>
+      </section>
+
+      <!-- 8 -->
+      <section id="s8">
+        <h3>8) Arrays (listas)</h3>
+        <p class="lead">
+          Un array es una lista ordenada. Cada elemento tiene una posición llamada <strong>índice</strong> (empieza en 0).
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Crear y acceder</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Array de enemigos</div><button class="btn small copy" data-copy="code-arr-1">Copiar</button></div>
+              <pre><code id="code-arr-1">extends Node
+
+var enemigos = ["Goomba", "Koopa", "Bowser"]
+
+func _ready() -&gt; void:
+	print(enemigos[0]) # Goomba
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Recorrer un array</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">for por elementos</div><button class="btn small copy" data-copy="code-arr-2">Copiar</button></div>
+              <pre><code id="code-arr-2">extends Node
+
+var enemigos = ["Goomba", "Koopa", "Bowser"]
+
+func _ready() -&gt; void:
+	for e in enemigos:
+		print(e)
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Operaciones comunes</summary>
+          <div class="details-body">
+            <ul>
+              <li><code>append(x)</code>: agrega al final</li>
+              <li><code>pop_back()</code>: elimina el último</li>
+              <li><code>size()</code>: cuántos elementos hay</li>
+              <li><code>has(x)</code>: si existe un elemento</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 9 -->
+      <section id="s9">
+        <h3>9) Diccionarios (clave → valor)</h3>
+        <p class="lead">
+          Un diccionario guarda pares: una <strong>clave</strong> y un <strong>valor</strong>. Es ideal para guardar "propiedades" de algo.
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Crear y leer</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Jugador</div><button class="btn small copy" data-copy="code-dict-1">Copiar</button></div>
+              <pre><code id="code-dict-1">extends Node
+
+var jugador = {
+	"nombre": "Mario",
+	"vidas": 3,
+	"velocidad": 120.0
+}
+
+func _ready() -&gt; void:
+	print(jugador["nombre"]) # Mario
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Modificar</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Actualizar un valor</div><button class="btn small copy" data-copy="code-dict-2">Copiar</button></div>
+              <pre><code id="code-dict-2">extends Node
+
+var jugador = {"vidas": 3}
+
+func _ready() -&gt; void:
+	jugador["vidas"] -= 1
+	print(jugador["vidas"]) # 2
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Errores comunes con diccionarios <span class="tag">típico</span></summary>
+          <div class="details-body">
+            <ul>
+              <li>Usar una clave que no existe: <code>jugador["mana"]</code> puede fallar si nunca se definió.</li>
+              <li>Confundir clave con variable: la clave es un texto (o cualquier objeto), no el nombre de una variable.</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 10 -->
+      <section id="s10">
+        <h3>10) Clases en Godot (cada script es una clase)</h3>
+        <p class="lead">
+          En Godot, un script define el comportamiento de un nodo. Técnicamente, cada script es una <strong>clase</strong>.
+          "Clase" = plantilla. "Objeto" = instancia real en el juego (un enemigo específico, un jugador, etc.).
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4><code>extends</code> — de dónde hereda el script</h4>
+            <p>
+              <code>extends CharacterBody2D</code> significa: "este script es un tipo de CharacterBody2D".
+              Así ganas movimiento, colisiones y métodos útiles.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplo simple</div><button class="btn small copy" data-copy="code-class-1">Copiar</button></div>
+              <pre><code id="code-class-1">extends CharacterBody2D
+
+var velocidad = 120.0
+
+func _physics_process(delta):
+	velocity.x = velocidad
+	move_and_slide()
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Variables y funciones como "atributos" y "métodos"</h4>
+            <p>
+              Una clase guarda datos (variables) y acciones (funciones). Eso describe al objeto.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Daño</div><button class="btn small copy" data-copy="code-class-2">Copiar</button></div>
+              <pre><code id="code-class-2">extends Node
+
+var vidas = 3
+
+func recibir_dano(cantidad: int) -&gt; void:
+	vidas -= cantidad
+	if vidas &lt;= 0:
+		print("Muerto")
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Conceptos Godot que conviene nombrar desde ya</summary>
+          <div class="details-body">
+            <ul>
+              <li><strong>Nodo</strong>: pieza del juego (sprite, colisión, audio, etc.)</li>
+              <li><strong>Escena</strong>: árbol de nodos guardado como archivo</li>
+              <li><strong>Señales</strong>: eventos (ej: botón presionado)</li>
+              <li><strong>_ready / _process / _physics_process</strong>: ciclo de vida</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <!-- 11 -->
+      <section id="s11">
+        <h3>11) Errores de sintaxis típicos (y cómo leerlos)</h3>
+        <p class="lead">
+          Un programador real no evita errores: aprende a <strong>leerlos</strong>. La meta es que puedas:
+          <strong>(1)</strong> interpretar el mensaje, <strong>(2)</strong> ubicar la línea, <strong>(3)</strong> corregir.
+        </p>
+
+        <div class="callout">
+          <div class="badge good">✓</div>
+          <div>
+            <strong>Regla práctica</strong>
+            <div class="muted">El error suele estar en la línea marcada… o una línea antes (por ejemplo, un <code>:</code> faltante).</div>
+          </div>
+        </div>
+
+        <!-- Error 1 -->
+        <div class="error-card error-bad">
+          <div class="error-header">
+            <span class="sev bad">🔴 Bloquea</span>
+            <strong>Instrucción ejecutable en el cuerpo del script</strong>
+          </div>
+          <p class="muted">Godot dice: <code>Unexpected identifier "print" in class body</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>extends Node
+
+var vidas = 3
+
+print(vidas)  # ❌ NO se permite aquí</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>extends Node
+
+var vidas = 3
+
+func _ready() -&gt; void:
+	print(vidas)  # ✅ dentro de función</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> Hay una línea que "hace algo" (<code>print</code>, <code>if</code>, <code>for</code>) al mismo nivel que <code>var</code> y <code>func</code>.
+            <br><strong>Solución:</strong> Mueve esa instrucción dentro de una función como <code>_ready()</code>. Fuera solo van declaraciones: <code>var</code>, <code>const</code>, <code>func</code>, <code>@export</code>, <code>@onready</code>.
+          </div>
+        </div>
+
+        <!-- Error 2 -->
+        <div class="error-card error-bad">
+          <div class="error-header">
+            <span class="sev bad">🔴 Bloquea</span>
+            <strong>Falta indentación</strong>
+          </div>
+          <p class="muted">Godot dice: <code>Expected indented block</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>if x &gt; 0:
+print(x)     # ❌ falta sangría</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>if x &gt; 0:
+	print(x)  # ✅ con tab/espacios</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> La línea debajo del <code>if</code>/<code>for</code>/<code>func</code> no tiene sangría.
+            <br><strong>Solución:</strong> Indenta con tab o espacios de forma consistente.
+          </div>
+        </div>
+
+        <!-- Error 3 -->
+        <div class="error-card error-bad">
+          <div class="error-header">
+            <span class="sev bad">🔴 Bloquea</span>
+            <strong>Falta ":"</strong>
+          </div>
+          <p class="muted">Godot dice: <code>Expected ':'</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>if x &gt; 0     # ❌ falta :</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>if x &gt; 0:    # ✅ con :
+	print(x)</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> Revisa el final de la línea del <code>if</code>, <code>for</code>, <code>while</code> o <code>func</code>.
+            <br><strong>Solución:</strong> Agrega <code>:</code> al final de la línea.
+          </div>
+        </div>
+
+        <!-- Error 4 -->
+        <div class="error-card error-bad">
+          <div class="error-header">
+            <span class="sev bad">🔴 Bloquea</span>
+            <strong>Paréntesis sin cerrar</strong>
+          </div>
+          <p class="muted">Godot dice: <code>Expected ')'</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>print("Hola"   # ❌ falta )</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>print("Hola")  # ✅ cerrado</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> Se marca el final de la línea.
+            <br><strong>Solución:</strong> Cuenta los paréntesis abiertos y ciérralos todos.
+          </div>
+        </div>
+
+        <!-- Error 5 -->
+        <div class="error-card error-bad">
+          <div class="error-header">
+            <span class="sev bad">🔴 Bloquea</span>
+            <strong>Comillas sin cerrar</strong>
+          </div>
+          <p class="muted">Godot dice: <code>Unterminated string</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>var s = "Hola  # ❌ falta "</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>var s = "Hola" # ✅ cerrado</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> El texto queda resaltado de un color raro o todo rojo desde esa línea en adelante.
+            <br><strong>Solución:</strong> Cierra las comillas. Asegúrate de que cada <code>"</code> tenga su par.
+          </div>
+        </div>
+
+        <!-- Error 6 -->
+        <div class="error-card error-warn">
+          <div class="error-header">
+            <span class="sev warn">🟠 Confunde</span>
+            <strong>Variable no declarada</strong>
+          </div>
+          <p class="muted">Godot dice: <code>Identifier not found</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>print(nombre)  # ❌ nunca se declaró</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>var nombre = "Mario"
+print(nombre)  # ✅ declarada antes</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> Aparece subrayado rojo en el nombre de la variable.
+            <br><strong>Solución:</strong> Declara la variable con <code>var</code> antes de usarla, o revisa si la escribiste mal.
+          </div>
+        </div>
+
+        <!-- Error 7 -->
+        <div class="error-card error-warn">
+          <div class="error-header">
+            <span class="sev warn">🟠 Confunde</span>
+            <strong>Usar <code>=</code> en vez de <code>==</code></strong>
+          </div>
+          <p class="muted">Godot dice: <code>Invalid assignment in expression</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>if x = 3:      # ❌ esto asigna</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>if x == 3:     # ✅ esto compara
+	print("x vale 3")</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> Dentro de un <code>if</code> o <code>while</code> no se puede asignar.
+            <br><strong>Solución:</strong> Usa <code>==</code> (doble igual) para comparar.
+          </div>
+        </div>
+
+        <!-- Error 8 -->
+        <div class="error-card error-warn">
+          <div class="error-header">
+            <span class="sev warn">🟠 Confunde</span>
+            <strong>Mezclar tabs y espacios</strong>
+          </div>
+          <p class="muted">Godot dice: <code>Inconsistent use of tabs and spaces</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>if x &gt; 0:
+	print("OK")    # con tab
+    print("Sigue") # con espacios ❌</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>if x &gt; 0:
+	print("OK")    # todo con tab ✅
+	print("Sigue") # todo con tab ✅</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> Parece indentado correctamente pero Godot marca error.
+            <br><strong>Solución:</strong> Usa solo tabs o solo espacios en todo el archivo. En Godot, tabs es lo estándar.
+          </div>
+        </div>
+
+        <!-- Error 9 -->
+        <div class="error-card error-good">
+          <div class="error-header">
+            <span class="sev good">🟢 Lógico</span>
+            <strong>Olvidar paréntesis al llamar función</strong>
+          </div>
+          <p class="muted">Godot: no siempre da error, pero la función no se ejecuta.</p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code>saludar   # ❌ no se ejecuta</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>saludar() # ✅ se ejecuta</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> No pasa nada al ejecutar, no hay error visible.
+            <br><strong>Solución:</strong> Siempre pon <code>()</code> al llamar una función, aunque no tenga parámetros.
+          </div>
+        </div>
+
+        <!-- Error 10 -->
+        <div class="error-card error-good">
+          <div class="error-header">
+            <span class="sev good">🟢 Lógico</span>
+            <strong>Índice fuera de rango</strong>
+          </div>
+          <p class="muted">Godot dice: <code>Index out of bounds</code></p>
+          <div class="grid">
+            <div class="card col-6">
+              <h4>❌ Con error</h4>
+              <pre><code># Array tiene 3 elementos (0, 1, 2)
+enemigos[10]  # ❌ no existe</code></pre>
+            </div>
+            <div class="card col-6">
+              <h4>✅ Corregido</h4>
+              <pre><code>if 10 &lt; enemigos.size():
+	print(enemigos[10]) # ✅ validado</code></pre>
+            </div>
+          </div>
+          <div class="error-tip">
+            <strong>¿Cómo lo identificas?</strong> El error aparece al ejecutar, no al escribir.
+            <br><strong>Solución:</strong> Valida con <code>.size()</code> antes de acceder, o usa índices que sepas que existen.
+          </div>
+        </div>
+
+        <!-- Método de 4 pasos -->
+        <div class="callout" style="margin-top:20px">
+          <div class="badge warn">!</div>
+          <div>
+            <strong>Método de 4 pasos para leer errores en clase</strong>
+            <div class="muted">
+              <strong>1.</strong> Lee el mensaje (¿esperaba ":"?, ¿bloque indentado?, ¿identificador?).<br>
+              <strong>2.</strong> Ve a la línea marcada (pero revisa también la línea anterior).<br>
+              <strong>3.</strong> Busca patrones: falta ":", comillas, paréntesis, indentación.<br>
+              <strong>4.</strong> Corrige y vuelve a ejecutar (uno a la vez).
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12 -->
+      <section id="s12">
+        <h3>12) Buenas prácticas (hábitos que evitan bugs)</h3>
+        <p class="lead">
+          Las buenas prácticas ayudan a que el código sea fácil de leer, fácil de corregir y fácil de crecer.
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Estilo y claridad</h4>
+            <p>
+              ✅ Nombres descriptivos: <code>velocidad_salto</code><br>
+              ✅ Comentarios cortos solo donde hace falta<br>
+              ✅ Separar lógica en funciones<br>
+              ✅ Evitar números mágicos: usar constantes
+            </p>
+          </div>
+          <div class="card col-6">
+            <h4>Prácticas específicas de Godot</h4>
+            <p>
+              ✅ Usar <code>@onready</code> para nodos que ya existen en la escena<br>
+              ✅ Preferir <code>_physics_process</code> para movimiento con física<br>
+              ✅ Mantener escenas pequeñas y reutilizables<br>
+              ✅ Usar señales para eventos (botones, colisiones)
+            </p>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Ejemplo: constantes y nombres claros</summary>
+          <div class="details-body examples">
+            <div class="codebar"><div class="muted">Código mejorado</div><button class="btn small copy" data-copy="code-best-1">Copiar</button></div>
+            <pre><code id="code-best-1">extends CharacterBody2D
+
+const VELOCIDAD_CAMINAR := 120.0
+const VELOCIDAD_CORRER := 180.0
+
+var velocidad_actual := VELOCIDAD_CAMINAR
+
+func correr(activar: bool) -&gt; void:
+	velocidad_actual = VELOCIDAD_CORRER if activar else VELOCIDAD_CAMINAR
+</code></pre>
+          </div>
+        </details>
+      </section>
+
+      <!-- 13 -->
+      <section id="s13">
+        <h3>13) Mini-talleres (para consolidar de verdad)</h3>
+        <p class="lead">
+          Estos talleres están diseñados para que el estudiante practique lo aprendido. Cada uno tiene un objetivo concreto.
+          Idealmente: primero lo hacen en papel/pizarra, luego en Godot.
+        </p>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Taller 1: Contador de monedas</h4>
+            <p>
+              Objetivo: variables + operadores + print.
+              <br>Requisitos:
+              <ul>
+                <li>Variable <code>monedas</code> inicia en 0</li>
+                <li>Sumar 1 moneda tres veces</li>
+                <li>Imprimir el resultado final</li>
+              </ul>
+            </p>
+          </div>
+          <div class="card col-6">
+            <h4>Taller 2: Semáforo de vidas</h4>
+            <p>
+              Objetivo: condicionales + indentación.
+              <br>Reglas:
+              <ul>
+                <li>Si vidas &gt;= 3: "Seguro"</li>
+                <li>Si vidas == 2: "Precaución"</li>
+                <li>Si vidas == 1: "Peligro"</li>
+                <li>Si vidas &lt;= 0: "Game Over"</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Taller 3: Lista de enemigos</h4>
+            <p>
+              Objetivo: arrays + for.
+              <ul>
+                <li>Crear array con 4 enemigos</li>
+                <li>Recorrerlos con <code>for</code> e imprimir</li>
+                <li>Imprimir el tamaño del array</li>
+              </ul>
+            </p>
+          </div>
+          <div class="card col-6">
+            <h4>Taller 4: Perfil del jugador</h4>
+            <p>
+              Objetivo: diccionarios.
+              <ul>
+                <li>Diccionario con nombre, vidas, velocidad</li>
+                <li>Restar vida y actualizar</li>
+                <li>Imprimir todo al final</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+
+        <details open>
+          <summary>Bonus: evaluación rápida (rúbrica simple) <span class="tag">docente</span></summary>
+          <div class="details-body">
+            Puedes evaluar cada taller con 0–5:
+            <ul>
+              <li><strong>5</strong>: funciona, está indentado, nombres claros, sin errores.</li>
+              <li><strong>4</strong>: funciona pero nombres/orden mejorables.</li>
+              <li><strong>3</strong>: casi funciona; errores pequeños (indentación, : , etc.).</li>
+              <li><strong>2</strong>: muchas fallas; no entiende bloques.</li>
+              <li><strong>1</strong>: no logra ejecutar; requiere acompañamiento total.</li>
+              <li><strong>0</strong>: no entregó.</li>
+            </ul>
+          </div>
+        </details>
+      </section>
+
+      <footer>
+        <div class="footer-inner">
+          <p class="footer-brand">Guía Completa · Programación desde Cero con GDScript</p>
+          <p class="footer-copy">© 2026 Luis Miguel González Giraldo. Todos los derechos reservados.</p>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
