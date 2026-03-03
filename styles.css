@@ -97,21 +97,8 @@ a{color:inherit}
 .logo{
   width:42px;height:42px;
   border-radius:12px;
-  background:
-    radial-gradient(12px 12px at 30% 30%, rgba(255,255,255,.75), rgba(255,255,255,.12) 70%),
-    linear-gradient(135deg, rgba(124,92,255,.9), rgba(34,211,238,.85));
-  border:1px solid rgba(255,255,255,.22);
-  position:relative;
-  overflow:hidden;
+  object-fit:contain;
   flex:0 0 auto;
-}
-.logo::after{
-  content:"";
-  position:absolute;
-  inset:-35% -35% auto auto;
-  width:60px;height:60px;
-  transform: rotate(25deg);
-  background: rgba(255,255,255,.18);
 }
 .brand h1{font-size:13px; line-height:1.2; margin:0; font-weight:700; letter-spacing:-.01em}
 .brand p{margin:3px 0 0; font-size:11px; color:var(--muted)}
