@@ -133,12 +133,12 @@ a{color:inherit}
 
 .search{
   display:flex;
-  gap:8px;
+  position:relative;
   align-items:center;
 }
 .search input{
   width:100%;
-  padding:10px 14px;
+  padding:10px 36px 10px 14px;
   border-radius: 12px;
   border:1px solid rgba(255,255,255,.15);
   background: rgba(0,0,0,.35);
@@ -152,6 +152,25 @@ a{color:inherit}
   border-color: rgba(124,92,255,.5);
   box-shadow: 0 0 0 3px rgba(124,92,255,.12);
 }
+.search-clear{
+  position:absolute;
+  right:6px;
+  top:50%;
+  transform:translateY(-50%);
+  width:26px;height:26px;
+  border:none;
+  background:rgba(255,255,255,.08);
+  color:rgba(255,255,255,.5);
+  border-radius:8px;
+  cursor:pointer;
+  font-size:12px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition: background .15s, color .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.search-clear:hover{background:rgba(255,255,255,.14); color:var(--text)}
 
 .btn{
   cursor:pointer;
