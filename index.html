@@ -1059,6 +1059,223 @@ while x &lt; 5:
             </div>
           </div>
         </details>
+
+        <!-- Ejercicios for -->
+        <h4 style="margin-top:28px; padding-left:14px; border-left:3px solid var(--accent);">Ejercicios con <code>for</code></h4>
+
+        <details>
+          <summary>Ejercicio (3 min): Cuenta regresiva para lanzamiento <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un cohete está a punto de despegar. Imprime una cuenta regresiva en consola.</p>
+            <ol>
+              <li>Usa un <code>for</code> con <code>range(5, 0, -1)</code> para contar de 5 a 1</li>
+              <li>Dentro del ciclo, imprime el número actual</li>
+              <li>Después del ciclo, imprime <code>"¡Despegue!"</code></li>
+            </ol>
+            <p>Pista: <code>range(5, 0, -1)</code> genera 5, 4, 3, 2, 1 (el tercer valor es el paso).</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (5 min): Inventario de pociones <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>El jugador tiene varias pociones. Recorre su inventario e imprime cada una.</p>
+            <ol>
+              <li>Crea un array: <code>var pociones = ["Vida", "Maná", "Velocidad", "Fuerza", "Invisibilidad"]</code></li>
+              <li>Usa un <code>for pocion in pociones:</code> para recorrer el array</li>
+              <li>Dentro del ciclo, imprime <code>"Poción: " + pocion</code></li>
+              <li>Después del ciclo, imprime <code>"Total de pociones: " + str(pociones.size())</code></li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (8 min): Generar oleada de enemigos <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un juego genera enemigos por oleadas. Cada oleada tiene más enemigos que la anterior.</p>
+            <ol>
+              <li>Usa un <code>for oleada in range(1, 4)</code> para 3 oleadas (1, 2, 3)</li>
+              <li>Dentro del ciclo, calcula <code>var enemigos = oleada * 3</code></li>
+              <li>Imprime <code>"Oleada " + str(oleada) + ": " + str(enemigos) + " enemigos"</code></li>
+              <li>Después del ciclo, imprime <code>"¡Todas las oleadas completadas!"</code></li>
+            </ol>
+            <p>Resultado esperado:</p>
+            <pre><code>Oleada 1: 3 enemigos
+Oleada 2: 6 enemigos
+Oleada 3: 9 enemigos
+¡Todas las oleadas completadas!</code></pre>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (10 min): Tabla de daño por nivel <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un arma hace más daño a medida que el jugador sube de nivel. Genera una tabla que muestre el daño en cada nivel.</p>
+            <ol>
+              <li>Crea estas variables:
+                <ul>
+                  <li><code>var dano_base = 10</code></li>
+                  <li><code>var bonus_por_nivel = 5</code></li>
+                </ul>
+              </li>
+              <li>Usa un <code>for nivel in range(1, 11)</code> para recorrer del nivel 1 al 10</li>
+              <li>Dentro del ciclo, calcula <code>var dano_total = dano_base + (bonus_por_nivel * nivel)</code></li>
+              <li>Si <code>dano_total &gt;= 50</code>, imprime <code>"Nivel " + str(nivel) + ": " + str(dano_total) + " daño (¡PODEROSO!)"</code></li>
+              <li>Si no, imprime <code>"Nivel " + str(nivel) + ": " + str(dano_total) + " daño"</code></li>
+            </ol>
+            <p>Pista: combina el <code>for</code> con un <code>if/else</code> dentro del ciclo.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (15 min): Tienda con lista de precios <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>El jugador visita una tienda. Recorre los objetos disponibles y muestra cuáles puede comprar.</p>
+            <ol>
+              <li>Crea estas variables:
+                <ul>
+                  <li><code>var oro = 50</code></li>
+                  <li><code>var objetos = ["Espada", "Escudo", "Poción", "Anillo", "Casco"]</code></li>
+                  <li><code>var precios = [30, 60, 10, 45, 55]</code></li>
+                </ul>
+              </li>
+              <li>Usa un <code>for i in range(objetos.size())</code> para recorrer ambos arrays por índice</li>
+              <li>Dentro del ciclo:
+                <ul>
+                  <li>Si <code>precios[i] &lt;= oro</code>, imprime <code>"✅ " + objetos[i] + " - " + str(precios[i]) + " oro (puedes comprar)"</code></li>
+                  <li>Si no, imprime <code>"❌ " + objetos[i] + " - " + str(precios[i]) + " oro (no te alcanza)"</code></li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: usa el índice <code>i</code> para acceder a la misma posición en ambos arrays.</p>
+          </div>
+        </details>
+
+        <!-- Ejercicios while -->
+        <h4 style="margin-top:28px; padding-left:14px; border-left:3px solid var(--accent);">Ejercicios con <code>while</code></h4>
+
+        <details>
+          <summary>Ejercicio (3 min): Esperando a que cargue el nivel <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un nivel se está cargando. Cada ciclo aumenta el progreso en 25% hasta llegar a 100%.</p>
+            <ol>
+              <li>Crea una variable <code>var carga = 0</code></li>
+              <li>Usa un <code>while carga &lt; 100:</code></li>
+              <li>Dentro del ciclo, aumenta <code>carga += 25</code></li>
+              <li>Imprime <code>"Cargando... " + str(carga) + "%"</code></li>
+              <li>Después del ciclo, imprime <code>"¡Nivel listo!"</code></li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (5 min): Golpear al enemigo hasta derrotarlo <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un enemigo tiene vida y el jugador lo golpea repetidamente hasta vencerlo.</p>
+            <ol>
+              <li>Crea estas variables:
+                <ul>
+                  <li><code>var vida_enemigo = 100</code></li>
+                  <li><code>var dano_jugador = 30</code></li>
+                  <li><code>var golpe = 0</code></li>
+                </ul>
+              </li>
+              <li>Usa un <code>while vida_enemigo &gt; 0:</code></li>
+              <li>Dentro del ciclo:
+                <ul>
+                  <li>Incrementa <code>golpe += 1</code></li>
+                  <li>Resta daño: <code>vida_enemigo -= dano_jugador</code></li>
+                  <li>Imprime <code>"Golpe " + str(golpe) + ": vida restante = " + str(vida_enemigo)</code></li>
+                </ul>
+              </li>
+              <li>Después del ciclo, imprime <code>"Enemigo derrotado en " + str(golpe) + " golpes"</code></li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (8 min): Búsqueda de tesoro <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>El jugador explora habitaciones buscando un tesoro. Cada habitación tiene un número y el tesoro está en una habitación específica.</p>
+            <ol>
+              <li>Crea estas variables:
+                <ul>
+                  <li><code>var habitacion_actual = 1</code></li>
+                  <li><code>var habitacion_tesoro = 5</code></li>
+                  <li><code>var encontrado = false</code></li>
+                </ul>
+              </li>
+              <li>Usa un <code>while not encontrado:</code></li>
+              <li>Dentro del ciclo:
+                <ul>
+                  <li>Imprime <code>"Explorando habitación " + str(habitacion_actual) + "..."</code></li>
+                  <li>Si <code>habitacion_actual == habitacion_tesoro</code>, imprime <code>"¡Tesoro encontrado!"</code> y cambia <code>encontrado = true</code></li>
+                  <li>Si no, imprime <code>"Nada aquí, sigo buscando"</code> y avanza: <code>habitacion_actual += 1</code></li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: el ciclo se detiene cuando <code>encontrado</code> cambia a <code>true</code>.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (12 min): Sistema de intentos de contraseña <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un cofre mágico tiene un código secreto. El jugador tiene un número limitado de intentos para adivinarlo.</p>
+            <ol>
+              <li>Crea estas variables:
+                <ul>
+                  <li><code>var codigo_secreto = 7</code></li>
+                  <li><code>var intento_actual = 1</code></li>
+                  <li><code>var max_intentos = 3</code></li>
+                  <li><code>var adivinado = false</code></li>
+                </ul>
+              </li>
+              <li>Usa un <code>while intento_actual &lt;= max_intentos and not adivinado:</code></li>
+              <li>Dentro del ciclo, simula que el jugador prueba un número. Usa <code>var prueba = intento_actual * 3</code> para generar intentos (3, 6, 9)</li>
+              <li>Imprime <code>"Intento " + str(intento_actual) + ": probando " + str(prueba)</code></li>
+              <li>Si <code>prueba == codigo_secreto</code>, imprime <code>"¡Cofre abierto!"</code> y cambia <code>adivinado = true</code></li>
+              <li>Si no, imprime <code>"Código incorrecto"</code> e incrementa <code>intento_actual += 1</code></li>
+              <li>Después del ciclo, si <code>not adivinado</code>, imprime <code>"Sin intentos. El cofre permanece cerrado"</code></li>
+            </ol>
+            <p>Pista: el <code>while</code> tiene dos condiciones unidas con <code>and</code>. Prueba cambiando <code>codigo_secreto</code> a <code>6</code> para ver el caso exitoso.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (15 min): Combate por turnos <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un jugador y un enemigo pelean por turnos hasta que uno se quede sin vida.</p>
+            <ol>
+              <li>Crea estas variables:
+                <ul>
+                  <li><code>var vida_jugador = 100</code></li>
+                  <li><code>var vida_enemigo = 80</code></li>
+                  <li><code>var ataque_jugador = 20</code></li>
+                  <li><code>var ataque_enemigo = 15</code></li>
+                  <li><code>var turno = 1</code></li>
+                </ul>
+              </li>
+              <li>Usa un <code>while vida_jugador &gt; 0 and vida_enemigo &gt; 0:</code></li>
+              <li>Dentro del ciclo:
+                <ul>
+                  <li>Imprime <code>"--- Turno " + str(turno) + " ---"</code></li>
+                  <li>El jugador ataca primero: resta <code>vida_enemigo -= ataque_jugador</code> e imprime <code>"Jugador ataca → Vida enemigo: " + str(vida_enemigo)</code></li>
+                  <li>Si <code>vida_enemigo &gt; 0</code>, el enemigo contraataca: resta <code>vida_jugador -= ataque_enemigo</code> e imprime <code>"Enemigo ataca → Vida jugador: " + str(vida_jugador)</code></li>
+                  <li>Incrementa <code>turno += 1</code></li>
+                </ul>
+              </li>
+              <li>Después del ciclo, usa <code>if/else</code> para imprimir quién ganó:
+                <ul>
+                  <li>Si <code>vida_jugador &gt; 0</code>: <code>"¡Victoria! Ganaste en " + str(turno - 1) + " turnos"</code></li>
+                  <li>Si no: <code>"Derrota... el enemigo te venció"</code></li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: el <code>if</code> dentro del ciclo evita que el enemigo ataque si ya fue derrotado en ese turno. Prueba cambiando los valores para ver distintos resultados.</p>
+          </div>
+        </details>
+
       </section>
 
       <!-- 7 -->
