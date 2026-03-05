@@ -890,6 +890,111 @@ func _ready() -&gt; void:
             Pista: usa <code>and</code> en la condición de "Media".
           </div>
         </details>
+
+        <details>
+          <summary>Ejercicio (5 min): Estado del personaje <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Tu personaje tiene puntos de vida. Según su estado, imprime un mensaje.</p>
+            <ol>
+              <li>Crea una variable <code>vida = 0</code></li>
+              <li>Si <code>vida &gt; 0</code>, imprime <code>"El personaje está vivo"</code></li>
+              <li>Si no, imprime <code>"El personaje ha muerto"</code></li>
+            </ol>
+            <p>Prueba cambiando el valor de <code>vida</code> a <code>5</code>, <code>1</code> y <code>0</code> para verificar.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (8 min): Rango del jugador <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un juego asigna un rango según el puntaje acumulado del jugador.</p>
+            <ol>
+              <li>Crea una variable <code>puntaje = 2500</code></li>
+              <li>Imprime el rango según estas reglas:
+                <ul>
+                  <li><code>"Leyenda"</code> si puntaje &gt;= 5000</li>
+                  <li><code>"Veterano"</code> si puntaje &gt;= 2000</li>
+                  <li><code>"Soldado"</code> si puntaje &gt;= 500</li>
+                  <li><code>"Novato"</code> en cualquier otro caso</li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: usa <code>if</code>, <code>elif</code> y <code>else</code>. El orden importa: empieza por el valor más alto.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (10 min): Acceso a la zona secreta <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Para entrar a una zona secreta del mapa, el jugador necesita cumplir dos condiciones: tener la llave y tener nivel suficiente.</p>
+            <ol>
+              <li>Crea estas variables:
+                <ul>
+                  <li><code>var tiene_llave = true</code></li>
+                  <li><code>var nivel = 7</code></li>
+                </ul>
+              </li>
+              <li>Si tiene la llave <strong>y</strong> su nivel es &gt;= 5, imprime <code>"Acceso concedido a la zona secreta"</code></li>
+              <li>Si tiene la llave pero su nivel es menor a 5, imprime <code>"Tienes la llave, pero tu nivel es muy bajo"</code></li>
+              <li>Si no tiene la llave, imprime <code>"Necesitas encontrar la llave primero"</code></li>
+            </ol>
+            <p>Pista: puedes anidar un <code>if</code> dentro de otro, o usar <code>and</code> en la primera condición.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (12 min): Sistema de daño por tipo de arma <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>El jugador ataca a un enemigo. El daño depende de dos cosas: qué arma usa y si el golpe fue crítico.</p>
+            <ol>
+              <li>Crea dos variables:
+                <ul>
+                  <li><code>var arma = "espada"</code></li>
+                  <li><code>var es_critico = true</code></li>
+                </ul>
+              </li>
+              <li>Crea una variable <code>var dano = 0</code></li>
+              <li>Usa <code>if/elif/else</code> para asignar el valor de <code>dano</code> según el arma:
+                <ul>
+                  <li>Si <code>arma == "espada"</code> → <code>dano = 20</code></li>
+                  <li>Si <code>arma == "arco"</code> → <code>dano = 15</code></li>
+                  <li>Si <code>arma == "magia"</code> → <code>dano = 30</code></li>
+                  <li>Si es cualquier otra cosa → <code>dano = 5</code> y además imprime <code>"Arma desconocida, daño mínimo"</code></li>
+                </ul>
+              </li>
+              <li>Después del bloque anterior, usa otro <code>if</code> separado: si <code>es_critico == true</code>, multiplica el daño por 2 con <code>dano *= 2</code></li>
+              <li>Al final, imprime el resultado: <code>"Arma: " + arma + " | Crítico: " + str(es_critico) + " | Daño total: " + str(dano)</code></li>
+            </ol>
+            <p>Pista: son dos bloques de condicionales, uno después del otro. El primero elige el daño base, el segundo lo modifica si hubo daño crítico.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (15 min): Encuentro con un NPC <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un NPC reacciona de forma distinta según el estado completo del jugador.</p>
+            <ol>
+              <li>Crea estas variables:
+                <ul>
+                  <li><code>nivel = 10</code></li>
+                  <li><code>tiene_objeto_mision = true</code></li>
+                  <li><code>reputacion = 50</code> (va de 0 a 100)</li>
+                  <li><code>es_de_noche = false</code></li>
+                </ul>
+              </li>
+              <li>El NPC dice diferentes cosas según estas reglas (evalúalas en orden):
+                <ul>
+                  <li>Si es de noche, imprime <code>"Vuelve de día, la tienda está cerrada"</code> (no importa nada más)</li>
+                  <li>Si tiene el objeto de misión <strong>y</strong> reputación &gt;= 30, imprime <code>"¡Gracias por traerme el objeto! Aquí tienes tu recompensa"</code></li>
+                  <li>Si tiene el objeto de misión pero reputación &lt; 30, imprime <code>"Tienes lo que pedí... pero no confío en ti"</code></li>
+                  <li>Si no tiene el objeto <strong>y</strong> nivel &gt;= 5, imprime <code>"Eres fuerte. Te tengo una misión: tráeme el amuleto"</code></li>
+                  <li>Si no tiene el objeto <strong>y</strong> nivel &lt; 5, imprime <code>"Eres muy débil aún, vuelve cuando seas más fuerte"</code></li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: empieza con la condición de noche. Luego usa <code>elif</code> combinando <code>and</code> para las demás. Prueba cambiando los valores para ver todos los mensajes.</p>
+          </div>
+        </details>
       </section>
 
       <!-- 6 -->

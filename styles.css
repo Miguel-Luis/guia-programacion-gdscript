@@ -525,12 +525,15 @@ summary{
   list-style:none;
   display:flex;
   align-items:center;
-  justify-content:space-between;
   gap:10px;
   color: var(--text);
   font-weight: 600;
   font-size:14px;
   -webkit-tap-highlight-color: transparent;
+}
+summary .tag{
+  margin-left:auto;
+  flex:0 0 auto;
 }
 summary::-webkit-details-marker{display:none}
 summary::after{
