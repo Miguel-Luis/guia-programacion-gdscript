@@ -1677,25 +1677,213 @@ Nivel 5: necesitas 500 EXP</code></pre>
       <section id="s8">
         <h3>8) Arrays (listas)</h3>
         <p class="lead">
-          Un array es una lista ordenada. Cada elemento tiene una posición llamada <strong>índice</strong> (empieza en 0).
+          Un array es una <strong>lista ordenada</strong> de valores. Piensa en él como una fila de casilleros numerados:
+          cada casillero tiene una posición llamada <strong>índice</strong> que empieza en <strong>0</strong> (no en 1).
+          En juegos se usan para guardar inventarios, enemigos, puntajes, niveles y mucho más.
         </p>
 
+        <!-- 8.1 — Crear un array -->
         <div class="grid">
           <div class="card col-6">
-            <h4>Crear y acceder</h4>
+            <h4>8.1 · Crear un array</h4>
+            <p class="muted">Se usan corchetes <code>[]</code> y los elementos se separan con comas.</p>
             <div class="examples">
-              <div class="codebar"><div class="muted">Array de enemigos</div><button class="btn small copy" data-copy="code-arr-1">Copiar</button></div>
+              <div class="codebar"><div class="muted">Distintos tipos de arrays</div><button class="btn small copy" data-copy="code-arr-1">Copiar</button></div>
               <pre><code id="code-arr-1">extends Node
 
+# Array de textos
 var enemigos = ["Goomba", "Koopa", "Bowser"]
 
-func _ready() -&gt; void:
-	print(enemigos[0]) # Goomba
+# Array de números
+var puntajes = [100, 250, 50, 400]
+
+# Array vacío (se llena después)
+var inventario = []
+
+# Array mixto (funciona, pero no es recomendable)
+var mezcla = ["Espada", 10, true]
 </code></pre>
             </div>
           </div>
           <div class="card col-6">
-            <h4>Recorrer un array</h4>
+            <h4>8.2 · Acceder por índice</h4>
+            <p class="muted">Cada elemento tiene una posición. El primero es <code>[0]</code>, el segundo <code>[1]</code>, etc.</p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Leer elementos específicos</div><button class="btn small copy" data-copy="code-arr-idx">Copiar</button></div>
+              <pre><code id="code-arr-idx">extends Node
+
+var enemigos = ["Goomba", "Koopa", "Bowser"]
+
+func _ready() -&gt; void:
+	print(enemigos[0])  # Goomba  (primero)
+	print(enemigos[1])  # Koopa   (segundo)
+	print(enemigos[2])  # Bowser  (tercero)
+	print(enemigos[-1]) # Bowser  (último)
+</code></pre>
+            </div>
+            <div class="callout">
+              <div class="badge warn">!</div>
+              <div>
+                <strong>Índice negativo</strong>
+                <div class="muted"><code>[-1]</code> es el último, <code>[-2]</code> el penúltimo. Es un atajo muy útil.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visualización de índices -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>Visualización: ¿cómo se ven los índices?</h4>
+            <div class="table-wrap" style="margin-top:12px">
+              <table style="min-width:400px">
+                <thead>
+                  <tr>
+                    <th>Índice</th>
+                    <th><code>[0]</code></th>
+                    <th><code>[1]</code></th>
+                    <th><code>[2]</code></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Valor</strong></td>
+                    <td><code>"Goomba"</code></td>
+                    <td><code>"Koopa"</code></td>
+                    <td><code>"Bowser"</code></td>
+                  </tr>
+                  <tr>
+                    <td class="muted">Índice negativo</td>
+                    <td class="muted"><code>[-3]</code></td>
+                    <td class="muted"><code>[-2]</code></td>
+                    <td class="muted"><code>[-1]</code></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8.3 — Modificar un array -->
+        <div class="grid">
+          <div class="card col-6">
+            <h4>8.3 · Modificar elementos</h4>
+            <p class="muted">Puedes cambiar el valor de cualquier posición usando su índice.</p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Cambiar un elemento</div><button class="btn small copy" data-copy="code-arr-mod">Copiar</button></div>
+              <pre><code id="code-arr-mod">extends Node
+
+var armas = ["Daga", "Espada", "Arco"]
+
+func _ready() -&gt; void:
+	print(armas[0])  # Daga
+
+	# Cambiar el primer arma
+	armas[0] = "Hacha"
+	print(armas[0])  # Hacha
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>8.4 · Agregar y quitar elementos</h4>
+            <p class="muted">Los arrays pueden crecer o reducirse en cualquier momento.</p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Agregar y quitar</div><button class="btn small copy" data-copy="code-arr-addrem">Copiar</button></div>
+              <pre><code id="code-arr-addrem">extends Node
+
+var inventario = ["Espada", "Poción"]
+
+func _ready() -&gt; void:
+	# Agregar al final
+	inventario.append("Escudo")
+	print(inventario) # [Espada, Poción, Escudo]
+
+	# Eliminar el último
+	inventario.pop_back()
+	print(inventario) # [Espada, Poción]
+
+	# Eliminar el primero
+	inventario.pop_front()
+	print(inventario) # [Poción]
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8.5 — Operaciones útiles -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>8.5 · Operaciones más usadas en juegos</h4>
+            <div class="table-wrap" style="margin-top:12px">
+              <table style="min-width:650px">
+                <thead>
+                  <tr>
+                    <th>Operación</th>
+                    <th>Qué hace</th>
+                    <th>Ejemplo</th>
+                    <th>Resultado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>.append(x)</code></td>
+                    <td>Agrega <code>x</code> al final</td>
+                    <td><code>inventario.append("Llave")</code></td>
+                    <td class="muted">Se añade "Llave" al final</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pop_back()</code></td>
+                    <td>Elimina y retorna el último</td>
+                    <td><code>var ultimo = inv.pop_back()</code></td>
+                    <td class="muted">Quita el último elemento</td>
+                  </tr>
+                  <tr>
+                    <td><code>.pop_front()</code></td>
+                    <td>Elimina y retorna el primero</td>
+                    <td><code>var primero = inv.pop_front()</code></td>
+                    <td class="muted">Quita el primer elemento</td>
+                  </tr>
+                  <tr>
+                    <td><code>.size()</code></td>
+                    <td>Cuántos elementos tiene</td>
+                    <td><code>print(inventario.size())</code></td>
+                    <td class="muted">Imprime el total</td>
+                  </tr>
+                  <tr>
+                    <td><code>.has(x)</code></td>
+                    <td>¿Contiene el valor <code>x</code>?</td>
+                    <td><code>inventario.has("Llave")</code></td>
+                    <td class="muted"><code>true</code> o <code>false</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>.erase(x)</code></td>
+                    <td>Elimina la primera aparición de <code>x</code></td>
+                    <td><code>inventario.erase("Poción")</code></td>
+                    <td class="muted">Quita "Poción" de la lista</td>
+                  </tr>
+                  <tr>
+                    <td><code>.clear()</code></td>
+                    <td>Vacía todo el array</td>
+                    <td><code>inventario.clear()</code></td>
+                    <td class="muted">Queda como <code>[]</code></td>
+                  </tr>
+                  <tr>
+                    <td><code>.is_empty()</code></td>
+                    <td>¿Está vacío?</td>
+                    <td><code>inventario.is_empty()</code></td>
+                    <td class="muted"><code>true</code> si no tiene elementos</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8.6 — Recorrer un array -->
+        <div class="grid">
+          <div class="card col-6">
+            <h4>8.6 · Recorrer un array</h4>
+            <p class="muted">La forma más común: <code>for elemento in array</code>. Recorre uno por uno.</p>
             <div class="examples">
               <div class="codebar"><div class="muted">for por elementos</div><button class="btn small copy" data-copy="code-arr-2">Copiar</button></div>
               <pre><code id="code-arr-2">extends Node
@@ -1703,24 +1891,203 @@ func _ready() -&gt; void:
 var enemigos = ["Goomba", "Koopa", "Bowser"]
 
 func _ready() -&gt; void:
-	for e in enemigos:
-		print(e)
+	for enemigo in enemigos:
+		print("Enemigo: " + enemigo)
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Recorrer con índice</h4>
+            <p class="muted">Si necesitas saber la posición de cada elemento, usa <code>range()</code> con <code>.size()</code>.</p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">for con índice</div><button class="btn small copy" data-copy="code-arr-foridx">Copiar</button></div>
+              <pre><code id="code-arr-foridx">extends Node
+
+var enemigos = ["Goomba", "Koopa", "Bowser"]
+
+func _ready() -&gt; void:
+	for i in range(enemigos.size()):
+		print(str(i) + ": " + enemigos[i])
+	# 0: Goomba
+	# 1: Koopa
+	# 2: Bowser
 </code></pre>
             </div>
           </div>
         </div>
 
+        <!-- 8.7 — Ejemplo completo -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>8.7 · Ejemplo completo: inventario de un RPG</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Inventario con operaciones</div><button class="btn small copy" data-copy="code-arr-full">Copiar</button></div>
+              <pre><code id="code-arr-full">extends Node
+
+var inventario = ["Espada", "Poción", "Escudo"]
+
+func _ready() -&gt; void:
+	# Ver inventario
+	print("=== Inventario ===")
+	for objeto in inventario:
+		print("- " + objeto)
+	print("Total: " + str(inventario.size()) + " objetos")
+
+	# Agregar un objeto
+	inventario.append("Anillo mágico")
+	print("\n+ Recogiste: Anillo mágico")
+
+	# ¿Tiene una llave?
+	if inventario.has("Llave"):
+		print("Tienes la llave")
+	else:
+		print("No tienes la llave")
+
+	# Usar (quitar) la poción
+	inventario.erase("Poción")
+	print("- Usaste: Poción")
+
+	# Ver inventario final
+	print("\n=== Inventario actualizado ===")
+	for objeto in inventario:
+		print("- " + objeto)
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Error común -->
         <details open>
-          <summary>Operaciones comunes</summary>
+          <summary>Error común: índice fuera de rango <span class="tag">típico</span></summary>
           <div class="details-body">
-            <ul>
-              <li><code>append(x)</code>: agrega al final</li>
-              <li><code>pop_back()</code>: elimina el último</li>
-              <li><code>size()</code>: cuántos elementos hay</li>
-              <li><code>has(x)</code>: si existe un elemento</li>
-            </ul>
+            <p>Si intentas acceder a un índice que no existe, Godot lanzará un error.</p>
+            <div class="grid examples">
+              <div class="card col-6">
+                <h4>❌ Error</h4>
+                <pre><code>var armas = ["Daga", "Espada"]
+print(armas[5])
+# ❌ Error: Index 5 is out of bounds (size: 2)
+</code></pre>
+              </div>
+              <div class="card col-6">
+                <h4>✅ Correcto</h4>
+                <pre><code>var armas = ["Daga", "Espada"]
+# Verificar antes de acceder
+if armas.size() &gt; 5:
+	print(armas[5])
+else:
+	print("Ese índice no existe")
+</code></pre>
+              </div>
+            </div>
+            <div class="callout">
+              <div class="badge warn">!</div>
+              <div>
+                <strong>Recuerda</strong>
+                <div class="muted">Un array de 3 elementos tiene índices <code>0</code>, <code>1</code> y <code>2</code>. El índice <code>3</code> ya no existe. El último índice siempre es <code>.size() - 1</code>.</div>
+              </div>
+            </div>
           </div>
         </details>
+
+        <details>
+          <summary>Ejercicio (5 min): Lista de habilidades <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Tu personaje tiene una lista de habilidades. Muéstralas en consola.</p>
+            <ol>
+              <li>Crea un array: <code>var habilidades = ["Golpe", "Escudo", "Curar"]</code></li>
+              <li>Recorre el array con <code>for</code> e imprime cada habilidad así: <code>"- " + habilidad</code></li>
+              <li>Después del ciclo, imprime <code>"Total: " + str(habilidades.size()) + " habilidades"</code></li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (8 min): Recoger y usar objetos <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Simula que un jugador recoge objetos durante una partida y luego usa uno.</p>
+            <ol>
+              <li>Crea un array vacío: <code>var inventario = []</code></li>
+              <li>Usa <code>.append()</code> para agregar 3 objetos uno por uno: <code>"Poción"</code>, <code>"Llave"</code>, <code>"Antorcha"</code></li>
+              <li>Después de cada <code>.append()</code>, imprime <code>"Recogiste: [objeto]. Inventario: " + str(inventario)</code></li>
+              <li>Ahora el jugador usa la poción: elimínala con <code>inventario.erase("Poción")</code></li>
+              <li>Imprime <code>"Usaste la poción. Inventario: " + str(inventario)</code></li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (10 min): Buscar al enemigo más fuerte <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Tienes un array con las vidas de varios enemigos. Encuentra cuál tiene más vida.</p>
+            <ol>
+              <li>Crea un array: <code>var vidas_enemigos = [30, 85, 50, 120, 45]</code></li>
+              <li>Crea una variable <code>var mayor = 0</code></li>
+              <li>Recorre el array con <code>for vida in vidas_enemigos:</code></li>
+              <li>Dentro del ciclo, si <code>vida &gt; mayor</code>, actualiza <code>mayor = vida</code></li>
+              <li>Después del ciclo, imprime <code>"El enemigo más fuerte tiene " + str(mayor) + " de vida"</code></li>
+            </ol>
+            <p>Pista: la variable <code>mayor</code> va guardando el valor más alto encontrado hasta el momento.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (12 min): Filtrar equipo por nivel <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>El jugador tiene un equipo de guerreros. Solo los que tienen nivel suficiente pueden ir a la misión.</p>
+            <ol>
+              <li>Crea dos arrays paralelos:
+                <ul>
+                  <li><code>var nombres = ["Aria", "Bron", "Cleo", "Drake", "Eva"]</code></li>
+                  <li><code>var niveles = [8, 3, 12, 5, 7]</code></li>
+                </ul>
+              </li>
+              <li>Crea un <code>var nivel_minimo = 6</code></li>
+              <li>Crea un array vacío: <code>var seleccionados = []</code></li>
+              <li>Recorre con <code>for i in range(nombres.size()):</code></li>
+              <li>Dentro del ciclo, si <code>niveles[i] &gt;= nivel_minimo</code>:
+                <ul>
+                  <li>Agrega el nombre a <code>seleccionados</code> con <code>.append()</code></li>
+                  <li>Imprime <code>nombres[i] + " (nivel " + str(niveles[i]) + ") ✅ seleccionado"</code></li>
+                </ul>
+              </li>
+              <li>Si no cumple, imprime <code>nombres[i] + " (nivel " + str(niveles[i]) + ") ❌ nivel muy bajo"</code></li>
+              <li>Al final, imprime <code>"Equipo para la misión: " + str(seleccionados)</code></li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (15 min): Sistema de ranking con podio <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Varios jugadores terminaron una carrera. Ordena sus puntajes y muestra un podio con los 3 mejores.</p>
+            <ol>
+              <li>Crea dos arrays:
+                <ul>
+                  <li><code>var jugadores = ["Luna", "Max", "Zoe", "Rex", "Ana"]</code></li>
+                  <li><code>var puntajes = [450, 820, 610, 300, 750]</code></li>
+                </ul>
+              </li>
+              <li>Encuentra los 3 mejores puntajes. Para eso, recorre 3 veces el array buscando el mayor que aún no hayas seleccionado:
+                <ul>
+                  <li>Crea un array <code>var ya_elegidos = []</code> para recordar los índices que ya están en el podio</li>
+                  <li>En cada pasada, recorre todos los jugadores con <code>for i in range(puntajes.size()):</code></li>
+                  <li>Busca el mayor puntaje cuyo índice no esté en <code>ya_elegidos</code> (usa <code>not ya_elegidos.has(i)</code>)</li>
+                  <li>Cuando lo encuentres, agrega su índice a <code>ya_elegidos</code></li>
+                </ul>
+              </li>
+              <li>Imprime el podio:
+                <ul>
+                  <li><code>"🥇 1°: " + jugadores[ya_elegidos[0]] + " - " + str(puntajes[ya_elegidos[0]]) + " pts"</code></li>
+                  <li><code>"🥈 2°: ..."</code></li>
+                  <li><code>"🥉 3°: ..."</code></li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: este ejercicio usa un ciclo dentro de otro (<code>for</code> anidados). En la pasada externa vas del puesto 1 al 3, en la interna recorres todos los puntajes buscando el mayor disponible.</p>
+          </div>
+        </details>
+
       </section>
 
       <!-- 9 -->
