@@ -30,6 +30,7 @@ html{
 html, body{
   min-height:100%;
   background:#060912;
+  overflow-x:hidden;
 }
 
 body{
@@ -64,16 +65,16 @@ a{color:inherit}
 
 /* ========== LAYOUT ========== */
 .app{
-  display:grid;
-  grid-template-columns: 320px 1fr;
   min-height:100vh;
+  max-width:100vw;
 }
 
 /* ========== SIDEBAR ========== */
 .sidebar{
-  position:sticky;
+  position:fixed;
   top:0;
-  align-self:start;
+  left:0;
+  width:320px;
   height:100vh;
   padding:16px;
   border-right:1px solid rgba(255,255,255,.08);
@@ -82,7 +83,9 @@ a{color:inherit}
   display:flex;
   flex-direction:column;
   gap:12px;
-  overflow:hidden;
+  overflow-y:auto;
+  overflow-x:hidden;
+  z-index:50;
 }
 
 .brand{
@@ -292,9 +295,11 @@ a{color:inherit}
 /* ========== CONTENT ========== */
 .content{
   padding: var(--content-pad);
-  max-width:900px;
-  margin: 0 auto;
-  width:100%;
+  max-width:1220px;
+  margin-left:320px;
+  width:calc(100% - 320px);
+  overflow-x:hidden;
+  box-sizing:border-box;
 }
 
 /* Hero */
@@ -306,6 +311,8 @@ a{color:inherit}
   box-shadow: var(--shadow);
   position:relative;
   overflow:hidden;
+  overflow-wrap:break-word;
+  word-break:break-word;
 }
 .hero::before{
   content:"";
@@ -355,6 +362,8 @@ section{
   border:1px solid var(--border);
   background: rgba(255,255,255,.03);
   box-shadow: 0 8px 28px rgba(0,0,0,.18);
+  overflow-x:hidden;
+  min-width:0;
 }
 
 section h3{
@@ -379,6 +388,7 @@ section h3{
   grid-template-columns: repeat(12, 1fr);
   gap: var(--grid-gap);
   margin-top: 14px;
+  min-width:0;
 }
 
 /* Cards */
@@ -388,6 +398,8 @@ section h3{
   border-radius: var(--radius);
   padding: var(--card-pad);
   transition: border-color .2s ease, background .2s ease;
+  min-width:0;
+  overflow-x:auto;
 }
 .card:hover{
   border-color: rgba(255,255,255,.16);
@@ -417,7 +429,11 @@ section h3{
   border:1px solid var(--border);
   background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
   margin-top: 14px;
+  min-width:0;
+  overflow-wrap:break-word;
+  word-break:break-word;
 }
+.callout > div{min-width:0}
 .badge{
   width:34px;height:34px;
   border-radius: 10px;
@@ -443,6 +459,7 @@ pre{
   overflow:auto;
   position:relative;
   -webkit-overflow-scrolling: touch;
+  max-width:100%;
 }
 pre::before{
   content:"GDScript";
@@ -516,6 +533,8 @@ details{
   padding: 14px 16px;
   margin-top: 14px;
   transition: border-color .2s;
+  min-width:0;
+  overflow:hidden;
 }
 details[open]{
   border-color: rgba(124,92,255,.2);
@@ -553,6 +572,8 @@ details .details-body{
   font-size:13px;
   padding-top:12px;
   border-top:1px solid var(--border);
+  overflow-wrap:break-word;
+  word-break:break-word;
 }
 
 /* Table */
@@ -574,7 +595,6 @@ table{
   width:100%;
   border-collapse:collapse;
   font-size:13px;
-  min-width:600px;
 }
 
 thead th{
@@ -723,8 +743,8 @@ li + li{
    RESPONSIVE — Pantallas grandes (>1400px)
    ========================================================== */
 @media (min-width: 1400px){
-  .app{grid-template-columns: 340px 1fr}
-  .content{max-width:1000px; padding: 36px 40px 56px}
+  .sidebar{width:340px}
+  .content{max-width:1340px; margin-left:340px; width:calc(100% - 340px); padding: 36px 40px 56px}
   .hero h2{font-size:30px}
   section h3{font-size:21px}
   body{font-size:15px}
@@ -737,17 +757,22 @@ li + li{
    RESPONSIVE — Tablet / laptop pequeño (641px - 980px)
    ========================================================== */
 @media (max-width: 980px){
-  .app{grid-template-columns: 1fr}
-
   .sidebar{
     position:sticky;
     top:0;
+    left:auto;
+    width:100%;
     z-index:50;
     height:auto;
     border-right:none;
     border-bottom:1px solid var(--border);
     padding:12px;
     gap:0;
+  }
+
+  .content{
+    margin-left:0;
+    width:100%;
   }
 
   .hamburger{display:flex}
@@ -820,12 +845,16 @@ li + li{
 
   .col-12,.col-8,.col-7,.col-6,.col-5,.col-4{grid-column: span 12}
 
-  .callout{gap:10px; padding:12px}
+  .callout{gap:10px; padding:12px; overflow-wrap:break-word; word-break:break-word}
   .badge{width:30px; height:30px; font-size:12px; border-radius:8px}
 
-  pre{padding:12px; border-radius:12px}
+  pre{padding:12px; border-radius:12px; max-width:calc(100vw - 60px)}
   pre::before{font-size:8px; top:4px; right:8px}
   code{font-size:11.5px}
+
+  .examples{overflow-x:auto; min-width:0}
+
+  .table-wrap{max-width:calc(100vw - 60px)}
 
   .error-card{padding:14px}
   .error-header strong{font-size:14px}
@@ -833,7 +862,7 @@ li + li{
 
   .codebar{flex-wrap:wrap}
 
-  table{min-width:480px; font-size:12px}
+  table{font-size:12px}
   thead th{padding:8px 10px; font-size:11px}
   tbody td{padding:10px}
 
@@ -894,10 +923,10 @@ li + li{
   .card h4{font-size:13px}
   .card p{font-size:12px}
 
-  .callout{padding:10px; gap:8px; flex-direction:row}
+  .callout{padding:10px; gap:8px; flex-direction:row; overflow-wrap:break-word; word-break:break-word}
   .badge{width:28px; height:28px; font-size:11px; border-radius:8px}
 
-  pre{padding:10px; border-radius:10px}
+  pre{padding:10px; border-radius:10px; max-width:calc(100vw - 44px)}
   pre::before{display:none}
   code{font-size:11px; line-height:1.55}
   p code, li code, td code, .muted code, strong code, .lead code{
@@ -905,15 +934,21 @@ li + li{
     padding:1px 4px;
   }
 
+  .examples{overflow-x:auto; min-width:0}
+
+  .table-wrap{max-width:calc(100vw - 44px)}
+  
+  .hero{overflow:hidden}
+
   .error-card{padding:12px; margin-top:10px}
   .error-header{gap:8px}
   .error-header strong{font-size:13px}
   .error-tip{padding:10px; font-size:11.5px; line-height:1.6}
   .sev{font-size:10px; padding:3px 8px}
 
-  table{min-width:400px; font-size:11.5px}
+  table{font-size:11.5px}
   thead th{padding:7px 8px; font-size:10px}
-  tbody td{padding:8px}
+  tbody td{padding:8px 6px}
 
   .codebar .muted{font-size:11px}
 
@@ -947,7 +982,6 @@ li + li{
   body{background:white; color:black; font-size:12px}
   .sidebar{display:none}
   section, .hero{box-shadow:none; background:white; border-color:#ddd}
-  .app{grid-template-columns:1fr}
   pre{background:#f5f5f5; border-color:#ddd}
   pre::before{display:none}
   .btn{display:none}
@@ -956,5 +990,5 @@ li + li{
   section h3{border-left-color:#7c5cff}
   p code, li code, td code{background:#f0ecff; border-color:#d5ccff; color:#333}
   .error-card{background:#fafafa; border-color:#ddd}
-  .content{max-width:100%; padding:10px}
+  .content{max-width:100%; margin-left:0; width:100%; padding:10px}
 }
