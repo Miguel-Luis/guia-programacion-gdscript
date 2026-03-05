@@ -1199,6 +1199,23 @@ while x &lt; 5:
           </div>
         </details>
 
+        <!-- Nota rápida: arrays -->
+        <div class="callout">
+          <div class="badge warn">!</div>
+          <div>
+            <strong>Antes de los ejercicios: ¿qué es un array?</strong>
+            <div class="muted">
+              Algunos ejercicios usan <strong>arrays</strong> (listas). Un array es simplemente una lista ordenada de valores dentro de corchetes:<br><br>
+              <code>var pociones = ["Vida", "Maná", "Fuerza"]</code><br><br>
+              Puedes acceder a cada elemento por su posición (empieza en 0):<br>
+              <code>pociones[0]</code> → <code>"Vida"</code> · <code>pociones[1]</code> → <code>"Maná"</code> · <code>pociones[2]</code> → <code>"Fuerza"</code><br><br>
+              Para saber cuántos elementos tiene, usa <code>.size()</code>:<br>
+              <code>pociones.size()</code> → <code>3</code><br><br>
+              No te preocupes por aprenderlo todo ahora, los arrays se explican a fondo en la <strong>sección 8</strong>. Por ahora solo necesitas saber esto para resolver los ejercicios.
+            </div>
+          </div>
+        </div>
+
         <!-- Ejercicios for -->
         <h4 style="margin-top:28px; padding-left:14px; border-left:3px solid var(--accent);">Ejercicios con <code>for</code></h4>
 
@@ -1485,10 +1502,173 @@ func _ready() -&gt; void:
         </div>
 
         <details open>
-          <summary>Ejercicio: daño al jugador <span class="tag">reto</span></summary>
+          <summary>Ejercicio (5 min): daño al jugador <span class="tag">reto</span></summary>
           <div class="details-body">
             Crea una función <code>recibir_dano</code> que reciba un <code>int</code> llamado <code>cantidad</code>, y reste esa cantidad a la variable <code>vidas</code>.
             Luego imprime las vidas restantes.
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (5 min): Grito de guerra <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Cada personaje tiene un grito de guerra que dice antes de pelear.</p>
+            <ol>
+              <li>Crea una función <code>gritar(nombre: String, grito: String) -&gt; void</code></li>
+              <li>Dentro, imprime <code>nombre + " grita: ¡" + grito + "!"</code></li>
+              <li>En <code>_ready()</code>, llámala 3 veces con personajes distintos:
+                <ul>
+                  <li><code>gritar("Guerrero", "Por el honor")</code></li>
+                  <li><code>gritar("Mago", "Arcanos, escúchenme")</code></li>
+                  <li><code>gritar("Pícaro", "Nunca me verán")</code></li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (7 min): Calcular experiencia necesaria <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>En muchos RPGs, la experiencia para subir de nivel aumenta con cada nivel.</p>
+            <ol>
+              <li>Crea una función <code>exp_necesaria(nivel: int) -&gt; int</code> que retorne <code>nivel * 100</code></li>
+              <li>En <code>_ready()</code>, usa un <code>for</code> del nivel 1 al 5</li>
+              <li>Dentro del ciclo, llama a la función e imprime: <code>"Nivel " + str(nivel) + ": necesitas " + str(exp_necesaria(nivel)) + " EXP"</code></li>
+            </ol>
+            <p>Resultado esperado:</p>
+            <pre><code>Nivel 1: necesitas 100 EXP
+Nivel 2: necesitas 200 EXP
+Nivel 3: necesitas 300 EXP
+Nivel 4: necesitas 400 EXP
+Nivel 5: necesitas 500 EXP</code></pre>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (8 min): ¿Puede equipar el arma? <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un jugador solo puede equipar un arma si cumple el nivel mínimo requerido.</p>
+            <ol>
+              <li>Crea una función <code>puede_equipar(nivel_jugador: int, nivel_requerido: int) -&gt; bool</code></li>
+              <li>La función debe retornar <code>true</code> si <code>nivel_jugador &gt;= nivel_requerido</code>, o <code>false</code> si no</li>
+              <li>En <code>_ready()</code>, crea una variable <code>var mi_nivel = 5</code></li>
+              <li>Prueba la función con distintas armas e imprime el resultado:
+                <ul>
+                  <li><code>"Daga (nivel 1): " + str(puede_equipar(mi_nivel, 1))</code></li>
+                  <li><code>"Espada (nivel 5): " + str(puede_equipar(mi_nivel, 5))</code></li>
+                  <li><code>"Hacha legendaria (nivel 10): " + str(puede_equipar(mi_nivel, 10))</code></li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (10 min): Curar al personaje con límite <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Una poción cura al jugador, pero la vida no puede superar el máximo.</p>
+            <ol>
+              <li>Crea dos variables globales: <code>var vida = 60</code> y <code>var vida_maxima = 100</code></li>
+              <li>Crea una función <code>curar(cantidad: int) -&gt; void</code> que:
+                <ul>
+                  <li>Sume <code>cantidad</code> a <code>vida</code></li>
+                  <li>Si <code>vida &gt; vida_maxima</code>, ajuste <code>vida = vida_maxima</code></li>
+                  <li>Imprima <code>"Vida actual: " + str(vida) + "/" + str(vida_maxima)</code></li>
+                </ul>
+              </li>
+              <li>En <code>_ready()</code>, llama a la función varias veces para probar:
+                <ul>
+                  <li><code>curar(20)</code> → debería quedar en 80</li>
+                  <li><code>curar(30)</code> → debería quedar en 100 (no 110)</li>
+                  <li><code>curar(50)</code> → debería seguir en 100</li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: el <code>if</code> dentro de la función actúa como un "tope" para no pasarse del máximo.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (12 min): Calculadora de daño con defensa y crítico <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Crea una función que calcule el daño final considerando ataque, defensa y si fue golpe crítico.</p>
+            <ol>
+              <li>Crea una función <code>calcular_dano(ataque: int, defensa: int, es_critico: bool) -&gt; int</code></li>
+              <li>Dentro de la función:
+                <ul>
+                  <li>Calcula <code>var dano = ataque - defensa</code></li>
+                  <li>Si <code>dano &lt; 0</code>, ajusta <code>dano = 0</code> (no puede ser negativo)</li>
+                  <li>Si <code>es_critico</code> es <code>true</code>, multiplica <code>dano *= 2</code></li>
+                  <li>Retorna <code>dano</code></li>
+                </ul>
+              </li>
+              <li>En <code>_ready()</code>, prueba con distintos escenarios e imprime cada resultado:
+                <ul>
+                  <li><code>calcular_dano(25, 10, false)</code> → 15</li>
+                  <li><code>calcular_dano(25, 10, true)</code> → 30</li>
+                  <li><code>calcular_dano(5, 20, false)</code> → 0 (defensa mayor que ataque)</li>
+                </ul>
+              </li>
+            </ol>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (12 min): Sistema de recompensas por rango <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Crea dos funciones que trabajen juntas: una determina el rango y otra da la recompensa según ese rango.</p>
+            <ol>
+              <li>Crea una función <code>obtener_rango(puntaje: int) -&gt; String</code> que retorne:
+                <ul>
+                  <li><code>"Oro"</code> si puntaje &gt;= 1000</li>
+                  <li><code>"Plata"</code> si puntaje &gt;= 500</li>
+                  <li><code>"Bronce"</code> en cualquier otro caso</li>
+                </ul>
+              </li>
+              <li>Crea una función <code>dar_recompensa(rango: String) -&gt; int</code> que retorne monedas según el rango:
+                <ul>
+                  <li><code>"Oro"</code> → 300</li>
+                  <li><code>"Plata"</code> → 150</li>
+                  <li><code>"Bronce"</code> → 50</li>
+                  <li>Cualquier otro → 0</li>
+                </ul>
+              </li>
+              <li>En <code>_ready()</code>, crea <code>var puntaje = 750</code> y:
+                <ul>
+                  <li>Llama a <code>obtener_rango(puntaje)</code> y guarda el resultado en una variable <code>rango</code></li>
+                  <li>Llama a <code>dar_recompensa(rango)</code> y guarda el resultado en <code>monedas</code></li>
+                  <li>Imprime <code>"Puntaje: " + str(puntaje) + " → Rango: " + rango + " → Monedas: " + str(monedas)</code></li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: la clave es que una función usa el resultado de la otra. Prueba con puntajes de 400, 750 y 1200.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (15 min): Simulador de tienda con funciones <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Crea un mini sistema de tienda usando varias funciones que se llaman entre sí.</p>
+            <ol>
+              <li>Crea una variable global <code>var oro = 100</code></li>
+              <li>Crea una función <code>tiene_suficiente_oro(precio: int) -&gt; bool</code> que retorne <code>true</code> si <code>oro &gt;= precio</code></li>
+              <li>Crea una función <code>comprar(objeto: String, precio: int) -&gt; void</code> que:
+                <ul>
+                  <li>Use <code>tiene_suficiente_oro(precio)</code> para verificar si puede comprar</li>
+                  <li>Si puede: reste <code>oro -= precio</code> e imprima <code>"Compraste " + objeto + " por " + str(precio) + " oro. Te quedan: " + str(oro)</code></li>
+                  <li>Si no puede: imprima <code>"No te alcanza para " + objeto + ". Necesitas " + str(precio) + " pero tienes " + str(oro)</code></li>
+                </ul>
+              </li>
+              <li>En <code>_ready()</code>, simula una sesión de compras llamando a <code>comprar()</code> varias veces:
+                <ul>
+                  <li><code>comprar("Poción", 25)</code></li>
+                  <li><code>comprar("Espada", 60)</code></li>
+                  <li><code>comprar("Escudo", 30)</code> → ya no debería alcanzar</li>
+                </ul>
+              </li>
+            </ol>
+            <p>Pista: como <code>oro</code> es global y <code>comprar()</code> lo modifica, cada compra afecta a las siguientes. Observa cómo el saldo baja con cada compra exitosa.</p>
           </div>
         </details>
       </section>
