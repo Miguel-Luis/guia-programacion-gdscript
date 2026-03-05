@@ -833,6 +833,145 @@ if nombre != "":     # ¿El nombre NO está vacío?
             </ol>
           </div>
         </details>
+
+        <!-- 4.6 — Concatenación de Strings -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>4.6 · Concatenar Strings (unir textos)</h4>
+            <p>
+              En GDScript, <strong>concatenar</strong> significa unir varios textos en uno solo usando el operador <code>+</code>.
+              Esto es muy útil para armar mensajes en consola que combinen texto fijo con valores de variables.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>String + String</h4>
+            <p class="muted">Cuando ambos valores ya son texto, simplemente se unen con <code>+</code>.</p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Unir dos textos</div><button class="btn small copy" data-copy="code-concat-1">Copiar</button></div>
+              <pre><code id="code-concat-1">extends Node
+
+func _ready() -&gt; void:
+	var nombre = "Carlos"
+	print("Hola " + nombre)
+	# Resultado: Hola Carlos
+
+	var arma = "espada"
+	print("Equipaste: " + arma)
+	# Resultado: Equipaste: espada
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>String + Número → ❌ Error</h4>
+            <p class="muted">No puedes unir un texto con un número directamente. GDScript no sabe cómo mezclarlos.</p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Esto falla</div><button class="btn small copy" data-copy="code-concat-2">Copiar</button></div>
+              <pre><code id="code-concat-2">extends Node
+
+func _ready() -&gt; void:
+	var vidas = 3
+	print("Vidas: " + vidas)
+	# ❌ Error: Invalid operands 'String' and 'int'
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card col-12">
+            <h4>La solución: <code>str()</code></h4>
+            <p>
+              La función <code>str()</code> convierte <strong>cualquier valor</strong> (número, booleano, etc.) en texto.
+              Así puedes concatenarlo con otros Strings sin errores.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Convertir número a texto con str()</div><button class="btn small copy" data-copy="code-concat-3">Copiar</button></div>
+              <pre><code id="code-concat-3">extends Node
+
+func _ready() -&gt; void:
+	var vidas = 3
+	var nivel = 5
+	var es_vip = true
+
+	# Número → texto
+	print("Vidas: " + str(vidas))
+	# Resultado: Vidas: 3
+
+	# Armar un mensaje más largo
+	print("Nivel: " + str(nivel) + " | Vidas: " + str(vidas))
+	# Resultado: Nivel: 5 | Vidas: 3
+
+	# Booleano → texto
+	print("¿Es VIP? " + str(es_vip))
+	# Resultado: ¿Es VIP? true
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Ejemplo completo en contexto de juego</h4>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Resumen de jugador</div><button class="btn small copy" data-copy="code-concat-4">Copiar</button></div>
+              <pre><code id="code-concat-4">extends Node
+
+var nombre = "Elena"
+var vida = 85
+var ataque = 22
+var tiene_escudo = true
+
+func _ready() -&gt; void:
+	print("=== Resumen ===")
+	print("Nombre: " + nombre)
+	print("Vida: " + str(vida))
+	print("Ataque: " + str(ataque))
+	print("Escudo: " + str(tiene_escudo))
+</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Alternativa: usar comas en <code>print()</code></h4>
+            <p class="muted">
+              <code>print()</code> también acepta varios valores separados por <strong>comas</strong>.
+              No necesitas <code>str()</code> porque <code>print</code> convierte automáticamente. La diferencia es que agrega un espacio entre cada valor.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Comas vs concatenación</div><button class="btn small copy" data-copy="code-concat-5">Copiar</button></div>
+              <pre><code id="code-concat-5">extends Node
+
+func _ready() -&gt; void:
+	var vidas = 3
+	var nivel = 5
+
+	# Con comas (agrega espacios automáticamente)
+	print("Vidas:", vidas, "Nivel:", nivel)
+	# Resultado: Vidas: 3 Nivel: 5
+
+	# Con concatenación (tú controlas los espacios)
+	print("Vidas: " + str(vidas) + " | Nivel: " + str(nivel))
+	# Resultado: Vidas: 3 | Nivel: 5
+</code></pre>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout">
+          <div class="badge good">✓</div>
+          <div>
+            <strong>Regla de oro</strong>
+            <div class="muted">
+              Si usas <code>+</code> para unir textos, todo lo que unas debe ser <code>String</code>.
+              Si algo no es texto (número, booleano), envuélvelo con <code>str()</code>.<br><br>
+              <code>"Daño: " + str(20)</code> → ✅ Correcto<br>
+              <code>"Daño: " + 20</code> → ❌ Error
+            </div>
+          </div>
+        </div>
+
       </section>
 
       <!-- 5 -->
