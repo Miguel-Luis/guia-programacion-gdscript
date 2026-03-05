@@ -295,7 +295,7 @@ a{color:inherit}
 /* ========== CONTENT ========== */
 .content{
   padding: var(--content-pad);
-  max-width:1220px;
+  padding-right:40px;
   margin-left:320px;
   width:calc(100% - 320px);
   overflow-x:hidden;
@@ -744,7 +744,7 @@ li + li{
    ========================================================== */
 @media (min-width: 1400px){
   .sidebar{width:340px}
-  .content{max-width:1340px; margin-left:340px; width:calc(100% - 340px); padding: 36px 40px 56px}
+  .content{margin-left:340px; width:calc(100% - 340px); padding: 36px 48px 56px}
   .hero h2{font-size:30px}
   section h3{font-size:21px}
   body{font-size:15px}
