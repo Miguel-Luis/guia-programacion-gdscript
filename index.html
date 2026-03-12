@@ -2201,6 +2201,356 @@ func recibir_dano(cantidad: int) -&gt; void:
             </ul>
           </div>
         </details>
+
+        <h4 style="margin-top:2rem">Ejercicios de clases (de menor a mayor complejidad)</h4>
+        <p class="muted" style="margin-bottom:1rem">
+          Estos 20 ejercicios profundizan en <strong>clases</strong>, atributos y métodos. Todos se prueban por consola.
+          Usa un nodo <code>Node</code> con script adjunto para cada uno.
+        </p>
+
+        <!-- Ejercicio clases 1 -->
+        <div class="error-card error-good">
+          <div class="error-header"><span class="sev good">&#9679; Fácil</span><strong>Ejercicio 1: Clase mínima con un atributo</strong></div>
+          <p class="muted"><strong>Tema:</strong> atributos de clase</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Crea un script con <code>extends Node</code>.</li>
+              <li>Declara una variable de clase: <code>var puntaje = 0</code>.</li>
+              <li>En <code>_ready()</code>, imprime el valor de <code>puntaje</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> <code>0</code>
+            <br><br><strong>Pista:</strong> Las variables declaradas fuera de las funciones son <em>atributos</em> de la clase.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 2 -->
+        <div class="error-card error-good">
+          <div class="error-header"><span class="sev good">&#9679; Fácil</span><strong>Ejercicio 2: Tres atributos y consola</strong></div>
+          <p class="muted"><strong>Tema:</strong> múltiples atributos</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara tres variables de clase: <code>nombre</code>, <code>nivel</code>, <code>experiencia</code>.</li>
+              <li>En <code>_ready()</code>, imprime las tres en una sola línea con texto: <code>"Jugador [nombre], nivel [nivel], XP: [experiencia]"</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> <code>Jugador Mario, nivel 1, XP: 0</code>
+            <br><br><strong>Pista:</strong> Usa <code>print("Jugador ", nombre, ", nivel ", nivel, ", XP: ", experiencia)</code>.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 3 -->
+        <div class="error-card error-good">
+          <div class="error-header"><span class="sev good">&#9679; Fácil</span><strong>Ejercicio 3: Primer método (sin parámetros)</strong></div>
+          <p class="muted"><strong>Tema:</strong> métodos de clase</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Crea una función <code>saludar()</code> que imprima <code>"¡Hola, bienvenido!"</code>.</li>
+              <li>Desde <code>_ready()</code>, llama a <code>saludar()</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> <code>¡Hola, bienvenido!</code>
+            <br><br><strong>Pista:</strong> Una función dentro de la clase es un <em>método</em>. Se llama con <code>saludar()</code> (el <code>self.</code> es opcional en GDScript).
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 4 -->
+        <div class="error-card error-good">
+          <div class="error-header"><span class="sev good">&#9679; Fácil</span><strong>Ejercicio 4: Método con parámetro</strong></div>
+          <p class="muted"><strong>Tema:</strong> métodos con argumentos</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Crea <code>func decir_nombre(nombre: String) -&gt; void:</code> que imprima <code>"Mi nombre es [nombre]"</code>.</li>
+              <li>En <code>_ready()</code>, llama a <code>decir_nombre("Luigi")</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> <code>Mi nombre es Luigi</code>
+            <br><br><strong>Pista:</strong> Los parámetros permiten que un mismo método funcione con diferentes valores.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 5 -->
+        <div class="error-card error-good">
+          <div class="error-header"><span class="sev good">&#9679; Fácil</span><strong>Ejercicio 5: Método que retorna un valor</strong></div>
+          <p class="muted"><strong>Tema:</strong> valores de retorno</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var vidas = 3</code> como atributo.</li>
+              <li>Crea <code>func get_vidas() -&gt; int:</code> que retorne <code>vidas</code>.</li>
+              <li>En <code>_ready()</code>, imprime el resultado de <code>get_vidas()</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> <code>3</code>
+            <br><br><strong>Pista:</strong> Usa <code>return vidas</code> dentro de la función. El tipo de retorno va después de <code>-&gt;</code>.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 6 -->
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Intermedio</span><strong>Ejercicio 6: Método que modifica un atributo</strong></div>
+          <p class="muted"><strong>Tema:</strong> métodos que alteran estado</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var vidas = 5</code>.</li>
+              <li>Crea <code>func recibir_dano(cantidad: int) -&gt; void:</code> que reste <code>cantidad</code> a <code>vidas</code>.</li>
+              <li>Imprime dentro del método: <code>"Daño: [cantidad]. Vidas restantes: [vidas]"</code>.</li>
+              <li>En <code>_ready()</code>, llama a <code>recibir_dano(2)</code> y luego <code>recibir_dano(1)</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Daño: 2. Vidas restantes: 3</code><br>
+            <code>Daño: 1. Vidas restantes: 2</code>
+            <br><br><strong>Pista:</strong> Los métodos pueden leer y modificar los atributos de la clase.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 7 -->
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Intermedio</span><strong>Ejercicio 7: Método booleano (estado)</strong></div>
+          <p class="muted"><strong>Tema:</strong> retorno booleano</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var vidas = 2</code>.</li>
+              <li>Crea <code>func esta_vivo() -&gt; bool:</code> que retorne <code>true</code> si <code>vidas &gt; 0</code>, sino <code>false</code>.</li>
+              <li>En <code>_ready()</code>, imprime <code>esta_vivo()</code>. Luego llama a <code>recibir_dano(2)</code> (crea ese método) y vuelve a imprimir <code>esta_vivo()</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>true</code><br>
+            <code>false</code>
+            <br><br><strong>Pista:</strong> <code>return vidas &gt; 0</code> devuelve true o false según la condición.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 8 -->
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Intermedio</span><strong>Ejercicio 8: Método curar con límite</strong></div>
+          <p class="muted"><strong>Tema:</strong> condicionales dentro de métodos</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var vidas = 2</code> y <code>const VIDA_MAXIMA = 5</code>.</li>
+              <li>Crea <code>func curar(cantidad: int) -&gt; void:</code> que sume a <code>vidas</code> pero sin superar <code>VIDA_MAXIMA</code>.</li>
+              <li>Imprime las vidas después de curar. En <code>_ready()</code>, llama <code>curar(2)</code> y luego <code>curar(5)</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Vidas: 4</code><br>
+            <code>Vidas: 5</code>
+            <br><br><strong>Pista:</strong> Usa <code>vidas = min(vidas + cantidad, VIDA_MAXIMA)</code> para limitar el valor.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 9 -->
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Intermedio</span><strong>Ejercicio 9: Estado según vida</strong></div>
+          <p class="muted"><strong>Tema:</strong> método que decide según atributo</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var vidas = 2</code>.</li>
+              <li>Crea <code>func get_estado() -&gt; String:</code> que retorne <code>"Saludable"</code> si vidas &gt;= 3, <code>"Herido"</code> si vidas == 2, <code>"Crítico"</code> si vidas == 1, <code>"Muerto"</code> si vidas &lt;= 0.</li>
+              <li>En <code>_ready()</code>, imprime el estado. Cambia <code>vidas</code> a 1 y vuelve a imprimir.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Herido</code><br>
+            <code>Crítico</code>
+            <br><br><strong>Pista:</strong> Usa <code>if</code> / <code>elif</code> / <code>else</code> dentro del método.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 10 -->
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Intermedio</span><strong>Ejercicio 10: Clase Jugador con perfil</strong></div>
+          <p class="muted"><strong>Tema:</strong> varios atributos + método de presentación</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara atributos: <code>nombre</code>, <code>vidas</code>, <code>monedas</code>, <code>nivel</code>.</li>
+              <li>Crea <code>func mostrar_perfil() -&gt; void:</code> que imprima cada atributo con su etiqueta.</li>
+              <li>En <code>_ready()</code>, asigna valores y llama a <code>mostrar_perfil()</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>nombre: Mario</code><br>
+            <code>vidas: 3</code><br>
+            <code>monedas: 50</code><br>
+            <code>nivel: 1</code>
+            <br><br><strong>Pista:</strong> Agrupa varios <code>print()</code> dentro del método para mostrar todo el perfil.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 11 -->
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Intermedio</span><strong>Ejercicio 11: Método comprar (condicional)</strong></div>
+          <p class="muted"><strong>Tema:</strong> método con validación</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var monedas = 30</code>.</li>
+              <li>Crea <code>func comprar(costo: int, objeto: String) -&gt; bool:</code> que devuelva <code>true</code> si hay suficientes monedas (restando al comprar), <code>false</code> si no. En ambos casos imprime un mensaje.</li>
+              <li>En <code>_ready()</code>, intenta comprar un objeto de 20 y otro de 50.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Compraste por 20. Monedas restantes: 10</code><br>
+            <code>No tienes suficientes monedas para eso</code>
+            <br><br><strong>Pista:</strong> Usa <code>if monedas &gt;= costo:</code> antes de restar.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 12 -->
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Intermedio</span><strong>Ejercicio 12: Dos métodos que se llaman</strong></div>
+          <p class="muted"><strong>Tema:</strong> un método llama a otro</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Declara <code>var vidas = 10</code> y <code>var potencia_ataque = 3</code>.</li>
+              <li>Crea <code>func recibir_dano(cantidad: int) -&gt; void:</code> que reste a <code>vidas</code> e imprima las vidas restantes. Si vidas &lt;= 0, imprime <code>"Game Over"</code>.</li>
+              <li>Crea <code>func ejecutar_ataque() -&gt; void:</code> que llame internamente a <code>recibir_dano(potencia_ataque)</code>.</li>
+              <li>En <code>_ready()</code>, llama a <code>ejecutar_ataque()</code> tres veces.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Vidas restantes: 7</code><br>
+            <code>Vidas restantes: 4</code><br>
+            <code>Vidas restantes: 1</code>
+            <br><br><strong>Pista:</strong> Un método puede invocar a otro de la misma clase. Aquí <code>ejecutar_ataque()</code> usa <code>recibir_dano(potencia_ataque)</code>.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 13 -->
+        <div class="error-card error-bad">
+          <div class="error-header"><span class="sev bad">&#9679; Avanzado</span><strong>Ejercicio 13: Usar <code>class_name</code></strong></div>
+          <p class="muted"><strong>Tema:</strong> nombrar la clase para instanciarla</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Al inicio del script, escribe <code>class_name EnemigoBase</code> (debajo de <code>extends Node</code>).</li>
+              <li>Declara <code>var vida = 5</code> y <code>func recibir_dano(n: int) -&gt; void:</code> que reste a vida.</li>
+              <li>En otro script (o en <code>_ready</code> del mismo con una clase interna), crea una instancia: <code>var e = EnemigoBase.new()</code>, llama a <code>e.recibir_dano(2)</code> e imprime <code>e.vida</code>.</li>
+              <li><em>Alternativa:</em> Crea un segundo script que extienda Node, en <code>_ready</code> haz <code>var e = preload("res://enemigo.gd").new()</code> y úsalo.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> <code>3</code> (vida tras recibir 2 de daño)
+            <br><br><strong>Pista:</strong> <code>class_name</code> hace que la clase sea accesible globalmente. <code>.new()</code> crea una instancia.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 14 -->
+        <div class="error-card error-bad">
+          <div class="error-header"><span class="sev bad">&#9679; Avanzado</span><strong>Ejercicio 14: Array de instancias</strong></div>
+          <p class="muted"><strong>Tema:</strong> colección de objetos</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Crea una clase con <code>class_name Enemigo</code>, atributo <code>nombre: String</code> y método <code>presentarse()</code> que imprima el nombre.</li>
+              <li>En el script principal, crea un array: <code>var enemigos = [Enemigo.new(), Enemigo.new(), Enemigo.new()]</code> y asígnales nombre a cada uno.</li>
+              <li>Recorre el array con <code>for</code> y llama a <code>presentarse()</code> en cada uno.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> Tres líneas con los nombres de cada enemigo.
+            <br><br><strong>Pista:</strong> Usa <code>enemigos[0].nombre = "Goomba"</code> etc. antes del ciclo.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 15 -->
+        <div class="error-card error-bad">
+          <div class="error-header"><span class="sev bad">&#9679; Avanzado</span><strong>Ejercicio 15: Herencia con <code>extends</code></strong></div>
+          <p class="muted"><strong>Tema:</strong> clase hija hereda de clase base</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Crea un script <code>personaje_base.gd</code> con <code>extends Node</code>, <code>var vidas = 3</code> y <code>func hablar() -&gt; void: print("...")</code>.</li>
+              <li>Crea otro script <code>heroe.gd</code> con <code>extends preload("res://personaje_base.gd")</code>. En <code>_ready</code>, imprime <code>vidas</code> y llama a <code>hablar()</code>.</li>
+              <li>Adjunta <code>heroe.gd</code> a un Node y ejecuta. La clase hija hereda los atributos y métodos de la base.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> <code>3</code> y <code>...</code>
+            <br><br><strong>Pista:</strong> <code>extends</code> puede apuntar a otro script con <code>preload()</code>, no solo a nodos de Godot.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 16 -->
+        <div class="error-card error-bad">
+          <div class="error-header"><span class="sev bad">&#9679; Avanzado</span><strong>Ejercicio 16: Sobrescribir método (<code>super</code>)</strong></div>
+          <p class="muted"><strong>Tema:</strong> override + llamada al padre</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Clase base con <code>func saludar() -&gt; void: print("Hola")</code>.</li>
+              <li>Clase hija que redefine <code>func saludar() -&gt; void:</code> imprimiendo "Hola desde hijo" y llamando a <code>super.saludar()</code>.</li>
+              <li>En <code>_ready</code> de la hija, llama a <code>saludar()</code>.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Hola desde hijo</code><br>
+            <code>Hola</code>
+            <br><br><strong>Pista:</strong> <code>super.nombre_metodo()</code> ejecuta la versión del padre.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 17 -->
+        <div class="error-card error-bad">
+          <div class="error-header"><span class="sev bad">&#9679; Avanzado</span><strong>Ejercicio 17: Constructor <code>_init</code></strong></div>
+          <p class="muted"><strong>Tema:</strong> inicialización al crear instancia</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Clase con <code>class_name Item</code>, atributos <code>nombre</code> y <code>precio</code>.</li>
+              <li>Define <code>func _init(n: String, p: int): nombre = n; precio = p</code>.</li>
+              <li>Crea instancias: <code>var espada = Item.new("Espada", 30)</code> y <code>var pocion = Item.new("Poción", 10)</code>.</li>
+              <li>Imprime nombre y precio de cada uno.</li>
+            </ol>
+            <strong>Resultado esperado:</strong><br>
+            <code>Espada: 30</code><br>
+            <code>Poción: 10</code>
+            <br><br><strong>Pista:</strong> <code>_init</code> se ejecuta automáticamente al hacer <code>.new()</code>. Los parámetros se pasan en <code>.new(..., ...)</code>.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 18 -->
+        <div class="error-card error-bad">
+          <div class="error-header"><span class="sev bad">&#9679; Avanzado</span><strong>Ejercicio 18: Diccionario de objetos</strong></div>
+          <p class="muted"><strong>Tema:</strong> almacenar instancias en diccionario</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Crea una clase <code>Personaje</code> con <code>nombre</code> y <code>func describir() -&gt; void</code>.</li>
+              <li>Crea un diccionario: <code>var equipo = {"guerrero": Personaje.new(), "mago": Personaje.new()}</code> y asígnales nombre.</li>
+              <li>Recorre el diccionario con <code>for clave in equipo:</code> e imprime la clave y llama a <code>describir()</code> del valor.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> Para cada clave, el nombre del personaje.
+            <br><br><strong>Pista:</strong> <code>equipo[clave]</code> es la instancia; <code>equipo[clave].describir()</code> llama al método.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 19 -->
+        <div class="error-card error-bad">
+          <div class="error-header"><span class="sev bad">&#9679; Avanzado</span><strong>Ejercicio 19: Jugador vs Enemigo (objetos)</strong></div>
+          <p class="muted"><strong>Tema:</strong> interacción entre dos clases</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Clase <code>Personaje</code> con <code>nombre</code>, <code>vidas</code>, <code>ataque</code> y <code>recibir_dano(cantidad)</code>.</li>
+              <li>Crea <code>func atacar_a(objetivo: Personaje) -&gt; void</code> que llame a <code>objetivo.recibir_dano(ataque)</code> e imprima el resultado.</li>
+              <li>Instancia un jugador y un enemigo. Haz que se ataquen mutuamente hasta que uno muera. Imprime quién ganó.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> Secuencia de ataques y al final el ganador.
+            <br><br><strong>Pista:</strong> Usa un <code>while</code> que compruebe <code>jugador.vidas &gt; 0 and enemigo.vidas &gt; 0</code>.
+          </div>
+        </div>
+
+        <!-- Ejercicio clases 20 -->
+        <div class="error-card error-bad">
+          <div class="error-header"><span class="sev bad">&#9679; Avanzado</span><strong>Ejercicio 20: Sistema de inventario con clases</strong></div>
+          <p class="muted"><strong>Tema:</strong> varias clases trabajando juntas</p>
+          <div class="error-tip">
+            <strong>Instrucciones:</strong>
+            <ol>
+              <li>Clase <code>Item</code> con <code>nombre</code>, <code>precio</code> y <code>_init(n, p)</code>.</li>
+              <li>Clase <code>Inventario</code> con array <code>items = []</code> y métodos: <code>agregar(item: Item)</code>, <code>mostrar()</code> que imprime cada ítem.</li>
+              <li>Crea un inventario, agrega varios ítems con <code>Item.new(...)</code>, llama a <code>mostrar()</code>.</li>
+              <li>Opcional: método <code>total_precio() -&gt; int</code> que sume los precios.</li>
+            </ol>
+            <strong>Resultado esperado:</strong> Lista de ítems con nombre y precio; opcionalmente el total.
+            <br><br><strong>Pista:</strong> Un objeto puede contener referencias a otros objetos. <code>items.append(item)</code> para agregar.
+          </div>
+        </div>
+
       </section>
 
       <!-- 11 -->
