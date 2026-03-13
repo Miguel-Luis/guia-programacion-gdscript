@@ -1957,6 +1957,110 @@ func _ready() -&gt; void:
           </div>
         </div>
 
+        <!-- 8.8 — Arrays bidimensionales (matrices) -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>8.8 · Arrays bidimensionales (matrices)</h4>
+            <p>
+              En Godot Engine (incluyendo Godot 4.x) no existe un tipo especial llamado "matriz" para datos generales, como en algunos lenguajes.
+              Pero sí puedes crear matrices fácilmente usando <strong>arrays dentro de arrays</strong>.
+              En otras palabras: una matriz es un <code>Array</code> que contiene otros <code>Array</code>.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplo de matriz en GDScript</div><button class="btn small copy" data-copy="code-matriz-1">Copiar</button></div>
+              <pre><code id="code-matriz-1">extends Node
+
+var matriz = [
+	[1, 2, 3],
+	[4, 5, 6],
+	[7, 8, 9]
+]
+
+func _ready() -&gt; void:
+	print(matriz[0])   # [1, 2, 3]  — primera fila
+	print(matriz[1][2])  # 6       — fila 1, columna 2
+</code></pre>
+            </div>
+            <p class="muted" style="margin-top:12px"><strong>Esto visualmente sería:</strong></p>
+            <pre class="muted" style="margin-top:8px; padding:12px; background:rgba(0,0,0,.2); border-radius:8px">1 2 3
+4 5 6
+7 8 9</pre>
+            <p class="muted" style="margin-top:8px">Cada fila es un <code>Array</code>. Para acceder: <code>matriz[fila][columna]</code>.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card col-6">
+            <h4>Recorrer una matriz</h4>
+            <p class="muted">Usa un <code>for</code> anidado: el externo recorre las filas, el interno las columnas.</p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">for anidado</div><button class="btn small copy" data-copy="code-matriz-2">Copiar</button></div>
+              <pre><code id="code-matriz-2">extends Node
+
+var matriz = [[1, 2], [3, 4], [5, 6]]
+
+func _ready() -&gt; void:
+	for fila in matriz:
+		var linea = ""
+		for celda in fila:
+			linea += str(celda) + " "
+		print(linea)</code></pre>
+            </div>
+          </div>
+          <div class="card col-6">
+            <h4>Acceder con índices</h4>
+            <p class="muted">Si necesitas fila y columna explícitas, usa <code>range()</code>.</p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Acceso por índices</div><button class="btn small copy" data-copy="code-matriz-3">Copiar</button></div>
+              <pre><code id="code-matriz-3">extends Node
+
+var tablero = [["A","B"], ["C","D"]]
+
+func _ready() -&gt; void:
+	for i in range(tablero.size()):
+		for j in range(tablero[i].size()):
+			print("Fila ", i, ", Col ", j, ": ", tablero[i][j])</code></pre>
+            </div>
+            <div class="callout" style="margin-top:10px">
+              <div class="badge warn">!</div>
+              <div>
+                <strong>Filas de distinto tamaño</strong>
+                <div class="muted">En GDScript las filas pueden tener distintas longitudes. Para tableros regulares, asegúrate de crear filas del mismo tamaño.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8.9 — Arrays de más dimensiones -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>8.9 · Arrays de más dimensiones</h4>
+            <p>
+              Puedes anidar arrays tantas veces como necesites. Un array tridimensional sería un array de matrices;
+              uno de cuatro dimensiones, un array de "cubos" de datos. En juegos se usan para: grillas 3D, niveles con pisos,
+              mazmorras por coordenadas (x, y, piso), datos temporales (ej: guardar estados de varios frames).
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Ejemplo 3D: piso → fila → columna</div><button class="btn small copy" data-copy="code-matriz-3d">Copiar</button></div>
+              <pre><code id="code-matriz-3d">extends Node
+
+# 2 pisos, cada uno con una matriz 2x2
+var mazmorra = [
+	[[1, 2], [3, 4]],   # Piso 0
+	[[5, 6], [7, 8]]    # Piso 1
+]
+
+func _ready() -&gt; void:
+	# Acceder: piso 1, fila 0, columna 1
+	print(mazmorra[1][0][1])  # 6</code></pre>
+            </div>
+            <p class="muted" style="margin-top:12px">
+              <strong>4D y más:</strong> sigue el mismo patrón. <code>datos[i][j][k][l]</code> para cuatro dimensiones.
+              La lógica es la misma: cada nivel de corchetes recorre un eje.
+            </p>
+          </div>
+        </div>
+
         <!-- Error común -->
         <details open>
           <summary>Error común: índice fuera de rango <span class="tag">típico</span></summary>
@@ -2086,6 +2190,102 @@ else:
               </li>
             </ol>
             <p>Pista: este ejercicio usa un ciclo dentro de otro (<code>for</code> anidados). En la pasada externa vas del puesto 1 al 3, en la interna recorres todos los puntajes buscando el mayor disponible.</p>
+          </div>
+        </details>
+
+        <h4 style="margin-top:2rem">Ejercicios de matrices (arrays bidimensionales)</h4>
+        <p class="muted" style="margin-bottom:1rem">
+          Estos 5 ejercicios practican el uso de matrices. Van de menor a mayor complejidad. Todos se resuelven por consola.
+        </p>
+
+        <details>
+          <summary>Ejercicio (8 min): Mapa de tesoros <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Imagina un mapa 3x3 donde cada celda indica cuántas monedas hay. Tu misión es encontrar el total del mapa.</p>
+            <ol>
+              <li>Crea una matriz: <code>var mapa = [[5, 0, 10], [2, 8, 1], [0, 3, 7]]</code></li>
+              <li>Crea una variable <code>var total = 0</code></li>
+              <li>Recorre la matriz con dos <code>for</code> anidados y suma cada celda a <code>total</code></li>
+              <li>Imprime <code>"Total de monedas en el mapa: " + str(total)</code></li>
+            </ol>
+            <p><strong>Resultado esperado:</strong> <code>Total de monedas en el mapa: 36</code></p>
+            <p>Pista: el <code>for</code> externo recorre las filas, el interno las celdas de cada fila. <code>total += mapa[i][j]</code>.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (10 min): Tablero de tres en raya <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Simula un tablero 3x3 de tres en raya. Cada celda tiene "X", "O" o "-" (vacía). Imprime el tablero en consola.</p>
+            <ol>
+              <li>Crea una matriz: <code>var tablero = [["X","O","-"], ["-","X","O"], ["O","-","X"]]</code></li>
+              <li>Recorre la matriz con <code>for</code> anidados</li>
+              <li>En cada fila, construye un string con las 3 celdas separadas por un espacio, por ejemplo: <code>"X O -"</code></li>
+              <li>Imprime cada fila. Debe verse así:</li>
+            </ol>
+            <pre class="muted" style="padding:8px; margin-top:8px">X O -
+- X O
+O - X</pre>
+            <p>Pista: usa <code>var linea = fila[0] + " " + fila[1] + " " + fila[2]</code> o un <code>for celda in fila</code> para construir la línea.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (12 min): Matriz de daño por zona <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un hechizo de área afecta una cuadrícula 2x2. La matriz indica el daño en cada celda. Calcula el daño total y la celda con más daño.</p>
+            <ol>
+              <li>Crea la matriz: <code>var zona_dano = [[20, 35], [15, 40]]</code></li>
+              <li>Recorre la matriz y suma todo el daño en una variable <code>total</code></li>
+              <li>En el mismo recorrido (o en otro), encuentra el valor máximo y guarda su posición <code>(fila, columna)</code></li>
+              <li>Imprime: <code>"Daño total: X. Celda más fuerte: [fila, col] con Y de daño"</code></li>
+            </ol>
+            <p><strong>Resultado esperado:</strong> <code>Daño total: 110. Celda más fuerte: [1, 1] con 40 de daño</code></p>
+            <p>Pista: usa variables <code>mayor = 0</code>, <code>fila_max = 0</code>, <code>col_max = 0</code> y actualízalas cuando encuentres un valor mayor.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (15 min): Laberinto de caracteres <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un laberinto se representa como matriz de caracteres: <code>#</code> es pared, <code>.</code> es pasillo, <code>P</code> es el personaje, <code>S</code> es la salida. Cuenta cuántas paredes, pasillos y objetivos hay.</p>
+            <ol>
+              <li>Crea la matriz:
+                <pre><code>var laberinto = [
+	["#", "#", ".", "#"],
+	[".", "P", ".", "."],
+	["#", ".", "#", "S"]
+]</code></pre>
+              </li>
+              <li>Crea variables: <code>var paredes = 0</code>, <code>var pasillos = 0</code>, <code>var personaje = 0</code>, <code>var salida = 0</code></li>
+              <li>Recorre la matriz con <code>for</code> anidados. Para cada celda, usa <code>if</code>/<code>elif</code> para incrementar la variable correcta según el carácter</li>
+              <li>Imprime un resumen: <code>"Paredes: X, Pasillos: Y, Personaje: Z, Salidas: W"</code></li>
+            </ol>
+            <p><strong>Resultado esperado:</strong> <code>Paredes: 4, Pasillos: 6, Personaje: 1, Salidas: 1</code></p>
+            <p>Pista: compara cada celda con <code>== "#"</code>, <code>== "."</code>, etc. y haz <code>paredes += 1</code> (o la variable que toque).</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (18 min): Simulador de campo de cultivo <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Una granja tiene una parcela de 3 filas × 4 columnas. Cada celda tiene un número: 0 = vacío, 1 = trigo, 2 = maíz, 3 = zanahoria. Cuenta cuántos de cada cultivo hay, el total de celdas cultivadas y la fila con más cultivos.</p>
+            <ol>
+              <li>Crea la matriz:
+                <pre><code>var parcela = [
+	[1, 2, 0, 3],
+	[1, 1, 2, 0],
+	[3, 2, 1, 1]
+]</code></pre>
+              </li>
+              <li>Crea variables de conteo para trigo (1), maíz (2) y zanahoria (3)</li>
+              <li>Recorre la matriz. Para cada celda distinta de 0, incrementa el contador del cultivo correspondiente</li>
+              <li>Calcula el total cultivado (suma de trigo + maíz + zanahoria)</li>
+              <li>Para la fila con más cultivos: crea un array <code>cultivos_por_fila</code> donde cada elemento sea la suma de esa fila (excluyendo 0). Luego encuentra el índice de la fila con mayor suma</li>
+              <li>Imprime: cantidad de cada cultivo, total cultivado, y <code>"La fila X tiene más cultivos"</code></li>
+            </ol>
+            <p><strong>Ejemplo de salida:</strong> trigo: 4, maíz: 3, zanahoria: 2. Total: 9. La fila con más cultivos depende de tu matriz.</p>
+            <p>Pista: para <code>cultivos_por_fila</code>, en cada fila haz un <code>for</code> interno que sume solo las celdas &gt; 0. Luego busca el máximo en ese array.</p>
           </div>
         </details>
 
