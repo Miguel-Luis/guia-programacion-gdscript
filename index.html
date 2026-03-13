@@ -2341,6 +2341,150 @@ func _ready() -&gt; void:
             </ul>
           </div>
         </details>
+
+        <h4 style="margin-top:2rem">10 ejercicios creativos sobre diccionarios</h4>
+        <p class="muted" style="margin-bottom:1rem">
+          Ordenados de menor a mayor complejidad. Todos se resuelven por consola usando diccionarios.
+        </p>
+
+        <details>
+          <summary>Ejercicio (5 min): Carnet de identidad del héroe <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Crea la "tarjeta de presentación" de tu personaje usando un diccionario.</p>
+            <ol>
+              <li>Crea <code>var heroe = {"nombre": "Luna", "clase": "Guerrera", "nivel": 5, "reino": "Elforia"}</code></li>
+              <li>Recorre el diccionario con <code>for clave in heroe:</code> e imprime cada par como <code>clave: valor</code></li>
+              <li>Antes del recorrido, imprime una línea separadora: <code>"=== CARNET DEL HÉROE ==="</code></li>
+            </ol>
+            <p><strong>Resultado esperado:</strong> Una lista con nombre, clase, nivel y reino.</p>
+            <p>Pista: usa <code>print(clave + ": " + str(heroe[clave]))</code> dentro del <code>for</code>.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (8 min): Bestiario móvil <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un cazador lleva un bestiario con criaturas y sus estadísticas. Cada criatura tiene vida, debilidad y recompensa en oro.</p>
+            <ol>
+              <li>Crea un diccionario donde cada clave es el nombre de la criatura y el valor es otro diccionario: <code>{"vida": 50, "debilidad": "fuego", "oro": 15}</code></li>
+              <li>Ejemplo: <code>var bestiario = {"Goblin": {"vida": 30, "debilidad": "fuego", "oro": 10}, "Ogro": {"vida": 100, "debilidad": "hielo", "oro": 50}}</code></li>
+              <li>Recorre el bestiario e imprime para cada criatura: <code>"[nombre]: Vida [X], Debilidad: [Y], Recompensa: [Z] oro"</code></li>
+              <li>Encuentra la criatura que da más oro e imprime su nombre</li>
+            </ol>
+            <p>Pista: usa una variable <code>mayor_oro = 0</code> y <code>criatura_rica = ""</code>. Compara cada <code>bestiario[criatura]["oro"]</code>.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (8 min): Mapa del tiempo por ciudad <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Simula un mapa donde cada ciudad tiene temperatura y clima. Encuentra la ciudad más caliente.</p>
+            <ol>
+              <li>Crea <code>var clima = {"Pueblo": {"temp": 22, "clima": "soleado"}, "Montaña": {"temp": 5, "clima": "nevado"}, "Costa": {"temp": 28, "clima": "nublado"}}</code></li>
+              <li>Recorre e imprime: <code>"[Ciudad]: [temp]°C, [clima]"</code></li>
+              <li>Encuentra la ciudad con mayor temperatura e imprime <code>"La más caliente: [ciudad] con [temp]°C"</code></li>
+            </ol>
+            <p>Pista: accede a la temperatura con <code>clima[ciudad]["temp"]</code>. Usa una variable para guardar el máximo encontrado.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (10 min): Colección de cartas intercambiables <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>En un juego de cartas, cada carta tiene nombre, rareza (común, raro, épico) y puntos de ataque.</p>
+            <ol>
+              <li>Crea un diccionario: <code>var cartas = {"dragon": {"nombre": "Dragón de Fuego", "rareza": "épico", "ataque": 90}, "goblin": {"nombre": "Goblin", "rareza": "común", "ataque": 10}, ...}</code> (al menos 4 cartas con distintas rarezas)</li>
+              <li>Cuenta cuántas cartas hay de cada rareza (recorre y usa un diccionario de conteo o variables)</li>
+              <li>Encuentra la carta con mayor ataque e imprime su nombre y puntos</li>
+            </ol>
+            <p>Pista: para contar rarezas, crea <code>var por_rareza = {"común": 0, "raro": 0, "épico": 0}</code> y haz <code>por_rareza[carta["rareza"]] += 1</code>. Verifica que la rareza exista con <code>.has()</code>.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (10 min): Diario de un aventurero <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>El héroe lleva un diario donde cada fecha guarda lo que vivió ese día.</p>
+            <ol>
+              <li>Crea <code>var diario = {"Día 1": "Llegué al pueblo. Hice amigos.", "Día 2": "Exploré la cueva. Encontré una espada."}</code></li>
+              <li>Añade una tercera entrada con <code>diario["Día 3"] = "Batalla contra el jefe. Victoria."</code></li>
+              <li>Modifica la entrada del Día 2: <code>diario["Día 2"] = "Exploré la cueva. ¡Encontré una ESPADA LEGENDARIA!"</code></li>
+              <li>Recorre el diccionario e imprime cada entrada como <code>"[fecha]: [texto]"</code></li>
+            </ol>
+            <p>Pista: añadir una clave nueva se hace con <code>diccionario["clave"] = valor</code>. Modificar una existente, igual.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (12 min): Menú de taberna con cuenta <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Una taberna tiene un menú con platos y precios. Un grupo pide varios platos y hay que calcular la cuenta. ¿Les alcanza con el oro que llevan?</p>
+            <ol>
+              <li>Crea <code>var menu = {"Cerveza": 5, "Estofado": 12, "Pan": 2, "Pollo": 15}</code></li>
+              <li>Define el pedido: <code>var pedido = ["Cerveza", "Cerveza", "Estofado", "Pan"]</code></li>
+              <li>Recorre <code>pedido</code> y suma el precio de cada ítem usando <code>menu[plato]</code>. Guarda el total</li>
+              <li>Crea <code>var oro_grupo = 25</code>. Si <code>oro_grupo &gt;= total</code>, imprime <code>"¡Cuenta pagada! Sobrante: X oro"</code>. Si no, <code>"Faltan X oro"</code></li>
+            </ol>
+            <p>Pista: verifica que el plato exista en el menú con <code>menu.has(plato)</code> antes de sumar, por si acaso.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (12 min): Sistema de afinidad con NPCs <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Cada NPC del pueblo tiene un nivel de afinidad (0-100). Regalar un objeto sube 15 puntos. Muestra quién es tu mejor amigo.</p>
+            <ol>
+              <li>Crea <code>var afinidad = {"Mercader": 30, "Herrero": 50, "Bruja": 10}</code></li>
+              <li>Simula que regalas algo al Herrero: <code>afinidad["Herrero"] += 15</code>. Y dos veces a la Bruja</li>
+              <li>Encuentra el NPC con mayor afinidad. Recorre el diccionario comparando valores</li>
+              <li>Imprime: <code>"Tu mejor aliado: [nombre] con [afinidad] de afinidad"</code> y también la afinidad de cada uno ordenada de mayor a menor (o al menos los 3)</li>
+            </ol>
+            <p>Pista: para ordenar de mayor a menor sin .sort() en dict, recorre varias veces buscando el mayor que aún no hayas mostrado, o guarda los pares en un array y ordena manualmente.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (15 min): Enciclopedia de pociones <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Un alquimista cataloga pociones con efecto, duración (en segundos) e ingredientes necesarios. Busca las que duran más de 10 s y listar las que contienen "Flor de Luna".</p>
+            <ol>
+              <li>Crea un diccionario: <code>var pociones = {"Fuerza": {"efecto": "ataque +20", "duracion": 30, "ingredientes": ["Flor de Luna", "Orbe rojo"]}, "Curación": {"efecto": "vida +50", "duracion": 0, "ingredientes": ["Hierba"]}, "Velocidad": {"efecto": "vel +50%", "duracion": 15, "ingredientes": ["Flor de Luna", "Polvo azul"]}}</code></li>
+              <li>Recorre e imprime las pociones cuya duración &gt; 10</li>
+              <li>Recorre de nuevo y, para cada poción, verifica si <code>"Flor de Luna"</code> está en <code>ingredientes</code> (usa <code>.has()</code> en el array). Imprime las que la tienen</li>
+            </ol>
+            <p>Pista: <code>pociones[poc]["ingredientes"].has("Flor de Luna")</code> devuelve true o false.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (15 min): Registro de descubrimientos en el mapa <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>El jugador explora zonas. Cada zona tiene: descubierta (bool), tesoros encontrados y enemigos derrotados. Calcula estadísticas globales.</p>
+            <ol>
+              <li>Crea <code>var mapa = {"Bosque": {"descubierta": true, "tesoros": 3, "enemigos": 5}, "Cueva": {"descubierta": true, "tesoros": 7, "enemigos": 12}, "Castillo": {"descubierta": false, "tesoros": 0, "enemigos": 0}}</code></li>
+              <li>Suma el total de tesoros y enemigos de las zonas descubiertas</li>
+              <li>Encuentra la zona descubierta con más tesoros e imprime su nombre</li>
+              <li>Imprime: <code>"Zonas exploradas: X. Total tesoros: Y. Total enemigos: Z. Mejor zona: [nombre]"</code></li>
+            </ol>
+            <p>Pista: verifica <code>mapa[zona]["descubierta"] == true</code> antes de sumar. Ignora las no descubiertas.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Ejercicio (18 min): Sistema de reputación por facción <span class="tag">reto</span></summary>
+          <div class="details-body">
+            <p>Tres facciones tienen reputación y estado de alianza. Completar misiones sube reputación; fallar la baja. Si reputación &lt; 0, dejan de ser aliados. Simula varias misiones.</p>
+            <ol>
+              <li>Crea <code>var facciones = {"Guardia": {"reputacion": 20, "aliado": true}, "Piratas": {"reputacion": -5, "aliado": false}, "Magos": {"reputacion": 50, "aliado": true}}</code></li>
+              <li>Define una lista de misiones: cada una es un dict con <code>{"faccion": "Guardia", "resultado": "exito"}</code> o <code>"fallo"</code>. éxito suma 15, fallo resta 10</li>
+              <li>Ejemplo: <code>var misiones = [{"faccion": "Guardia", "resultado": "exito"}, {"faccion": "Piratas", "resultado": "exito"}, {"faccion": "Guardia", "resultado": "fallo"}]</code></li>
+              <li>Recorre las misiones. Para cada una, modifica la reputación de la facción. Si reputación &lt; 0, pon <code>aliado = false</code></li>
+              <li>Al final imprime el estado de cada facción: reputación y si sigue siendo aliada</li>
+            </ol>
+            <p>Pista: accede con <code>facciones[mision["faccion"]]["reputacion"]</code>. Tras modificar, comprueba si es &lt; 0 para actualizar <code>aliado</code>.</p>
+          </div>
+        </details>
+
       </section>
 
       <!-- 10 -->
