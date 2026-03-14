@@ -2493,17 +2493,48 @@ func _ready() -&gt; void:
         <p class="lead">
           En Godot, un script define el comportamiento de un nodo. Técnicamente, cada script es una <strong>clase</strong>.
           "Clase" = plantilla. "Objeto" = instancia real en el juego (un enemigo específico, un jugador, etc.).
+          Esta sección explica con <strong>extremo detalle</strong> cómo funcionan las clases en GDScript.
         </p>
 
+        <!-- 10.1 Qué es una clase -->
         <div class="grid">
-          <div class="card col-6">
-            <h4><code>extends</code> — de dónde hereda el script</h4>
+        <div class="card col-12" style="margin-top:1.5rem">
+          <h4>10.1 · ¿Qué es una clase y por qué importa?</h4>
+          <p>
+            Una <strong>clase</strong> es una plantilla o molde que describe <em>qué datos</em> guarda un objeto y <em>qué acciones</em> puede realizar.
+            Piensa en una clase "Enemigo": todos los enemigos tendrán vida, daño, velocidad; y todos podrán moverse, atacar, recibir daño.
+            La clase define esa estructura común; cada <strong>objeto</strong> (cada enemigo concreto que aparece en pantalla) es una <strong>instancia</strong> de esa clase.
+          </p>
+          <p>
+            En Godot, <strong>cada archivo <code>.gd</code> que adjuntas a un nodo es una clase</strong>. No hace falta declararla explícitamente:
+            el script completo <em>es</em> la definición de la clase. Cuando Godot crea un nodo con tu script, está creando una instancia de esa clase.
+          </p>
+          <div class="callout" style="margin-top:12px">
+            <div class="badge good">✓</div>
+            <div>
+              <strong>Resumen</strong>
+              <div class="muted">Clase = plantilla (script). Objeto = instancia (el nodo en tu escena con ese script). Cada jugador, enemigo, proyectil que usas en el juego es un objeto que sigue la plantilla de su clase.</div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+        <!-- 10.2 extends -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>10.2 · <code>extends</code> — de dónde hereda el script</h4>
             <p>
-              <code>extends CharacterBody2D</code> significa: "este script es un tipo de CharacterBody2D".
-              Así ganas movimiento, colisiones y métodos útiles.
+              La primera línea de un script en Godot suele ser <code>extends NombreDeNodo</code>. Esto indica de <strong>qué tipo</strong> es tu clase:
+              hereda todo lo que ese nodo ya sabe hacer. <code>extends Node</code> significa que tu script es un tipo de <code>Node</code> (el nodo más básico).
+              <code>extends CharacterBody2D</code> significa que tu script es un tipo de <code>CharacterBody2D</code>, que ya incluye movimiento, colisiones, gravedad, etc.
+            </p>
+            <p>
+              <strong>Herencia</strong>: la clase hija recibe (hereda) todos los atributos y métodos de la clase padre. Así evitas escribir desde cero lo que Godot ya proporciona.
+              Si escribes <code>extends Node</code>, tu clase puede usar <code>get_tree()</code>, <code>add_child()</code>, etc. Si escribes <code>extends CharacterBody2D</code>,
+              además tienes <code>velocity</code>, <code>move_and_slide()</code>, <code>is_on_floor()</code>, y muchos más.
             </p>
             <div class="examples">
-              <div class="codebar"><div class="muted">Ejemplo simple</div><button class="btn small copy" data-copy="code-class-1">Copiar</button></div>
+              <div class="codebar"><div class="muted">extends CharacterBody2D</div><button class="btn small copy" data-copy="code-class-1">Copiar</button></div>
               <pre><code id="code-class-1">extends CharacterBody2D
 
 var velocidad = 120.0
@@ -2513,14 +2544,70 @@ func _physics_process(delta):
 	move_and_slide()
 </code></pre>
             </div>
+            <p class="muted" style="margin-top:10px">
+              <code>velocity</code> y <code>move_and_slide()</code> no los defines tú: los heredas de <code>CharacterBody2D</code>. Tu clase solo añade <code>velocidad</code> y usa lo heredado.
+            </p>
           </div>
-          <div class="card col-6">
-            <h4>Variables y funciones como "atributos" y "métodos"</h4>
+        </div>
+
+        <!-- 10.3 Atributos -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>10.3 · Atributos: las variables de la clase</h4>
             <p>
-              Una clase guarda datos (variables) y acciones (funciones). Eso describe al objeto.
+              Las variables declaradas <strong>fuera</strong> de cualquier función (al nivel del script, al mismo nivel que <code>extends</code> y <code>func</code>)
+              se llaman <strong>atributos</strong> de la clase. Pertenecen al objeto: cada instancia tiene su propia copia.
+            </p>
+            <p>
+              <strong>¿Por qué usar atributos?</strong> Porque mantienen el estado del objeto entre llamadas. Si un enemigo tiene <code>var vidas = 3</code>,
+              cada vez que llamas a <code>recibir_dano(1)</code>, las vidas bajan y se recuerdan para la siguiente vez. Si las vidas fueran una variable local dentro de una función,
+              se perderían al terminar esa función.
+            </p>
+            <ul>
+              <li><strong>Atributo</strong>: variable de clase, vive durante toda la vida del objeto.</li>
+              <li><strong>Variable local</strong>: declarada dentro de una función con <code>var</code>, solo existe mientras la función se ejecuta.</li>
+            </ul>
+            <div class="examples">
+              <div class="codebar"><div class="muted">Atributos vs locales</div><button class="btn small copy" data-copy="code-class-attrs">Copiar</button></div>
+              <pre><code id="code-class-attrs">extends Node
+
+var vidas = 3          # Atributo: vive en el objeto
+var monedas = 0        # Otro atributo
+
+func _ready() -&gt; void:
+	var temporal = 10  # Local: solo existe en _ready
+	print(temporal)    # 10
+	print(vidas)       # 3 — atributo accesible desde cualquier método
+	temporal = 20      # Cambias la local
+	print(temporal)    # 20
+	recibir_dano(1)
+
+func recibir_dano(cantidad: int) -&gt; void:
+	vidas -= cantidad  # vidas es atributo, se modifica y persiste
+	# temporal ya no existe aquí
+	if vidas &lt;= 0:
+		print("Muerto")
+</code></pre>
+            </div>
+            <p class="muted" style="margin-top:10px">Tras <code>recibir_dano(1)</code>, <code>vidas</code> pasa a 2. Esa modificación queda guardada en el objeto.</p>
+          </div>
+        </div>
+
+        <!-- 10.4 Métodos -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>10.4 · Métodos: las funciones de la clase</h4>
+            <p>
+              Las funciones definidas dentro del script se llaman <strong>métodos</strong>. Son las "acciones" que el objeto puede realizar.
+              Los métodos tienen acceso a todos los atributos de la clase: pueden leerlos y modificarlos. Desde dentro de un método,
+              puedes llamar a otro método de la misma clase simplemente usando su nombre (sin <code>self.</code>, aunque también funciona).
+            </p>
+            <p>
+              <strong>¿Cuándo usar métodos?</strong> Cuando una acción tiene sentido para ese objeto. <code>recibir_dano(cantidad)</code> tiene sentido en un personaje o enemigo;
+              <code>atacar(objetivo)</code> también. Encapsular la lógica en métodos hace el código más legible y reutilizable.
             </p>
             <div class="examples">
-              <div class="codebar"><div class="muted">Daño</div><button class="btn small copy" data-copy="code-class-2">Copiar</button></div>
+              <div class="codebar"><div class="muted">Métodos y atributos</div><button class="btn small copy" data-copy="code-class-2">Copiar</button></div>
               <pre><code id="code-class-2">extends Node
 
 var vidas = 3
@@ -2529,22 +2616,184 @@ func recibir_dano(cantidad: int) -&gt; void:
 	vidas -= cantidad
 	if vidas &lt;= 0:
 		print("Muerto")
+
+func curar(cantidad: int) -&gt; void:
+	vidas += cantidad
+	print("Vidas: ", vidas)
 </code></pre>
+            </div>
+            <p class="muted">Tanto <code>recibir_dano</code> como <code>curar</code> modifican el mismo atributo <code>vidas</code>.</p>
+          </div>
+        </div>
+
+        <!-- 10.5 self -->
+        <div class="grid">
+          <div class="card col-6">
+            <h4>10.5 · <code>self</code> — referencia al objeto</h4>
+            <p class="muted">
+              En GDScript, <code>self</code> es la referencia al objeto actual (la instancia de la clase). Puedes escribir <code>self.vidas</code> o simplemente <code>vidas</code>:
+              sin prefijo, GDScript busca automáticamente en el objeto. Por eso <code>self.</code> suele omitirse.
+            </p>
+            <p class="muted">Se usa sobre todo cuando un parámetro tiene el mismo nombre que un atributo, para desambiguar:</p>
+            <pre><code>func establecer_vidas(vidas: int) -&gt; void:
+	self.vidas = vidas  # self.vidas = atributo; vidas = parámetro</code></pre>
+          </div>
+          <div class="card col-6">
+            <h4>10.6 · Ciclo de vida del nodo</h4>
+            <p class="muted">
+              Godot llama automáticamente a ciertas funciones en momentos concretos. Las más usadas:
+            </p>
+            <ul class="muted">
+              <li><code>_init()</code> — se ejecuta al crear el objeto (constructor).</li>
+              <li><code>_ready()</code> — cuando el nodo entra al árbol de escena. Ideal para inicializar.</li>
+              <li><code>_process(delta)</code> — cada frame (60 veces por segundo aprox.).</li>
+              <li><code>_physics_process(delta)</code> — cada paso físico (60 veces por segundo, sincronizado). Usar para movimiento.</li>
+            </ul>
+            <p class="muted">Orden típico: <code>_init</code> → nodo se añade al árbol → <code>_ready</code> → cada frame: <code>_process</code> y <code>_physics_process</code>.</p>
+          </div>
+        </div>
+
+        <!-- 10.7 class_name e instanciación -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>10.7 · <code>class_name</code> e instanciación manual</h4>
+            <p>
+              Por defecto, una clase solo existe cuando su script está adjunto a un nodo en una escena. Si quieres crear instancias desde otro script
+              (por ejemplo, spawear enemigos en tiempo de ejecución), puedes poner <code>class_name NombreClase</code> debajo de <code>extends</code>.
+              Así la clase queda registrada globalmente y puedes hacer <code>var e = NombreClase.new()</code> desde cualquier parte.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">class_name + .new()</div><button class="btn small copy" data-copy="code-class-name">Copiar</button></div>
+              <pre><code id="code-class-name">extends Node
+class_name Enemigo
+
+var vida = 10
+
+func _ready() -&gt; void:
+	var enemigo1 = Enemigo.new()
+	enemigo1.vida = 5
+	print(enemigo1.vida)  # 5
+	# Cada .new() crea una instancia nueva e independiente</code></pre>
+            </div>
+            <p class="muted">Sin <code>class_name</code>, tendrías que usar <code>preload("res://enemigo.gd").new()</code>.</p>
+          </div>
+        </div>
+
+        <!-- 10.8 _init -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>10.8 · Constructor <code>_init</code></h4>
+            <p>
+              <code>_init</code> es el constructor: se ejecuta cuando creas el objeto con <code>.new()</code>. Sirve para dar valores iniciales basados en parámetros.
+              En GDScript 4, los parámetros se pasan así: <code>Objeto.new(arg1, arg2)</code> y <code>_init</code> los recibe.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">_init con parámetros</div><button class="btn small copy" data-copy="code-class-init">Copiar</button></div>
+              <pre><code id="code-class-init">extends Node
+class_name Item
+
+var nombre: String
+var precio: int
+
+func _init(n: String, p: int):
+	nombre = n
+	precio = p
+
+func _ready() -&gt; void:
+	var espada = Item.new("Espada", 50)
+	print(espada.nombre, ": ", espada.precio)  # Espada: 50</code></pre>
             </div>
           </div>
         </div>
 
+        <!-- 10.9 Herencia y super -->
+        <div class="grid">
+          <div class="card col-12">
+            <h4>10.9 · Herencia: <code>extends</code> de otro script y <code>super</code></h4>
+            <p>
+              Un script puede heredar de otro script (no solo de nodos de Godot) usando <code>extends preload("res://otro_script.gd")</code>.
+              La clase hija hereda todos los atributos y métodos. Si redefines un método en la hija, puedes llamar a la versión del padre con <code>super.nombre_metodo()</code>.
+            </p>
+            <div class="examples">
+              <div class="codebar"><div class="muted">super</div><button class="btn small copy" data-copy="code-class-super">Copiar</button></div>
+              <pre><code id="code-class-super"># personaje_base.gd
+extends Node
+var vidas = 3
+func saludar() -&gt; void:
+	print("Hola")
+
+# heroe.gd
+extends preload("res://personaje_base.gd")
+func saludar() -&gt; void:
+	print("Hola desde el héroe")
+	super.saludar()  # Llama a la versión del padre</code></pre>
+            </div>
+            <p class="muted">Al llamar <code>saludar()</code> en el héroe, imprimiría primero "Hola desde el héroe" y luego "Hola".</p>
+          </div>
+        </div>
+
+        <!-- Conceptos Godot -->
         <details open>
           <summary>Conceptos Godot que conviene nombrar desde ya</summary>
           <div class="details-body">
             <ul>
-              <li><strong>Nodo</strong>: pieza del juego (sprite, colisión, audio, etc.)</li>
-              <li><strong>Escena</strong>: árbol de nodos guardado como archivo</li>
-              <li><strong>Señales</strong>: eventos (ej: botón presionado)</li>
-              <li><strong>_ready / _process / _physics_process</strong>: ciclo de vida</li>
+              <li><strong>Nodo</strong>: pieza del juego (sprite, colisión, audio, etc.). Cada nodo puede tener un script (clase) que define su comportamiento.</li>
+              <li><strong>Escena</strong>: árbol de nodos guardado como archivo. Al instanciar una escena, se crean todas las instancias de las clases asociadas.</li>
+              <li><strong>Señales</strong>: eventos que los nodos emiten (ej: botón presionado). Otras clases pueden conectarse a ellas.</li>
+              <li><strong>_ready / _process / _physics_process</strong>: ciclo de vida. Usa <code>_ready</code> para inicializar; <code>_physics_process</code> para movimiento y física.</li>
             </ul>
           </div>
         </details>
+
+        <!-- Ejercicios explicados -->
+        <h4 style="margin-top:2rem">Ejercicios explicados paso a paso</h4>
+        <p class="muted" style="margin-bottom:1rem">
+          Estos ejercicios tienen la solución explicada. Léelos, entiéndelos y luego intenta hacerlos por tu cuenta sin mirar.
+        </p>
+
+        <div class="error-card error-good">
+          <div class="error-header"><span class="sev good">&#9679; Ejercicio explicado 1</span><strong>Clase mínima: atributo + método</strong></div>
+          <div class="error-tip">
+            <p><strong>Objetivo:</strong> Crear una clase con un atributo numérico y un método que lo imprima.</p>
+            <p><strong>Solución paso a paso:</strong></p>
+            <ol>
+              <li>Crear script con <code>extends Node</code>. El script ya define una clase (la que hereda de Node).</li>
+              <li>Declarar <code>var puntaje = 0</code> a nivel del script. Es un atributo: vive en cada instancia.</li>
+              <li>Definir <code>func _ready() -&gt; void:</code> y dentro poner <code>print(puntaje)</code>. <code>_ready</code> se ejecuta cuando el nodo entra a la escena.</li>
+              <li>Si quieres un método adicional: <code>func mostrar_puntaje() -&gt; void: print(puntaje)</code>. Luego en <code>_ready</code> llamas <code>mostrar_puntaje()</code>.</li>
+            </ol>
+            <p><strong>Por qué funciona:</strong> Los atributos son accesibles desde cualquier método. <code>print(puntaje)</code> busca <code>puntaje</code> en el objeto actual y lo imprime.</p>
+          </div>
+        </div>
+
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Ejercicio explicado 2</span><strong>Método que modifica un atributo</strong></div>
+          <div class="error-tip">
+            <p><strong>Objetivo:</strong> Clase con <code>vidas</code> y método <code>recibir_dano(cantidad)</code> que resta a vidas.</p>
+            <p><strong>Solución paso a paso:</strong></p>
+            <ol>
+              <li>Declarar <code>var vidas = 5</code> como atributo.</li>
+              <li>Crear <code>func recibir_dano(cantidad: int) -&gt; void:</code>. Dentro: <code>vidas -= cantidad</code>. Así modificas el atributo.</li>
+              <li>Opcional: imprimir <code>"Vidas restantes: " + str(vidas)</code> para ver el cambio.</li>
+              <li>En <code>_ready</code>, llamar <code>recibir_dano(2)</code> y luego <code>recibir_dano(1)</code>. Tras la primera llamada, vidas = 3; tras la segunda, vidas = 2.</li>
+            </ol>
+            <p><strong>Por qué funciona:</strong> Cada llamada a <code>recibir_dano</code> modifica el mismo atributo <code>vidas</code>. El valor persiste entre llamadas porque es atributo de clase, no variable local.</p>
+          </div>
+        </div>
+
+        <div class="error-card error-warn">
+          <div class="error-header"><span class="sev warn">&#9679; Ejercicio explicado 3</span><strong>Método que retorna un valor (getter)</strong></div>
+          <div class="error-tip">
+            <p><strong>Objetivo:</strong> Crear <code>get_vidas()</code> que retorne el valor de <code>vidas</code> sin exponerlo directamente.</p>
+            <p><strong>Solución paso a paso:</strong></p>
+            <ol>
+              <li>Declarar <code>var vidas = 3</code>.</li>
+              <li>Crear <code>func get_vidas() -&gt; int:</code> con <code>return vidas</code> dentro. El tipo de retorno <code>-&gt; int</code> indica que devuelve un entero.</li>
+              <li>En <code>_ready</code>: <code>print(get_vidas())</code>. Se imprime 3.</li>
+            </ol>
+            <p><strong>Por qué es útil:</strong> Los "getters" permiten controlar el acceso. Más adelante podrías añadir lógica (por ejemplo, no devolver vidas negativas) sin cambiar quién llama al método.</p>
+          </div>
+        </div>
 
         <h4 style="margin-top:2rem">Ejercicios de clases (de menor a mayor complejidad)</h4>
         <p class="muted" style="margin-bottom:1rem">
